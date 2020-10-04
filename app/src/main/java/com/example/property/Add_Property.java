@@ -10,5 +10,9 @@ public class Add_Property extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add__property);
+
+
+
+        //this is test comment
     }
 }
