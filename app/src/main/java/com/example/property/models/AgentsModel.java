@@ -1,14 +1,14 @@
 package com.example.property.models;
 
-public class Agents {
+public class AgentsModel {
 
     private String client_name;
     private String client_no;
 
-    public Agents() {
+    public AgentsModel() {
     }
 
-    public Agents(String client_name, String client_no) {
+    public AgentsModel(String client_name, String client_no) {
         this.client_name = client_name;
         this.client_no = client_no;
     }

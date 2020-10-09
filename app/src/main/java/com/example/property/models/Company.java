@@ -2,24 +2,24 @@ package com.example.property.models;
 
 public class Company {
 
-    Agents AgentsObject;
+    AgentsModel AgentsObject;
     private float companny_id;
     private String company_name;
 
     public Company() {
     }
 
-    public Company(Agents agentsObject, float companny_id, String company_name) {
+    public Company(AgentsModel agentsObject, float companny_id, String company_name) {
         AgentsObject = agentsObject;
         this.companny_id = companny_id;
         this.company_name = company_name;
     }
 
-    public Agents getAgentsObject() {
+    public AgentsModel getAgentsObject() {
         return AgentsObject;
     }
 
-    public void setAgentsObject(Agents agentsObject) {
+    public void setAgentsObject(AgentsModel agentsObject) {
         AgentsObject = agentsObject;
     }
 
