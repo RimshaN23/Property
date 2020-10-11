@@ -81,6 +81,8 @@ public class Login extends AppCompatActivity {
                             }
                         } catch (Exception e) {
                             Log.e("exception", e.getLocalizedMessage());
+                            progressDialog.dismiss();
+
                         }
 
                     }
