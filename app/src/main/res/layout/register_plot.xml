@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Register_plot">
+
+    <TextView
+        android:id="@+id/textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Plot Register"
+        android:textSize="25sp"
+        android:layout_gravity="center"
+        android:textStyle="italic"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="20dp"
+        android:textColor="@color/black"
+        android:textAllCaps="true"
+        />
+
+    <EditText
+        android:id="@+id/property_type"
+        android:layout_width="300dp"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:hint="Residential/Commercial"
+        android:gravity="center"
+        android:layout_margin="10dp"
+        android:backgroundTint="@color/colorAccent"
+        android:textColorHint="@color/grey"
+        android:textColor="@color/colorAccent"
+        android:inputType="textCapSentences"
+        />
+    <EditText
+        android:id="@+id/precinct"
+        android:layout_width="300dp"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:hint="Precinct 01"
+        android:gravity="center"
+        android:layout_margin="10dp"
+        android:backgroundTint="@color/colorAccent"
+        android:textColorHint="@color/grey"
+        android:textColor="@color/colorAccent"
+        android:inputType="textCapSentences"
+
+        />
+    <EditText
+        android:id="@+id/road"
+        android:layout_width="300dp"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:hint="Road 20"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:backgroundTint="@color/colorAccent"
+        android:textColorHint="@color/grey"
+        android:textColor="@color/colorAccent"
+        android:inputType="textCapSentences"
+
+        />
+    <EditText
+        android:id="@+id/plot_id"
+        android:layout_width="300dp"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:hint="Plot 345"
+        android:layout_margin="10dp"
+        android:inputType="textCapSentences"
+
+        android:gravity="center"
+        android:backgroundTint="@color/colorAccent"
+        android:textColorHint="@color/grey"
+        android:textColor="@color/colorAccent"
+
+        />
+    <EditText
+        android:id="@+id/plot_name"
+        android:layout_width="300dp"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:hint="Plot name"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:backgroundTint="@color/colorAccent"
+        android:textColorHint="@color/grey"
+        android:textColor="@color/colorAccent"
+        android:inputType="textCapSentences"
+
+
+
+        />
+    <EditText
+        android:id="@+id/plot_address"
+        android:layout_width="300dp"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:hint="Address"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:inputType="textCapSentences"
+        android:backgroundTint="@color/colorAccent"
+        android:textColorHint="@color/grey"
+        android:textColor="@color/colorAccent"
+
+        />
+
+    <EditText
+        android:id="@+id/square_yard"
+        android:layout_width="300dp"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:hint="eg. 240 sqr yard"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:backgroundTint="@color/colorAccent"
+        android:textColorHint="@color/grey"
+        android:textColor="@color/colorAccent"
+
+        />
+
+    <Button
+        android:id="@+id/enter_registry"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:text="done"
+        android:clickable="true"
+        android:layout_gravity="center"
+        android:textColor="#ffff"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorPrimary"/>
+
+</androidx.appcompat.widget.LinearLayoutCompat>
