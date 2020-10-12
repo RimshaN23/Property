@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
 
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -8,7 +7,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Add_Property"
     >
 
     <TextView
@@ -122,17 +120,17 @@
                     android:layout_marginRight="10dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
-                    android:text="Road"
+                    android:text="Sq/Yrds"
                     android:textColor="#000"
                     android:textSize="12sp"
                     />
 
                 <EditText
-                    android:id="@+id/road"
+                    android:id="@+id/square_yard"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:background="@drawable/background"
-                    android:hint="Road 20"
+                    android:hint="eg. 240 sqr yard"
                     android:inputType="textCapSentences"
                     android:paddingLeft="8dp"
                     android:paddingRight="8dp"
@@ -245,13 +243,13 @@
             android:layout_below="@id/layout2"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
-            android:text="Sq/Yrds"
+            android:text="Road"
             android:textColor="#000"
             android:textSize="12sp"
             />
 
         <EditText
-            android:id="@+id/square_yard"
+            android:id="@+id/road"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_below="@id/text7"
@@ -259,7 +257,7 @@
             android:layout_gravity="center"
             android:layout_margin="10dp"
             android:background="@drawable/background"
-            android:hint="eg. 240 sqr yard"
+            android:hint="Road 20"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:textColor="#5A5A5A"
@@ -271,7 +269,7 @@
             android:id="@+id/text8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/square_yard"
+            android:layout_below="@id/road"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:text="Address"

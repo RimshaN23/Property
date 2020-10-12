@@ -43,7 +43,6 @@ public class Login extends AppCompatActivity {
         progressDialog.setMessage("loading");
         progressDialog.setCanceledOnTouchOutside(false);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("Company").child("agents");
 
         login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,36 +53,42 @@ public class Login extends AppCompatActivity {
                 clientId = clientId_edt.getText().toString();
                 number = number_edt.getText().toString();
                 Log.e("exception", "try check 3");
+                databaseReference = FirebaseDatabase.getInstance().getReference().child("Company").child(clientId).child("agents");
 
-                databaseReference.child(clientId).addValueEventListener(new ValueEventListener() {
+                databaseReference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                         Log.e("exception", "try check 4");
 
-                        try {
-                            Log.e("exception", "try check");
 
-                            AgentsModel model = dataSnapshot.getValue(AgentsModel.class);
+                        for (DataSnapshot data:dataSnapshot.getChildren()) {
+                            try {
+                                Log.e("exception", "try check");
 
-                            if (model != null && model.getClient_no().equals(number)) {
+                                AgentsModel model = data.getValue(AgentsModel.class);
 
-                                Log.e("exception", "try check 2");
+                                if (model != null && model.getClient_no().equals(number)) {
 
+                                    Log.e("exception", "try check 2");
+
+                                    progressDialog.dismiss();
+                                    Intent intent = new Intent(Login.this, VerifyPhoneActivity.class);
+                                    intent.putExtra("number", number);
+                                    startActivity(intent);
+                                    finish();
+                                } else {
+                                    progressDialog.dismiss();
+                                    Toast.makeText(Login.this, "Enter A Valid Numbeer", Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (Exception e) {
+                                Log.e("exception", e.getLocalizedMessage());
                                 progressDialog.dismiss();
-                                Intent intent = new Intent(Login.this, VerifyPhoneActivity.class);
-                                intent.putExtra("number", number);
-                                startActivity(intent);
-                                finish();
-                            } else {
-                                progressDialog.dismiss();
-                                Toast.makeText(Login.this, "Enter A Valid Numbeer", Toast.LENGTH_SHORT).show();
+
                             }
-                        } catch (Exception e) {
-                            Log.e("exception", e.getLocalizedMessage());
-                            progressDialog.dismiss();
-
                         }
+
+
 
                     }
 
