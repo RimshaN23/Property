@@ -1,306 +1,419 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelatkiveLayout
+<RelativeLayout
 
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     >
 
     <TextView
         android:id="@+id/textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="20dp"
-        android:textStyle="normal"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:textStyle="bold"
+
         android:text="Plot Registration"
-        android:textColor="@color/black"
+        android:textColor="@color/colorPrimary"
         android:textSize="30sp"
         />
 
-
-    <RelativeLayout
-        android:id="@+id/layout1m"
-
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_above="@id/enter_registry"
         android:layout_below="@id/textview"
-        android:layout_margin="10dp"
-        >
-
-        <TextView
-            android:id="@+id/text2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="Property type"
-            android:textColor="#000"
-            android:textSize="12sp"
-            />
-
-        <EditText
-            android:id="@+id/property_type"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_below="@id/text2"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
-            android:layout_margin="10dp"
-            android:background="@drawable/background"
-            android:hint="Residential/Commercial"
-            android:inputType="textCapSentences"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:textColor="#5A5A5A"
-            android:textColorHint="#918D8E"
-            android:textSize="14sp" />
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="6dp">
 
         <LinearLayout
-            android:id="@+id/layout1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/property_type"
-            android:weightSum="100"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="Company Id"
+                android:textColor="#000"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/company_id"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_below="@id/text2"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:background="@drawable/background"
+                android:focusableInTouchMode="false"
+                android:hint="Company Id"
+                android:inputType="textCapSentences"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:textColor="#5A5A5A"
+                android:textColorHint="#B6B3B5"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/text1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="Agent Id"
+                android:textColor="#000"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/agent_id"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_below="@id/text2"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:background="@drawable/background"
+                android:focusableInTouchMode="false"
+                android:hint="Agent Id"
+                android:inputType="textCapSentences"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:textColor="#5A5A5A"
+                android:textColorHint="#B6B3B5"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/text2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="Agent Name"
+                android:textColor="#000"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/agent_name"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_below="@id/text2"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:background="@drawable/background"
+                android:hint="Agent Name"
+                android:inputType="textCapSentences"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:textColor="#5A5A5A"
+                android:textColorHint="#B6B3B5"
+                android:textSize="14sp" />
 
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/text4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:text="Price Range"
+                android:textColor="#000"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/price_range"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_below="@id/text7"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:background="@drawable/background"
+                android:hint="Price Range"
+                android:paddingLeft="8dp"
+                android:inputType="textCapSentences"
+                android:paddingRight="8dp"
+                android:textColor="#5A5A5A"
+                android:textColorHint="#B6B3B5"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/text5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="Property type"
+                android:textColor="#000"
+                android:textSize="12sp" />
+
+
+            <EditText
+                android:id="@+id/property_type"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_below="@id/text2"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:background="@drawable/background"
+                android:focusableInTouchMode="false"
+                android:hint="Residential/Commercial"
+                android:inputType="textCapSentences"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:textColor="#5A5A5A"
+                android:textColorHint="#B6B3B5"
+                android:textSize="14sp" />
+
+
+            <TextView
+                android:id="@+id/text6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="Precinct"
+                android:textColor="#000"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/precinct"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:background="@drawable/background"
+                android:hint="Precinct 01"
+                android:focusableInTouchMode="false"
+                android:inputType="textCapSentences"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:textColor="#5A5A5A"
+                android:textColorHint="#B6B3B5"
+                android:textSize="14sp"
+
+                />
+
+
+
+
+            <TextView
+                android:id="@+id/text7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="50"
-                android:orientation="vertical">
+                android:layout_marginLeft="15dp"
+                android:text="Plot Name"
+                android:textColor="#000"
+                android:textSize="12sp" />
 
-                <TextView
-                    android:id="@+id/text3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
-                    android:text="Precinct"
-                    android:textColor="#000"
-                    android:textSize="12sp"
-                    />
-
-                <EditText
-                    android:id="@+id/precinct"
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/background"
-                    android:hint="Precinct 01"
-                    android:layout_margin="10dp"
-                    android:inputType="textCapSentences"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="8dp"
-                    android:textColor="#5A5A5A"
-                    android:textColorHint="#918D8E"
-                    android:textSize="14sp"
-
-                    />
-            </LinearLayout>
-
-
-            <LinearLayout
+            <EditText
+                android:id="@+id/plot_name"
                 android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:background="@drawable/background"
+                android:hint="Plot name"
+                android:inputType="textCapSentences"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:textColor="#5A5A5A"
+                android:textColorHint="#B6B3B5"
+                android:textSize="14sp"
+
+
+                />
+
+            <TextView
+                android:id="@+id/text8"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="50"
-                android:orientation="vertical">
+                android:layout_marginLeft="15dp"
+                android:text="Plot No."
+                android:textColor="#000"
+                android:textSize="12sp" />
 
-                <TextView
-                    android:id="@+id/text4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/property_type"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
-                    android:text="Sq/Yrds"
-                    android:textColor="#000"
-                    android:textSize="12sp"
-                    />
+            <EditText
+                android:id="@+id/plot_no"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:background="@drawable/background"
+                android:hint="Plot 345"
+                android:inputType="textCapSentences"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:textColor="#5A5A5A"
+                android:textColorHint="#B6B3B5"
+                android:textSize="14sp"
 
-                <EditText
-                    android:id="@+id/square_yard"
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:background="@drawable/background"
-                    android:hint="eg. 240 sqr yard"
-                    android:inputType="textCapSentences"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="8dp"
-                    android:layout_margin="10dp"
-                    android:textColor="#5A5A5A"
-                    android:textColorHint="#918D8E"
-                    android:textSize="14sp" />
+                />
 
-            </LinearLayout>
+
+
+
+            <TextView
+                android:id="@+id/text9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="Sq/Yrds"
+                android:textColor="#000"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/square_yard"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/background"
+                android:hint="eg. 240 sqr yard"
+                android:inputType="textCapSentences"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:textColor="#5A5A5A"
+                android:textColorHint="#B6B3B5"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/text10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="Road"
+                android:textColor="#000"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/road"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:background="@drawable/background"
+                android:hint="Road 20"
+                android:inputType="textCapSentences"
+
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:textColor="#5A5A5A"
+                android:textColorHint="#B6B3B5"
+                android:textSize="14sp" />
+
+
+
+            <TextView
+                android:id="@+id/text11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="Address"
+                android:textColor="#000"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/plot_address"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:background="@drawable/background"
+                android:hint="Address"
+                android:inputType="textCapSentences"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:textColor="#5A5A5A"
+                android:textColorHint="#B6B3B5"
+                android:textSize="14sp"
+
+                />
+
+            <TextView
+                android:id="@+id/text12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="Is Constructed"
+                android:textColor="#000"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/is_constructed"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:background="@drawable/background"
+                android:hint="Yes or No"
+                android:inputType="textCapSentences"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:textColor="#5A5A5A"
+                android:textColorHint="#B6B3B5"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_stories"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:text="Stories"
+                android:textColor="#000"
+                android:textSize="12sp"
+                android:visibility="gone"
+                />
+
+            <EditText
+                android:id="@+id/stories"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:background="@drawable/background"
+                android:hint="Single/Double/Triple"
+                android:inputType="textCapSentences"
+                android:visibility="gone"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:textColor="#5A5A5A"
+                android:textColorHint="#B6B3B5"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_rooms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="Rooms"
+                android:textColor="#000"
+                android:textSize="12sp"
+                android:visibility="gone"
+                />
+
+            <EditText
+                android:id="@+id/rooms"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:background="@drawable/background"
+                android:inputType="number"
+                android:visibility="gone"
+                android:hint="No of rooms"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:textColor="#5A5A5A"
+                android:textColorHint="#B6B3B5"
+                android:textSize="14sp"
+                />
 
 
         </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/layout2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/layout1"
-            android:weightSum="100"
-            android:orientation="horizontal">
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="50"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/text5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
-                    android:text="Plot Id"
-                    android:textColor="#000"
-                    android:textSize="12sp"
-                    />
-
-                <EditText
-                    android:id="@+id/plot_id"
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:layout_margin="10dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/background"
-                    android:hint="Plot 345"
-                    android:inputType="textCapSentences"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="8dp"
-                    android:textColor="#5A5A5A"
-                    android:textColorHint="#918D8E"
-                    android:textSize="14sp"
-
-                    />
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="50"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/text6"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/layout1"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
-                    android:text="Plot Name"
-                    android:textColor="#000"
-                    android:textSize="12sp"
-                    />
-
-                <EditText
-                    android:id="@+id/plot_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:layout_below="@id/layout1"
-                    android:layout_margin="10dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/background"
-                    android:hint="Plot name"
-                    android:inputType="textCapSentences"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="8dp"
-                    android:textColor="#5A5A5A"
-                    android:textColorHint="#918D8E"
-                    android:textSize="14sp"
-
-
-                    />
-
-
-            </LinearLayout>
-
-
-        </LinearLayout>
-
-
-        <TextView
-            android:id="@+id/text7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/layout2"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:text="Road"
-            android:textColor="#000"
-            android:textSize="12sp"
-            />
-
-        <EditText
-            android:id="@+id/road"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_below="@id/text7"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
-            android:layout_margin="10dp"
-            android:background="@drawable/background"
-            android:hint="Road 20"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:textColor="#5A5A5A"
-
-            android:textColorHint="#918D8E"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/text8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/road"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:text="Address"
-            android:textColor="#000"
-            android:textSize="12sp"
-            />
-
-        <EditText
-            android:id="@+id/plot_address"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_below="@id/text8"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
-            android:layout_margin="10dp"
-            android:background="@drawable/background"
-            android:hint="Address"
-            android:inputType="textCapSentences"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:textColor="#5A5A5A"
-            android:textColorHint="#918D8E"
-            android:textSize="14sp"
-
-            />
-
-    </RelativeLayout>
+    </ScrollView>
 
     <Button
         android:id="@+id/enter_registry"
-        android:layout_width="200dp"
+        android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
@@ -308,8 +421,8 @@
         android:layout_margin="15dp"
         android:background="@color/colorPrimary"
         android:clickable="true"
-        android:text="Submit"
+        android:text="Add Property"
         android:textAllCaps="false"
         android:textColor="#ffff" />
 
-</RelatkiveLayout>
+</RelativeLayout>
