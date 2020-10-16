@@ -51,7 +51,6 @@
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:background="@drawable/background"
-                android:focusableInTouchMode="false"
                 android:hint="Company Id"
                 android:inputType="textCapSentences"
                 android:paddingLeft="8dp"
@@ -112,31 +111,6 @@
                 android:textSize="14sp" />
 
 
-            <TextView
-                android:id="@+id/text4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="10dp"
-                android:text="Price Range"
-                android:textColor="#000"
-                android:textSize="12sp" />
-
-            <EditText
-                android:id="@+id/price_range"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_below="@id/text7"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:background="@drawable/background"
-                android:hint="Price Range"
-                android:paddingLeft="8dp"
-                android:inputType="textCapSentences"
-                android:paddingRight="8dp"
-                android:textColor="#5A5A5A"
-                android:textColorHint="#B6B3B5"
-                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/text5"
@@ -162,6 +136,8 @@
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:textColor="#5A5A5A"
+                android:drawableEnd="@drawable/arrow_drop_down_24"
+
                 android:textColorHint="#B6B3B5"
                 android:textSize="14sp" />
 
@@ -175,23 +151,50 @@
                 android:textColor="#000"
                 android:textSize="12sp" />
 
-            <EditText
+            <TextView
                 android:id="@+id/precinct"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:background="@drawable/background"
+                android:paddingLeft="8dp"
+                android:gravity="center_vertical"
+                android:paddingRight="8dp"
+                android:textColor="#5A5A5A"
                 android:hint="Precinct 01"
-                android:focusableInTouchMode="false"
-                android:inputType="textCapSentences"
+                android:textColorHint="#B6B3B5"
+                android:textSize="14sp"
+                android:drawableEnd="@drawable/arrow_drop_down_24"
+                />
+            <TextView
+                android:id="@+id/text10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="Road"
+                android:textColor="#000"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/road"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center_vertical"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:background="@drawable/background"
+                android:drawableEnd="@drawable/arrow_drop_down_24"
+
+                android:hint="Road 20"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:textColor="#5A5A5A"
                 android:textColorHint="#B6B3B5"
-                android:textSize="14sp"
+                android:textSize="14sp" />
 
-                />
+
+
 
 
 
@@ -276,31 +279,29 @@
                 android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/text10"
+                android:id="@+id/text4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
-                android:text="Road"
+                android:layout_marginTop="10dp"
+                android:text="Price Range"
                 android:textColor="#000"
                 android:textSize="12sp" />
 
             <EditText
-                android:id="@+id/road"
+                android:id="@+id/price_range"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:background="@drawable/background"
-                android:hint="Road 20"
-                android:inputType="textCapSentences"
-
+                android:hint="Price Range"
                 android:paddingLeft="8dp"
+                android:inputType="textCapSentences"
                 android:paddingRight="8dp"
                 android:textColor="#5A5A5A"
                 android:textColorHint="#B6B3B5"
                 android:textSize="14sp" />
-
-
 
             <TextView
                 android:id="@+id/text11"
@@ -345,6 +346,8 @@
                 android:layout_margin="10dp"
                 android:background="@drawable/background"
                 android:hint="Yes or No"
+                android:focusableInTouchMode="false"
+
                 android:inputType="textCapSentences"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
