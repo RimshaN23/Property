@@ -50,10 +50,9 @@ public class Add_Property extends AppCompatActivity {
 
     ProgressDialog progressDialog;
 
-
-//    String  s_company_id, s_agent_id, s_agent_name, s_price_range, s_property_type, s_precinct,
-//            plot_name, plot_no, square_yard, road, plot_address, is_constructed, stories, rooms;
-
+    String id1;
+    String name1;
+    String roadname,roadid;
     String prprty_type, prprty_type_id, constructed, precinct_id;
     DatabaseReference databaseReference;
 
@@ -217,7 +216,7 @@ public class Add_Property extends AppCompatActivity {
                             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                                 SearchItems user = (SearchItems) adapterView.getItemAtPosition(i);
-                                displayUserData(user);
+                                precinctData(user);
                                 dialog.dismiss();
                             }
                         });
@@ -236,105 +235,120 @@ public class Add_Property extends AppCompatActivity {
         });
 
 
-//     road.setOnClickListener(new View.OnClickListener() {
-//         @Override
-//         public void onClick(View view) {
-//             databaseReference = FirebaseDatabase.getInstance().getReference().child("StreetRoads");
-//
-//             databaseReference.addValueEventListener(new ValueEventListener() {
-//                 @Override
-//                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//
-//                     Log.e("database_change", "try check 4");
-//                     final List<String> precinct_array = new ArrayList<String>();
-//
-//
-//                     for (DataSnapshot data:dataSnapshot.getChildren()) {
-//                         try {
-//                             Log.e("datasnap", "working");
-//
-//                             StreetRoads model = data.getValue(StreetRoads.class);
-//
-//                             if (model != null && model.getPrecinct_id().equals(prprty_type_id)) {
-//                                 String name = model.getName();
-//                                 precinct_array.add(name);
-//                             }
-//
-//                         } catch (Exception e) {
-//                             Log.e("exception", e.getLocalizedMessage());
-//
-//                         }
-//                     }
-//
-//
-//
-//                     dialog= new Dialog(Add_Property.this);
-//                     dialog.setContentView(R.layout.searchable_dialog);
-//
-//                     // dialog.getWindow().setLayout(650, 800);
-//                     dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//                     dialog.show();
-//
-//                     EditText editText = dialog.findViewById(R.id.edit_precinct);
-//                     ListView listView = dialog.findViewById(R.id.listView);
-//
-//
-//                     final ArrayAdapter<String> adapter = new ArrayAdapter<String> (Add_Property.this,
-//                             R.layout.dropdown_item, precinct_array);
-//
-//                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//                     listView.setAdapter(adapter);
-//
-//                     editText.addTextChangedListener(new TextWatcher() {
-//                         @Override
-//                         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//
-//                         }
-//
-//                         @Override
-//                         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//
-//                             adapter.getFilter().filter(charSequence);
-//                         }
-//
-//                         @Override
-//                         public void afterTextChanged(Editable editable) {
-//
-//                         }
-//                     });
-//
-//                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                         @Override
-//                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//
-//                             spinner_precinct.setText(adapter.getItem(i));
-//                             dialog.dismiss();
-//                         }
-//                     });
-//
-//
-//                 }
-//
-//                 @Override
-//                 public void onCancelled(@NonNull DatabaseError error) {
-//
-//                 }
-//             });
-//
-//         }
-//     });
+     road.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View view) {
+
+             progressDialog.show();
+             databaseReference = FirebaseDatabase.getInstance().getReference().child("StreetRoads");
+
+             databaseReference.addValueEventListener(new ValueEventListener() {
+                 @Override
+                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                     Log.e("database_change", "try check 4");
+                     List<SearchItems> searchItemsList = new ArrayList<>();
+
+                     for (DataSnapshot data:dataSnapshot.getChildren()) {
+                         try {
+                             Log.e("datasnap", "working");
+
+                             StreetRoads model = data.getValue(StreetRoads.class);
+
+                             String name = model.getName();
+
+                             String id = model.getRoad_id();
+
+                             Log.e("dataSnap", name + "  " + id);
+
+                             SearchItems searchItems = new SearchItems(name, id);
+                             searchItemsList.add(searchItems);
+                             Log.e("dataSnap2", searchItems.getName());
+
+
+                         } catch (Exception e) {
+                             Log.e("exception", e.getLocalizedMessage());
+
+                         }
+                     }
 
 
 
-        //this is test comment
+                     dialog= new Dialog(Add_Property.this);
+                     dialog.setContentView(R.layout.searchable_dialog);
+
+                     // dialog.getWindow().setLayout(650, 800);
+                     dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                     progressDialog.dismiss();
+                     dialog.show();
+
+                     EditText editText = dialog.findViewById(R.id.edit_precinct);
+                     ListView listView = dialog.findViewById(R.id.listView);
+
+
+                     final ArrayAdapter<SearchItems> adapter = new ArrayAdapter<SearchItems> (Add_Property.this,
+                             R.layout.dropdown_item, searchItemsList);
+
+                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                     listView.setAdapter(adapter);
+
+                     editText.addTextChangedListener(new TextWatcher() {
+                         @Override
+                         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                         }
+
+                         @Override
+                         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                             adapter.getFilter().filter(charSequence);
+                         }
+
+                         @Override
+                         public void afterTextChanged(Editable editable) {
+
+                         }
+                     });
+
+                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                         @Override
+                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                             SearchItems user = (SearchItems) adapterView.getItemAtPosition(i);
+                             roadData(user);
+                             dialog.dismiss();
+                         }
+                     });
+
+
+                 }
+
+                 @Override
+                 public void onCancelled(@NonNull DatabaseError error) {
+
+                 }
+             });
+
+         }
+     });
+
+
+
     }
 
-    private void displayUserData(SearchItems user) {
+    private void precinctData(SearchItems user) {
 
-        String name1 = user.getName();
-        String id1 = user.getId();
+        name1 = user.getName();
+        id1 = user.getId();
         Log.e("displayUserData", name1 + "   " + id1);
         spinner_precinct.setText(name1);
+
+    }
+    private void roadData(SearchItems user) {
+
+        roadname = user.getName();
+        roadid = user.getId();
+        road.setText(roadname);
 
     }
 
