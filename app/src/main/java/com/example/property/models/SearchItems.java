@@ -1,10 +1,11 @@
 package com.example.property.models;
 
-import androidx.annotation.NonNull;
-
 public class SearchItems {
 
     String name, id;
+
+    public SearchItems() {
+    }
 
     public SearchItems(String name, String id) {
         this.name = name;
@@ -27,7 +28,7 @@ public class SearchItems {
         this.id = id;
     }
 
-    @NonNull
+
     @Override
     public String toString() {
         return name;
