@@ -254,18 +254,19 @@ public class Add_Property extends AppCompatActivity {
                              Log.e("datasnap", "working");
 
                              StreetRoads model = data.getValue(StreetRoads.class);
+                             if (model != null && model.getPrecinct_id().equals(id1)) {
 
-                             String name = model.getName();
+                                 String name = model.getName();
 
-                             String id = model.getRoad_id();
+                                 String id = model.getRoad_id();
 
-                             Log.e("dataSnap", name + "  " + id);
+                                 Log.e("dataSnap", name + "  " + id);
 
-                             SearchItems searchItems = new SearchItems(name, id);
-                             searchItemsList.add(searchItems);
-                             Log.e("dataSnap2", searchItems.getName());
+                                 SearchItems searchItems = new SearchItems(name, id);
+                                 searchItemsList.add(searchItems);
+                                 Log.e("dataSnap2", searchItems.getName());
 
-
+                             }
                          } catch (Exception e) {
                              Log.e("exception", e.getLocalizedMessage());
 
