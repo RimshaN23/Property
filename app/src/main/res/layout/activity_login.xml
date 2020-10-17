@@ -11,9 +11,9 @@
         android:id="@+id/imageview"
         android:layout_width="100dp"
         android:layout_height="150dp"
-        android:src="@drawable/ic_launcher_background"
+        android:src="@drawable/view_property"
         android:layout_centerHorizontal="true"
-        android:layout_margin="15dp"
+        android:layout_margin="25dp"
         />
 
     <TextView
@@ -30,34 +30,15 @@
         android:text="Log In"/>
 
     <EditText
-        android:id="@+id/clientId"
+        android:id="@+id/companyId"
         android:layout_width="300dp"
         android:layout_height="55dp"
+        android:gravity="center"
         android:layout_below="@id/tv1"
-        android:gravity="center"
-        android:layout_centerHorizontal="true"
-        android:hint="Client Id"
-        android:textCursorDrawable="@drawable/underline_color"
-        android:backgroundTint="@color/colorAccent"
-        android:textColorHint="@color/grey"
-        android:inputType="number"
-        android:textColor="@color/colorAccent"
-        android:textStyle="bold"
-        android:padding="10dp"
-        android:textSize="16sp"
-        />
-
-
-    <EditText
-        android:id="@+id/number"
-        android:layout_width="300dp"
-        android:layout_height="55dp"
-        android:gravity="center"
-        android:layout_below="@id/clientId"
         android:layout_alignStart="@+id/clientId"
         android:layout_alignLeft="@+id/clientId"
         android:layout_marginTop="10dp"
-        android:hint="Phone no."
+        android:hint="Company Id"
         android:textCursorDrawable="@drawable/underline_color"
         android:backgroundTint="@color/colorAccent"
         android:textColorHint="@color/grey"
@@ -70,13 +51,31 @@
 
 
 
+    <EditText
+        android:id="@+id/clientId"
+        android:layout_width="300dp"
+        android:layout_height="55dp"
+        android:layout_below="@id/companyId"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:hint="Agent Id"
+        android:textCursorDrawable="@drawable/underline_color"
+        android:backgroundTint="@color/colorAccent"
+        android:textColorHint="@color/grey"
+        android:inputType="number"
+        android:textColor="@color/colorAccent"
+        android:textStyle="bold"
+        android:padding="10dp"
+        android:textSize="16sp"
+        />
+
+
+
     <Button
         android:id="@+id/loginbtn"
         android:layout_width="270dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/number"
-        android:layout_alignStart="@+id/number"
-        android:layout_alignLeft="@+id/number"
+        android:layout_below="@+id/clientId"
         android:layout_centerInParent="true"
         android:layout_marginTop="30dp"
         android:background="@color/colorPrimary"

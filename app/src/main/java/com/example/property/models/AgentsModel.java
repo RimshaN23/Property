@@ -2,30 +2,41 @@ package com.example.property.models;
 
 public class AgentsModel {
 
-    private String client_name;
-    private String client_no;
+    private String agent_name;
+    private String agent_no;
+    private String agent_id;
+
 
     public AgentsModel() {
     }
 
-    public AgentsModel(String client_name, String client_no) {
-        this.client_name = client_name;
-        this.client_no = client_no;
+    public AgentsModel(String agent_name, String agent_no, String agent_id) {
+        this.agent_name = agent_name;
+        this.agent_no = agent_no;
+        this.agent_id = agent_id;
     }
 
-    public String getClient_name() {
-        return client_name;
+    public String getAgent_id() {
+        return agent_id;
     }
 
-    public void setClient_name(String client_name) {
-        this.client_name = client_name;
+    public void setAgent_id(String agent_id) {
+        this.agent_id = agent_id;
     }
 
-    public String getClient_no() {
-        return client_no;
+    public String getAgent_name() {
+        return agent_name;
     }
 
-    public void setClient_no(String client_no) {
-        this.client_no = client_no;
+    public void setAgent_name(String agent_name) {
+        this.agent_name = agent_name;
+    }
+
+    public String getAgent_no() {
+        return agent_no;
+    }
+
+    public void setAgent_no(String agent_no) {
+        this.agent_no = agent_no;
     }
 }

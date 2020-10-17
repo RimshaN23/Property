@@ -1,106 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
+    >
 
-    android:gravity="center"    >
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cv1"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBar"
+        android:layout_alignParentTop="true"
         android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:elevation="9dp"
-        app:cardCornerRadius="8dp"
-        android:padding="3dp"
+        android:layout_height="wrap_content">
 
-        android:layout_margin="6dp"
-        android:layout_height="100dp">
+        <include
+            android:id="@+id/main_page_toolbar"
+            layout="@layout/app_bar_layout" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:layout_gravity="center"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            >
+    </com.google.android.material.appbar.AppBarLayout>
 
-            <TextView
-                android:id="@+id/add_prperty_tv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Add Property"
-                android:textSize="25sp"
-                android:textColor="@color/black"
-                android:padding="6dp"
-                android:layout_margin="10dp"
-                />
-
-            <ImageView
-                android:id="@+id/add_property_icon"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@drawable/add_property"
-                android:layout_margin="10dp"
-
-                android:layout_alignParentEnd="true"
-
-                />
-
-
-
-        </RelativeLayout>
-
-
-    </androidx.cardview.widget.CardView>
-
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cv2"
-        android:layout_below="@id/cv1"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:elevation="9dp"
-        app:cardCornerRadius="8dp"
-        android:padding="3dp"
-        android:layout_margin="6dp"
-        android:layout_height="100dp">
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_below="@id/appBar">
 
-        <RelativeLayout
+        <androidx.cardview.widget.CardView
+            android:id="@+id/add_prperty_cv"
             android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:layout_gravity="center"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            >
+            android:layout_height="100dp"
+            android:layout_margin="6dp"
+            android:elevation="9dp"
+            android:orientation="horizontal"
+            android:padding="3dp"
+            app:cardCornerRadius="10dp">
 
-            <TextView
-                android:id="@+id/view_prperty_tv"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="View Property"
-                android:textSize="25sp"
-                android:padding="6dp"
-                android:textColor="@color/black"
-                android:layout_margin="10dp"
-                />
+                android:layout_height="75dp"
+                android:layout_gravity="center">
 
-            <ImageView
-                android:id="@+id/view_property_icon"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@drawable/view_property"
-                android:layout_margin="10dp"
+                <TextView
+                    android:id="@+id/add_prperty_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:padding="6dp"
+                    android:text="Add Property"
+                    android:textColor="@color/black"
+                    android:textSize="25sp" />
 
-                android:layout_alignParentEnd="true"
+                <ImageView
+                    android:id="@+id/add_property_icon"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_margin="10dp"
 
-                />
+                    android:background="@drawable/add_property"
+
+                    />
 
 
+            </RelativeLayout>
 
-        </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
 
 
-    </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/view_prperty_cv"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_below="@id/add_prperty_cv"
+            android:layout_margin="6dp"
+            android:elevation="9dp"
+            android:orientation="horizontal"
+            android:padding="3dp"
+            app:cardCornerRadius="10dp">
+
+            <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_gravity="center">
+
+                <TextView
+                    android:id="@+id/view_prperty_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:padding="6dp"
+                    android:text="View Property"
+                    android:textColor="@color/black"
+                    android:textSize="25sp" />
+
+                <ImageView
+                    android:id="@+id/view_property_icon"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_margin="10dp"
+
+                    android:background="@drawable/view_property"
+
+                    />
+
+
+            </RelativeLayout>
+
+
+        </androidx.cardview.widget.CardView>
+    </RelativeLayout>
+
 
 </RelativeLayout>
