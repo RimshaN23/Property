@@ -18,6 +18,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 
@@ -32,7 +34,10 @@ import com.google.firebase.database.ValueEventListener;
 public class Login extends AppCompatActivity {
 
     EditText clientId_edt, companyId_edt;
-    Button login_btn;
+    Button login_btn, retry_btn ;
+
+    RelativeLayout main_layout;
+    LinearLayout noNetworkLayout;
 
     String clientId, companyId;
 
@@ -43,26 +48,43 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-//
-//        if(haveNetwork()){
-//            //Connected to the internet
-//        }
-//        else{
-//            final Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content),
-//                    "No internet connection.",
-//                    Snackbar.LENGTH_SHORT);
-//            snackbar.setActionTextColor(ContextCompat.getColor(getApplicationContext(),
-//                    R.color.white));
-//
-//        }
+
         companyId_edt = findViewById(R.id.companyId);
         clientId_edt = findViewById(R.id.clientId);
         login_btn = findViewById(R.id.loginbtn);
+        retry_btn = findViewById(R.id.retry);
+
+        main_layout = findViewById(R.id.main_layout);
+        noNetworkLayout = findViewById(R.id.noNetworkLayout);
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("loading");
         progressDialog.setCanceledOnTouchOutside(false);
 
+
+        if(haveNetwork()){
+            //Connected to the internet
+            main_layout.setVisibility(View.VISIBLE);
+            noNetworkLayout.setVisibility(View.GONE);
+        }
+        else{
+            main_layout.setVisibility(View.GONE);
+            noNetworkLayout.setVisibility(View.VISIBLE);
+        }
+
+        retry_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(haveNetwork()){
+                    main_layout.setVisibility(View.VISIBLE);
+                    noNetworkLayout.setVisibility(View.GONE);
+                }
+                else{
+                    Toast.makeText(Login.this, " Please get Online first. ", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,75 +92,76 @@ public class Login extends AppCompatActivity {
 
                 if(haveNetwork()){
                     //Connected to the internet
-                    progressDialog.show();
 
                     clientId = clientId_edt.getText().toString();
                     companyId = companyId_edt.getText().toString();
-                    Log.e("exception", "try check 3");
-                    databaseReference = FirebaseDatabase.getInstance().getReference().child("Company").child(companyId).child("agents");
 
-                    databaseReference.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (!clientId.isEmpty() && !companyId.isEmpty()) {
 
-                            Log.e("exception", "try check 4");
+                        progressDialog.show();
+
+                        databaseReference = FirebaseDatabase.getInstance().getReference().child("Company").child(companyId).child("agents");
+
+                        databaseReference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                Log.e("exception", "try check 4");
 
 
-                            for (DataSnapshot data:dataSnapshot.getChildren()) {
-                                try {
-                                    Log.e("exception", "try check");
+                                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                                    try {
+                                        Log.e("exception", "try check");
 
-                                    AgentsModel model = data.getValue(AgentsModel.class);
+                                        AgentsModel model = data.getValue(AgentsModel.class);
 
-                                    if (model != null && model.getAgent_id().equals(clientId)) {
+                                        if (model != null && model.getAgent_id().equals(clientId)) {
 
-                                        Log.e("exception", "try check 2");
+                                            Log.e("exception", "try check 2");
 
+                                            progressDialog.dismiss();
+                                            Intent intent = new Intent(Login.this, VerifyPhoneActivity.class);
+                                            intent.putExtra("number", model.getAgent_no());
+                                            startActivity(intent);
+                                            finish();
+                                        } else {
+                                            progressDialog.dismiss();
+                                            Toast.makeText(Login.this, "Enter Valid Company Id and Agent Id", Toast.LENGTH_SHORT).show();
+                                        }
+                                    } catch (Exception e) {
+                                        Log.e("exception", e.getLocalizedMessage());
                                         progressDialog.dismiss();
-                                        Intent intent = new Intent(Login.this, VerifyPhoneActivity.class);
-                                        intent.putExtra("number", model.getAgent_no());
-                                        startActivity(intent);
-                                        finish();
-                                    } else {
-                                        progressDialog.dismiss();
-                                        Toast.makeText(Login.this, "Enter Valid Company Id and Agent Id", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(Login.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+
+
                                     }
-                                } catch (Exception e) {
-                                    Log.e("exception", e.getLocalizedMessage());
-                                    progressDialog.dismiss();
-                                    Toast.makeText(Login.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-
-
                                 }
+
+
                             }
 
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                Log.e("Exception", databaseError.getMessage());
+                                progressDialog.dismiss();
+                                Toast.makeText(Login.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
 
 
-                        }
+                            }
+                        });
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                            Log.e("Exception", databaseError.getMessage());
-                            progressDialog.dismiss();
-                            Toast.makeText(Login.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
 
+                    else {
+                        progressDialog.dismiss();
+                        Toast.makeText(Login.this, "Enter Valid Company Id and Agent Id", Toast.LENGTH_SHORT).show();
+                    }
 
-                        }
-                    });
                 }
                 else{
-                    progressDialog.dismiss();
-                    final Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content),
-                            "No internet connection.",
-                            Snackbar.LENGTH_SHORT);
-                    snackbar.setActionTextColor(ContextCompat.getColor(getApplicationContext(),
-                            R.color.white));
-                    snackbar.setAction(R.string.try_again, new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            //recheck internet connection and call DownloadJson if there is internet
-                        }
-                    }).show();
+
+                    main_layout.setVisibility(View.GONE);
+                    noNetworkLayout.setVisibility(View.VISIBLE);
                 }
 
 
