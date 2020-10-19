@@ -13,7 +13,7 @@ public class Plots {
     private String stories;
     private String geo_location;
     private String company_id;
-    private String plot_no;
+    private String plot_id;
     private String constructed;
     private String is_sold;
     private String agent_id;
@@ -21,19 +21,20 @@ public class Plots {
     private String plot_price_range;
     private String time;
 
-
-
-
-
-
-
-
-
     public Plots() {
     }
 
+    public Plots(String name, String id, String sq_yrd, String room, String adress) {
 
-    public Plots(String precinct_id, String property_type_id, String road_id, String name, String address, String sq_yrds, String rooms, String stories, String geo_location, String company_id, String plot_no, String constructed, String is_sold, String agent_id, String agent_name, String plot_price_range, String time) {
+        this.name = name;
+        this.address = adress;
+        this.sq_yrds = sq_yrd;
+        this.rooms = room;
+        this.plot_id= id;
+    }
+
+
+    public Plots(String precinct_id, String property_type_id, String road_id, String name, String address, String sq_yrds, String rooms, String stories, String geo_location, String company_id, String plot_id, String constructed, String is_sold, String agent_id, String agent_name, String plot_price_range, String time) {
         this.precinct_id = precinct_id;
         this.property_type_id = property_type_id;
         this.road_id = road_id;
@@ -44,7 +45,7 @@ public class Plots {
         this.stories = stories;
         this.geo_location = geo_location;
         this.company_id = company_id;
-        this.plot_no = plot_no;
+        this.plot_id = plot_id;
         this.constructed = constructed;
         this.is_sold = is_sold;
         this.agent_id = agent_id;
@@ -133,12 +134,12 @@ public class Plots {
         this.company_id = company_id;
     }
 
-    public String getPlot_no() {
-        return plot_no;
+    public String getPlot_id() {
+        return plot_id;
     }
 
-    public void setPlot_no(String plot_no) {
-        this.plot_no = plot_no;
+    public void setPlot_id(String plot_id) {
+        this.plot_id = plot_id;
     }
 
     public String getConstructed() {
@@ -188,4 +189,10 @@ public class Plots {
     public void setTime(String time) {
         this.time = time;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+
 }

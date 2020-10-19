@@ -41,6 +41,8 @@
                 android:layout_marginLeft="15dp"
                 android:text="Company Id"
                 android:textColor="#000"
+                android:visibility="gone"
+
                 android:textSize="12sp" />
 
             <EditText
@@ -50,6 +52,7 @@
                 android:layout_below="@id/text2"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
+                android:visibility="gone"
                 android:background="@drawable/background"
                 android:hint="Company Id"
                 android:inputType="textCapSentences"
@@ -66,6 +69,8 @@
                 android:layout_marginLeft="15dp"
                 android:text="Agent Id"
                 android:textColor="#000"
+                android:visibility="gone"
+
                 android:textSize="12sp" />
 
             <EditText
@@ -74,6 +79,8 @@
                 android:layout_height="45dp"
                 android:layout_below="@id/text2"
                 android:layout_gravity="center"
+                android:visibility="gone"
+
                 android:layout_margin="10dp"
                 android:background="@drawable/background"
                 android:focusableInTouchMode="false"
@@ -92,6 +99,8 @@
                 android:layout_marginLeft="15dp"
                 android:text="Agent Name"
                 android:textColor="#000"
+                android:visibility="gone"
+
                 android:textSize="12sp" />
 
             <EditText
@@ -99,6 +108,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_below="@id/text2"
+                android:visibility="gone"
+
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:background="@drawable/background"
@@ -137,6 +148,7 @@
                 android:paddingRight="8dp"
                 android:textColor="#5A5A5A"
                 android:drawableEnd="@drawable/arrow_drop_down_24"
+                android:drawableTint="@color/black"
 
                 android:textColorHint="#B6B3B5"
                 android:textSize="14sp" />
@@ -163,9 +175,10 @@
                 android:paddingRight="8dp"
                 android:textColor="#5A5A5A"
                 android:hint="Precinct 01"
-                android:textColorHint="#B6B3B5"
                 android:textSize="14sp"
                 android:drawableEnd="@drawable/arrow_drop_down_24"
+                android:drawableTint="@color/black"
+
                 />
             <TextView
                 android:id="@+id/text10"
@@ -185,18 +198,12 @@
                 android:layout_margin="10dp"
                 android:background="@drawable/background"
                 android:drawableEnd="@drawable/arrow_drop_down_24"
-
                 android:hint="Road 20"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:textColor="#5A5A5A"
-                android:textColorHint="#B6B3B5"
+                android:drawableTint="@color/black"
                 android:textSize="14sp" />
-
-
-
-
-
 
 
             <TextView
@@ -243,8 +250,7 @@
                 android:layout_margin="10dp"
                 android:background="@drawable/background"
                 android:hint="Plot 345"
-                android:inputType="textCapSentences"
-                android:paddingLeft="8dp"
+                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:textColor="#5A5A5A"
                 android:textColorHint="#B6B3B5"
@@ -269,14 +275,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_margin="10dp"
+                android:layout_gravity="center"
+                android:gravity="center_vertical"
                 android:background="@drawable/background"
                 android:hint="eg. 240 sqr yard"
-                android:inputType="textCapSentences"
+                android:inputType="number"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:textColor="#5A5A5A"
                 android:textColorHint="#B6B3B5"
                 android:textSize="14sp" />
+
 
             <TextView
                 android:id="@+id/text4"
@@ -287,21 +296,47 @@
                 android:text="Price Range"
                 android:textColor="#000"
                 android:textSize="12sp" />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
 
             <EditText
-                android:id="@+id/price_range"
-                android:layout_width="match_parent"
+                android:id="@+id/price_range_from"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
                 android:layout_height="45dp"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:background="@drawable/background"
-                android:hint="Price Range"
+                android:hint="From"
                 android:paddingLeft="8dp"
-                android:inputType="textCapSentences"
+                android:inputType="number"
                 android:paddingRight="8dp"
                 android:textColor="#5A5A5A"
                 android:textColorHint="#B6B3B5"
                 android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/price_range_to"
+        android:layout_width="wrap_content"
+        android:layout_weight="1"
+
+        android:layout_height="45dp"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:background="@drawable/background"
+        android:hint="To"
+        android:paddingLeft="8dp"
+        android:inputType="number"
+        android:paddingRight="8dp"
+        android:textColor="#5A5A5A"
+        android:textColorHint="#B6B3B5"
+        android:textSize="14sp" />
+
+
+</LinearLayout>
 
             <TextView
                 android:id="@+id/text11"
@@ -312,12 +347,13 @@
                 android:textColor="#000"
                 android:textSize="12sp" />
 
-            <EditText
+            <TextView
                 android:id="@+id/plot_address"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
+                android:gravity="center_vertical"
                 android:background="@drawable/background"
                 android:hint="Address"
                 android:inputType="textCapSentences"
@@ -372,9 +408,10 @@
                 android:layout_height="45dp"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
+                android:gravity="center_vertical"
                 android:background="@drawable/background"
                 android:hint="Single/Double/Triple"
-                android:inputType="textCapSentences"
+                android:inputType="number"
                 android:visibility="gone"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
@@ -399,6 +436,7 @@
                 android:layout_height="45dp"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
+                android:gravity="center_vertical"
                 android:background="@drawable/background"
                 android:inputType="number"
                 android:visibility="gone"

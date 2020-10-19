@@ -102,9 +102,11 @@ public class Login extends AppCompatActivity {
                                     } else {
                                         progressDialog.dismiss();
                                         Toast.makeText(Login.this, "Enter Valid Company Id and Agent Id", Toast.LENGTH_SHORT).show();
+                                        Log.e("exception", "mymymy");
+
                                     }
                                 } catch (Exception e) {
-                                    Log.e("exception", e.getLocalizedMessage());
+                                    Log.e("exceptiono", e.getLocalizedMessage());
                                     progressDialog.dismiss();
                                     Toast.makeText(Login.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
 
