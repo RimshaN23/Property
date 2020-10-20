@@ -9,6 +9,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ClipDrawable;
 import android.graphics.drawable.ColorDrawable;
@@ -93,10 +94,12 @@ public class Add_Property extends AppCompatActivity {
             }
         });
 
-        Intent intent = getIntent();
-        companyId = intent.getStringExtra("companyId");
-        agentName = intent.getStringExtra("agentName");
-        agentId = intent.getStringExtra("agentId");
+        SharedPreferences preferences = getSharedPreferences("SharedPreferences", MODE_PRIVATE);
+        companyId = preferences.getString("companyId", null);
+        agentName = preferences.getString("agentName", null);
+        agentId = preferences.getString("agentId", null);
+
+
         uId();
 
         company_id.setText(companyId);

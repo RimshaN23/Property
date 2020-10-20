@@ -6,6 +6,7 @@ import androidx.cardview.widget.CardView;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -46,10 +47,6 @@ public class Dashboard extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        Intent intent = getIntent();
-        companyId = intent.getStringExtra("companyId");
-        agent_name = intent.getStringExtra("agentName");
-        agentId = intent.getStringExtra("agentId");
 
         main_layout = findViewById(R.id.main_layout);
         noNetworkLayout = findViewById(R.id.noNetworkLayout);
@@ -87,9 +84,6 @@ public class Dashboard extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent = new Intent(Dashboard.this, Add_Property.class);
-                intent.putExtra("agentId", agentId);
-                intent.putExtra("agentName", agent_name);
-                intent.putExtra("companyId", companyId);
                 startActivity(intent);
 
             }
@@ -142,6 +136,10 @@ public class Dashboard extends AppCompatActivity {
 
         if (id == R.id.action_logout) {
 
+            SharedPreferences.Editor preferences = getSharedPreferences("SharedPreferences", MODE_PRIVATE).edit();
+
+            preferences.clear();
+            preferences.apply();
             firebaseAuth.signOut();
             startActivity(new Intent(Dashboard.this, Login.class));
             finish();

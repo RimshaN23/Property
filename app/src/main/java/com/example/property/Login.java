@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
@@ -41,6 +42,9 @@ public class Login extends AppCompatActivity {
 
     String agentId, companyId, agent_name;
 
+    public static String sharedPrefsString = "SharedPreferences";
+    SharedPreferences.Editor preferences;
+
     ProgressDialog progressDialog;
     DatabaseReference databaseReference;
     ValueEventListener valueEventListener;
@@ -62,6 +66,7 @@ public class Login extends AppCompatActivity {
         progressDialog.setMessage("loading");
         progressDialog.setCanceledOnTouchOutside(false);
 
+        preferences = getSharedPreferences(sharedPrefsString, MODE_PRIVATE).edit();
 
         if (haveNetwork()) {
             //Connected to the internet
@@ -89,86 +94,6 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (haveNetwork()) {
-                    //Connected to the internet
-
-                    agentId = clientId_edt.getText().toString();
-                    companyId = companyId_edt.getText().toString();
-
-                    if (!agentId.isEmpty() && !companyId.isEmpty()) {
-
-                        progressDialog.show();
-
-                        databaseReference = FirebaseDatabase.getInstance().getReference().child("Company").child(companyId).child("agents");
-
-                        databaseReference.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                Log.e("exception", "try check 4");
-
-
-                                for (DataSnapshot data : dataSnapshot.getChildren()) {
-                                    try {
-                                        Log.e("exception", "try check");
-
-                                        AgentsModel model = data.getValue(AgentsModel.class);
-
-                                        if (model != null && model.getAgent_id().equals(agentId)) {
-
-                                            Log.e("exception", "try check 2");
-
-                                            agent_name = model.getAgent_name();
-
-                                            progressDialog.dismiss();
-                                            Intent intent = new Intent(Login.this, VerifyPhoneActivity.class);
-                                            intent.putExtra("number", model.getAgent_no());
-                                            intent.putExtra("agentId", agentId);
-                                            intent.putExtra("agentName", agent_name);
-                                            intent.putExtra("companyId", companyId);
-                                            startActivity(intent);
-                                            finish();
-
-                                            return;
-
-                                        } else {
-                                            progressDialog.dismiss();
-                                            Toast.makeText(Login.this, "Enter Valid Company Id and Agent Id", Toast.LENGTH_SHORT).show();
-                                        }
-
-                                    } catch (Exception e) {
-                                        Log.e("exception", e.getLocalizedMessage());
-                                        progressDialog.dismiss();
-                                        Toast.makeText(Login.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-
-
-                                    }
-                                }
-
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-                                Log.e("Exception", error.getMessage());
-                                progressDialog.dismiss();
-                                Toast.makeText(Login.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-
-
-                            }
-                        });
-
-
-                    } else {
-                        progressDialog.dismiss();
-                        Toast.makeText(Login.this, "Enter Company Id and Agent Id", Toast.LENGTH_SHORT).show();
-                    }
-
-                } else {
-
-                    main_layout.setVisibility(View.GONE);
-                    noNetworkLayout.setVisibility(View.VISIBLE);
-                }
-
-
 //                if (haveNetwork()) {
 //                    //Connected to the internet
 //
@@ -176,14 +101,14 @@ public class Login extends AppCompatActivity {
 //                    companyId = companyId_edt.getText().toString();
 //
 //                    if (!agentId.isEmpty() && !companyId.isEmpty()) {
+//
 //                        progressDialog.show();
 //
-//
 //                        databaseReference = FirebaseDatabase.getInstance().getReference().child("Company").child(companyId).child("agents");
-//                        valueEventListener = new ValueEventListener() {
+//
+//                        databaseReference.addValueEventListener(new ValueEventListener() {
 //                            @Override
 //                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//
 //                                Log.e("exception", "try check 4");
 //
 //
@@ -196,15 +121,17 @@ public class Login extends AppCompatActivity {
 //                                        if (model != null && model.getAgent_id().equals(agentId)) {
 //
 //                                            Log.e("exception", "try check 2");
+//
 //                                            agent_name = model.getAgent_name();
+//
+//                                            preferences.putString("agentId", agentId);
+//                                            preferences.putString("agentName", agent_name);
+//                                            preferences.putString("companyId", companyId);
+//                                            preferences.apply();
 //
 //                                            progressDialog.dismiss();
 //                                            Intent intent = new Intent(Login.this, VerifyPhoneActivity.class);
 //                                            intent.putExtra("number", model.getAgent_no());
-//                                            intent.putExtra("agentnId", agentId);
-//                                            intent.putExtra("agentName", agent_name);
-//                                            intent.putExtra("companyId", companyId);
-//                                            startActivity(intent);
 //                                            finish();
 //
 //                                            return;
@@ -223,26 +150,22 @@ public class Login extends AppCompatActivity {
 //                                    }
 //                                }
 //
-//
 //                            }
 //
 //                            @Override
-//                            public void onCancelled(@NonNull DatabaseError databaseError) {
-//                                Log.e("Exception", databaseError.getMessage());
+//                            public void onCancelled(@NonNull DatabaseError error) {
+//                                Log.e("Exception", error.getMessage());
 //                                progressDialog.dismiss();
-//                                Toast.makeText(Login.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(Login.this, error.getMessage(), Toast.LENGTH_SHORT).show();
 //
 //
 //                            }
-//                        };
+//                        });
 //
-//
-//                        databaseReference.addValueEventListener(valueEventListener);
 //
 //                    } else {
 //                        progressDialog.dismiss();
-//
-//                        Toast.makeText(Login.this, "Enter Valid Company Id and Agent Id", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(Login.this, "Enter Company Id and Agent Id", Toast.LENGTH_SHORT).show();
 //                    }
 //
 //                } else {
@@ -252,18 +175,109 @@ public class Login extends AppCompatActivity {
 //                }
 
 
+                if (haveNetwork()) {
+                    //Connected to the internet
+
+                    agentId = clientId_edt.getText().toString();
+                    companyId = companyId_edt.getText().toString();
+
+                    if (!agentId.isEmpty() && !companyId.isEmpty()) {
+                        progressDialog.show();
+
+
+                        databaseReference = FirebaseDatabase.getInstance().getReference().child("Company").child(companyId).child("agents");
+
+                        valueEventListener = new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                Log.e("exception", "try check 4");
+
+                                String logging = "";
+
+                                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                                    try {
+                                        Log.e("exception", "try check");
+
+                                        AgentsModel model = data.getValue(AgentsModel.class);
+
+                                        if (model != null && model.getAgent_id().equals(agentId)) {
+
+                                            Log.e("exception", "try check 2");
+                                            agent_name = model.getAgent_name();
+
+                                            logging = "done";
+
+                                            preferences.putString("agentId", agentId);
+                                            preferences.putString("agentName", agent_name);
+                                            preferences.putString("companyId", companyId);
+                                            preferences.apply();
+
+                                            progressDialog.dismiss();
+                                            Intent intent = new Intent(Login.this, VerifyPhoneActivity.class);
+                                            intent.putExtra("number", model.getAgent_no());
+                                            startActivity(intent);
+                                            finish();
+
+                                            return;
+
+                                        }
+
+                                        if (!logging.equals("done")){
+                                            progressDialog.dismiss();
+                                            Toast.makeText(Login.this, "Enter Valid Company Id and Agent Id", Toast.LENGTH_SHORT).show();
+                                        }
+
+                                    } catch (Exception e) {
+                                        Log.e("exception", e.getLocalizedMessage());
+                                        progressDialog.dismiss();
+                                        Toast.makeText(Login.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+
+
+                                    }
+                                }
+
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                Log.e("Exception", databaseError.getMessage());
+                                progressDialog.dismiss();
+                                Toast.makeText(Login.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+
+
+                            }
+                        };
+
+
+                        databaseReference.addValueEventListener(valueEventListener);
+
+                    } else {
+                        progressDialog.dismiss();
+
+                        Toast.makeText(Login.this, "Enter Valid Company Id and Agent Id", Toast.LENGTH_SHORT).show();
+                    }
+
+                } else {
+
+                    main_layout.setVisibility(View.GONE);
+                    noNetworkLayout.setVisibility(View.VISIBLE);
+                }
+
+
             }
         });
 
     }
 
 
-//    @Override
-//    protected void onPause() {
-//        super.onPause();
-//        if (valueEventListener != null)
-//            databaseReference.removeEventListener(valueEventListener);
-//    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (valueEventListener != null)
+            databaseReference.removeEventListener(valueEventListener);
+    }
 
     public boolean haveNetwork() {
 
