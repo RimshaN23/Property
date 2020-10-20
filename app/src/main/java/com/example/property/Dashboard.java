@@ -32,6 +32,7 @@ public class Dashboard extends AppCompatActivity {
 
     Button retry_btn;
 
+    String agentId, companyId, agent_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,11 @@ public class Dashboard extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(false);
 
         firebaseAuth = FirebaseAuth.getInstance();
+
+        Intent intent = getIntent();
+        companyId = intent.getStringExtra("companyId");
+        agent_name = intent.getStringExtra("agentName");
+        agentId = intent.getStringExtra("agentId");
 
         main_layout = findViewById(R.id.main_layout);
         noNetworkLayout = findViewById(R.id.noNetworkLayout);
@@ -81,6 +87,9 @@ public class Dashboard extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent = new Intent(Dashboard.this, Add_Property.class);
+                intent.putExtra("agentId", agentId);
+                intent.putExtra("agentName", agent_name);
+                intent.putExtra("companyId", companyId);
                 startActivity(intent);
 
             }

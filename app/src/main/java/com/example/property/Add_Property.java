@@ -30,6 +30,9 @@ import com.example.property.models.Plots;
 import com.example.property.models.Precinct;
 import com.example.property.models.SearchItems;
 import com.example.property.models.StreetRoads;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -43,24 +46,25 @@ import java.util.List;
 
 public class Add_Property extends AppCompatActivity {
 
-    EditText company_id, agent_id, agent_name, price_range, priceFrom, property_type,
-             is_constructed;
+    EditText company_id, agent_id, agent_name, is_constructed;
 
-    TextView spinner_precinct, road,plot_address, tv_stories, tv_rooms;
-    EditText plot_no,square_yard,  stories, rooms,plot_name;
+    TextView precinct, road, plot_address, tv_stories, tv_rooms;
+    EditText plot_no, square_yard, stories, rooms, plot_name, priceTo, priceFrom, property_type;
     Dialog dialog;
 
     ProgressDialog progressDialog;
 
-    String id1;
-    String name1;
-    String roadname,roadid;
-    String prprty_type, prprty_type_id, constructed, precinct_id;
+    String precinct_id;
+    String precinct_name;
+    String roadname, roadid;
+    String agentId, companyId, agentName;
+
+    String prprty_type, prprty_type_id, constructed;
     DatabaseReference databaseReference;
+    FirebaseUser firebaseUser;
 
-    ArrayList<String> precinct_array = new ArrayList<>();
+    String plotName, plotId, plotRoom, plotStories, plotAddress, plotSq_yrd, price_to, price_from;
 
-    String plotName,plotId, plotRoom, plotAddress, plotSq_yrd;
     Button enter;
 
     @Override
@@ -73,7 +77,15 @@ public class Add_Property extends AppCompatActivity {
         progressDialog.setCanceledOnTouchOutside(false);
 
 
+        Intent intent = getIntent();
+        companyId = intent.getStringExtra("companyId");
+        agentName = intent.getStringExtra("agentName");
+        agentId = intent.getStringExtra("agentId");
         uId();
+
+        company_id.setText(companyId);
+        agent_name.setText(agentName);
+        agent_id.setText(agentId);
 
         is_constructed.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,7 +152,7 @@ public class Add_Property extends AppCompatActivity {
         });
 
 
-        spinner_precinct.setOnClickListener(new View.OnClickListener() {
+        precinct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -239,229 +251,168 @@ public class Add_Property extends AppCompatActivity {
         });
 
 
-     road.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View view) {
+        road.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-             progressDialog.show();
-             databaseReference = FirebaseDatabase.getInstance().getReference().child("StreetRoads");
+                progressDialog.show();
+                databaseReference = FirebaseDatabase.getInstance().getReference().child("StreetRoads");
 
-             databaseReference.addValueEventListener(new ValueEventListener() {
-                 @Override
-                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                databaseReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                     Log.e("database_change", "try check 4");
-                     List<SearchItems> searchItemsList = new ArrayList<>();
+                        Log.e("database_change", "try check 4");
+                        List<SearchItems> searchItemsList = new ArrayList<>();
 
-                     for (DataSnapshot data:dataSnapshot.getChildren()) {
-                         try {
-                             Log.e("datasnap", "working");
+                        for (DataSnapshot data : dataSnapshot.getChildren()) {
+                            try {
+                                Log.e("datasnap", "working");
 
-                             StreetRoads model = data.getValue(StreetRoads.class);
-                             if (model != null && model.getPrecinct_id().equals(id1)) {
+                                StreetRoads model = data.getValue(StreetRoads.class);
+                                if (model != null && model.getPrecinct_id().equals(precinct_id)) {
 
-                                 String name = model.getName();
+                                    String name = model.getName();
 
-                                 String id = model.getRoad_id();
+                                    String id = model.getRoad_id();
 
-                                 Log.e("dataSnap", name + "  " + id);
+                                    Log.e("dataSnap", name + "  " + id);
 
-                                 SearchItems searchItems = new SearchItems(name, id);
-                                 searchItemsList.add(searchItems);
-                                 Log.e("dataSnap2", searchItems.getName());
+                                    SearchItems searchItems = new SearchItems(name, id);
+                                    searchItemsList.add(searchItems);
+                                    Log.e("dataSnap2", searchItems.getName());
 
-                             }
-                         } catch (Exception e) {
-                             Log.e("exception", e.getLocalizedMessage());
+                                }
+                            } catch (Exception e) {
+                                Log.e("exception", e.getLocalizedMessage());
 
-                         }
-                     }
-
-
-
-                     dialog= new Dialog(Add_Property.this);
-                     dialog.setContentView(R.layout.searchable_dialog);
-
-                     // dialog.getWindow().setLayout(650, 800);
-                     dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                     progressDialog.dismiss();
-                     dialog.show();
-
-                     EditText editText = dialog.findViewById(R.id.edit_precinct);
-                     ListView listView = dialog.findViewById(R.id.listView);
+                            }
+                        }
 
 
-                     final ArrayAdapter<SearchItems> adapter = new ArrayAdapter<SearchItems> (Add_Property.this,
-                             R.layout.dropdown_item, searchItemsList);
+                        dialog = new Dialog(Add_Property.this);
+                        dialog.setContentView(R.layout.searchable_dialog);
 
-                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                     listView.setAdapter(adapter);
+                        // dialog.getWindow().setLayout(650, 800);
+                        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        progressDialog.dismiss();
+                        dialog.show();
 
-                     editText.addTextChangedListener(new TextWatcher() {
-                         @Override
-                         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                         }
-
-                         @Override
-                         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                             adapter.getFilter().filter(charSequence);
-                         }
-
-                         @Override
-                         public void afterTextChanged(Editable editable) {
-
-                         }
-                     });
-
-                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                         @Override
-                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                             SearchItems user = (SearchItems) adapterView.getItemAtPosition(i);
-                             roadData(user);
-                             dialog.dismiss();
-                         }
-                     });
+                        EditText editText = dialog.findViewById(R.id.edit_precinct);
+                        ListView listView = dialog.findViewById(R.id.listView);
 
 
-//                     plot_name.setOnClickListener(new View.OnClickListener() {
-//                         @Override
-//                         public void onClick(View view) {
-//
-//                             progressDialog.show();
-//                             databaseReference = FirebaseDatabase.getInstance().getReference().child("Plots");
-//
-//                             databaseReference.addValueEventListener(new ValueEventListener() {
-//                                 @Override
-//                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//
-//                                     Log.e("database_change", "try check 4");
-//
-//                                     List<Plots> plotList = new ArrayList<>();
-//
-//                                     for (DataSnapshot data:dataSnapshot.getChildren()) {
-//                                         try {
-//                                             Log.e("datasnap91", roadid);
-//
-//                                             Plots model = data.getValue(Plots.class);
-//                                             Log.e("datasnap99", model.getRoad_id()+"1");
-//
-//                                             if (model != null && model.getRoad_id().equals(roadid)) {
-//
-//                                                 String name = model.getName();
-//                                                 String id = model.getPlot_id();
-//                                                 String sq_yrd=model.getSq_yrds();
-//                                                 String room= model.getRooms();
-//                                                 String adress = model.getAddress();
-//
-//
-//                                                 Plots plotItems = new Plots(name, id,sq_yrd,room,adress);
-//                                                 plotList.add(plotItems);
-//                                                 Log.e("dataSnap21", plotItems.getPlot_id());
-//
-//                                             }
-//                                         } catch (Exception e) {
-//                                             Log.e("exception", e.getLocalizedMessage());
-//
-//                                         }
-//                                     }
-//
-//
-//
-//                                     dialog= new Dialog(Add_Property.this);
-//                                     dialog.setContentView(R.layout.searchable_dialog);
-//
-//                                     // dialog.getWindow().setLayout(650, 800);
-//                                     dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//                                     progressDialog.dismiss();
-//                                     dialog.show();
-//
-//                                     EditText editText = dialog.findViewById(R.id.edit_precinct);
-//                                     ListView listView = dialog.findViewById(R.id.listView);
-//
-//
-//                                     final ArrayAdapter<Plots> adapter = new ArrayAdapter<Plots> (Add_Property.this,
-//                                             R.layout.dropdown_item, plotList);
-//
-//                                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//                                     listView.setAdapter(adapter);
-//
-//                                     editText.addTextChangedListener(new TextWatcher() {
-//                                         @Override
-//                                         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//
-//                                         }
-//
-//                                         @Override
-//                                         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//
-//                                             adapter.getFilter().filter(charSequence);
-//                                         }
-//
-//                                         @Override
-//                                         public void afterTextChanged(Editable editable) {
-//
-//                                         }
-//                                     });
-//
-//                                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                                         @Override
-//                                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//
-//                                             Plots user = (Plots) adapterView.getItemAtPosition(i);
-//                                             plotData(user);
-//                                             dialog.dismiss();
-//                                         }
-//                                     });
-//
-//
-//
-//                                 }
-//
-//                                 @Override
-//                                 public void onCancelled(@NonNull DatabaseError error) {
-//
-//                                 }
-//                             });
-//
-//                         }
-//                     });
-                 }
+                        final ArrayAdapter<SearchItems> adapter = new ArrayAdapter<SearchItems>(Add_Property.this,
+                                R.layout.dropdown_item, searchItemsList);
 
-                 @Override
-                 public void onCancelled(@NonNull DatabaseError error) {
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        listView.setAdapter(adapter);
 
-                 }
-             });
+                        editText.addTextChangedListener(new TextWatcher() {
+                            @Override
+                            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-         }
-     });
+                            }
+
+                            @Override
+                            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                                adapter.getFilter().filter(charSequence);
+                            }
+
+                            @Override
+                            public void afterTextChanged(Editable editable) {
+
+                            }
+                        });
+
+                        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                                SearchItems user = (SearchItems) adapterView.getItemAtPosition(i);
+                                roadData(user);
+                                dialog.dismiss();
+                            }
+                        });
 
 
-     enter.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View view) {
-             String AgentName= agent_name.getText().toString();
-             String AgentId = agent_id.getText().toString();
-             plotName= plot_name.getText().toString();
-             plotId= plot_no.getText().toString();
-             plotRoom= rooms.getText().toString();
+                    }
 
-         }
-     });
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+            }
+        });
+
+
+        enter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                plotName = plot_name.getText().toString();
+                plotId = plot_no.getText().toString();
+                plotRoom = rooms.getText().toString();
+                plotStories = stories.getText().toString();
+                plotSq_yrd = square_yard.getText().toString();
+                plotAddress = plot_address.getText().toString();
+                price_from = priceFrom.getText().toString();
+                price_to = priceTo.getText().toString();
+
+                Plots plots = new Plots(precinct_id,prprty_type_id,roadid, plotName, plotAddress, plotSq_yrd, plotRoom, plotStories, companyId,
+                        plotId, constructed,"No", agentId, agentName, price_from, price_to);
+
+                databaseReference = FirebaseDatabase.getInstance().getReference().child("Plots");
+
+                databaseReference.push().setValue(plots).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+
+                            company_id.setText("");
+                            agent_id.setText("");
+                            agent_name.setText("");
+                            property_type.setText("");
+                            is_constructed.setHint("Yes or No");
+                            is_constructed.setText("");
+                            precinct.setText("");
+                            road.setText("");
+                            plot_name.setText("");
+                            plot_no.setText("");
+                            plot_address.setText("");
+                            square_yard.setText("");
+                            stories.setText("");
+                            rooms.setText("");
+                            tv_stories.setText("");
+                            tv_rooms.setText("");
+                            priceTo.setText("");
+                            priceFrom.setText("");
+
+                        } else {
+                            Log.e("Execption2", task.getException().getMessage());
+                            progressDialog.dismiss();
+
+                        }
+                    }
+                });
+
+            }
+        });
 
     }
 
     private void precinctData(SearchItems user) {
 
-        name1 = user.getName();
-        id1 = user.getId();
-        Log.e("displayUserData", name1 + "   " + id1);
-        spinner_precinct.setText(name1);
+        precinct_name = user.getName();
+        precinct_id = user.getId();
+        Log.e("displayUserData", precinct_name + "   " + precinct_id);
+        precinct.setText(precinct_name);
 
     }
+
     private void roadData(SearchItems user) {
 
         roadname = user.getName();
@@ -470,38 +421,16 @@ public class Add_Property extends AppCompatActivity {
 
     }
 
-    private void plotData(Plots user) {
-
-        plotName = user.getName();
-        plotId = user.getPlot_id();
-        plotRoom= user.getRooms();
-        plotSq_yrd= user.getSq_yrds();
-        plotAddress= user.getAddress();
-
-
-        plot_name.setText(plotName);
-        plot_no.setText(plotId);
-        rooms.setText(plotRoom);
-        plot_address.setText(plotAddress);
-        square_yard.setText(plotSq_yrd);
-
-    }
-//    private void plotIdData(SearchItems user) {
-//
-//        plotId = user.getId();
-//
-//    }
-
 
     private void uId() {
 
         company_id = findViewById(R.id.company_id);
         agent_id = findViewById(R.id.agent_id);
         agent_name = findViewById(R.id.agent_name);
-        price_range = findViewById(R.id.price_range_to);
+        priceTo = findViewById(R.id.price_range_to);
         priceFrom = findViewById(R.id.price_range_from);
         property_type = findViewById(R.id.property_type);
-        spinner_precinct = findViewById(R.id.precinct);
+        precinct = findViewById(R.id.precinct);
         plot_name = findViewById(R.id.plot_name);
         plot_no = findViewById(R.id.plot_no);
         square_yard = findViewById(R.id.square_yard);
@@ -514,7 +443,7 @@ public class Add_Property extends AppCompatActivity {
         tv_rooms = findViewById(R.id.tv_rooms);
         tv_stories = findViewById(R.id.tv_stories);
 
-        enter= findViewById(R.id.enter_registry);
+        enter = findViewById(R.id.enter_registry);
 
     }
 }

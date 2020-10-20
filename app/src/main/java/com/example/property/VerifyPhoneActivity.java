@@ -29,6 +29,8 @@ public class VerifyPhoneActivity extends AppCompatActivity {
     Button verify_btn;
     private String mVerificationId;
     private FirebaseAuth mAuth;
+    String agentId, companyId, agent_name;
+
 
 
     @Override
@@ -45,6 +47,9 @@ public class VerifyPhoneActivity extends AppCompatActivity {
         //getting mobile number from the previous activity
         //and sending the verification code to the number
         Intent intent = getIntent();
+        companyId = intent.getStringExtra("companyId");
+        agent_name = intent.getStringExtra("agentName");
+        agentId = intent.getStringExtra("agentId");
         String mobile = intent.getStringExtra("number");
         sendVerificationCode(mobile);
 
@@ -126,6 +131,9 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                             //verification successful we will start the profile activity
                             Intent intent = new Intent(VerifyPhoneActivity.this, Dashboard.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            intent.putExtra("agentId", agentId);
+                            intent.putExtra("agentName", agent_name);
+                            intent.putExtra("companyId", companyId);
                             startActivity(intent);
 
                         } else {

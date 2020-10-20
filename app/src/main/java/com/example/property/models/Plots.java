@@ -11,30 +11,21 @@ public class Plots {
     private String sq_yrds;
     private String rooms;
     private String stories;
-    private String geo_location;
     private String company_id;
-    private String plot_id;
+    private String plot_no;
     private String constructed;
     private String is_sold;
     private String agent_id;
     private String agent_name;
-    private String plot_price_range;
-    private String time;
+    private String plot_price_range_from;
+    private String plot_price_range_to;
 
     public Plots() {
     }
 
-    public Plots(String name, String id, String sq_yrd, String room, String adress) {
-
-        this.name = name;
-        this.address = adress;
-        this.sq_yrds = sq_yrd;
-        this.rooms = room;
-        this.plot_id= id;
-    }
-
-
-    public Plots(String precinct_id, String property_type_id, String road_id, String name, String address, String sq_yrds, String rooms, String stories, String geo_location, String company_id, String plot_id, String constructed, String is_sold, String agent_id, String agent_name, String plot_price_range, String time) {
+    public Plots(String precinct_id, String property_type_id, String road_id, String name, String address, String sq_yrds, String rooms,
+                 String stories, String company_id, String plot_no, String constructed, String is_sold,
+                 String agent_id, String agent_name, String plot_price_range_from, String plot_price_range_to) {
         this.precinct_id = precinct_id;
         this.property_type_id = property_type_id;
         this.road_id = road_id;
@@ -43,15 +34,14 @@ public class Plots {
         this.sq_yrds = sq_yrds;
         this.rooms = rooms;
         this.stories = stories;
-        this.geo_location = geo_location;
         this.company_id = company_id;
-        this.plot_id = plot_id;
+        this.plot_no = plot_no;
         this.constructed = constructed;
         this.is_sold = is_sold;
         this.agent_id = agent_id;
         this.agent_name = agent_name;
-        this.plot_price_range = plot_price_range;
-        this.time = time;
+        this.plot_price_range_from = plot_price_range_from;
+        this.plot_price_range_to = plot_price_range_to;
     }
 
     public String getPrecinct_id() {
@@ -118,14 +108,6 @@ public class Plots {
         this.stories = stories;
     }
 
-    public String getGeo_location() {
-        return geo_location;
-    }
-
-    public void setGeo_location(String geo_location) {
-        this.geo_location = geo_location;
-    }
-
     public String getCompany_id() {
         return company_id;
     }
@@ -134,12 +116,12 @@ public class Plots {
         this.company_id = company_id;
     }
 
-    public String getPlot_id() {
-        return plot_id;
+    public String getplot_no() {
+        return plot_no;
     }
 
-    public void setPlot_id(String plot_id) {
-        this.plot_id = plot_id;
+    public void setplot_no(String plot_no) {
+        this.plot_no = plot_no;
     }
 
     public String getConstructed() {
@@ -174,20 +156,20 @@ public class Plots {
         this.agent_name = agent_name;
     }
 
-    public String getPlot_price_range() {
-        return plot_price_range;
+    public String getPlot_price_range_from() {
+        return plot_price_range_from;
     }
 
-    public void setPlot_price_range(String plot_price_range) {
-        this.plot_price_range = plot_price_range;
+    public void setPlot_price_range_from(String plot_price_range_from) {
+        this.plot_price_range_from = plot_price_range_from;
     }
 
-    public String getTime() {
-        return time;
+    public String getPlot_price_range_to() {
+        return plot_price_range_to;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setPlot_price_range_to(String plot_price_range_to) {
+        this.plot_price_range_to = plot_price_range_to;
     }
 
     @Override

@@ -34,15 +34,16 @@ import com.google.firebase.database.ValueEventListener;
 public class Login extends AppCompatActivity {
 
     EditText clientId_edt, companyId_edt;
-    Button login_btn, retry_btn ;
+    Button login_btn, retry_btn;
 
     RelativeLayout main_layout;
     LinearLayout noNetworkLayout;
 
-    String clientId, companyId;
+    String agentId, companyId, agent_name;
 
     ProgressDialog progressDialog;
     DatabaseReference databaseReference;
+    ValueEventListener valueEventListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,12 +63,11 @@ public class Login extends AppCompatActivity {
         progressDialog.setCanceledOnTouchOutside(false);
 
 
-        if(haveNetwork()){
+        if (haveNetwork()) {
             //Connected to the internet
             main_layout.setVisibility(View.VISIBLE);
             noNetworkLayout.setVisibility(View.GONE);
-        }
-        else{
+        } else {
             main_layout.setVisibility(View.GONE);
             noNetworkLayout.setVisibility(View.VISIBLE);
         }
@@ -76,11 +76,10 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if(haveNetwork()){
+                if (haveNetwork()) {
                     main_layout.setVisibility(View.VISIBLE);
                     noNetworkLayout.setVisibility(View.GONE);
-                }
-                else{
+                } else {
                     Toast.makeText(Login.this, " Please get Online first. ", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -90,13 +89,13 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if(haveNetwork()){
+                if (haveNetwork()) {
                     //Connected to the internet
 
-                    clientId = clientId_edt.getText().toString();
+                    agentId = clientId_edt.getText().toString();
                     companyId = companyId_edt.getText().toString();
 
-                    if (!clientId.isEmpty() && !companyId.isEmpty()) {
+                    if (!agentId.isEmpty() && !companyId.isEmpty()) {
 
                         progressDialog.show();
 
@@ -105,7 +104,6 @@ public class Login extends AppCompatActivity {
                         databaseReference.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
                                 Log.e("exception", "try check 4");
 
 
@@ -115,19 +113,28 @@ public class Login extends AppCompatActivity {
 
                                         AgentsModel model = data.getValue(AgentsModel.class);
 
-                                        if (model != null && model.getAgent_id().equals(clientId)) {
+                                        if (model != null && model.getAgent_id().equals(agentId)) {
 
                                             Log.e("exception", "try check 2");
+
+                                            agent_name = model.getAgent_name();
 
                                             progressDialog.dismiss();
                                             Intent intent = new Intent(Login.this, VerifyPhoneActivity.class);
                                             intent.putExtra("number", model.getAgent_no());
+                                            intent.putExtra("agentId", agentId);
+                                            intent.putExtra("agentName", agent_name);
+                                            intent.putExtra("companyId", companyId);
                                             startActivity(intent);
                                             finish();
+
+                                            return;
+
                                         } else {
                                             progressDialog.dismiss();
                                             Toast.makeText(Login.this, "Enter Valid Company Id and Agent Id", Toast.LENGTH_SHORT).show();
                                         }
+
                                     } catch (Exception e) {
                                         Log.e("exception", e.getLocalizedMessage());
                                         progressDialog.dismiss();
@@ -137,38 +144,126 @@ public class Login extends AppCompatActivity {
                                     }
                                 }
 
-
                             }
 
                             @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-                                Log.e("Exception", databaseError.getMessage());
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                Log.e("Exception", error.getMessage());
                                 progressDialog.dismiss();
-                                Toast.makeText(Login.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Login.this, error.getMessage(), Toast.LENGTH_SHORT).show();
 
 
                             }
                         });
 
-                    }
 
-                    else {
+                    } else {
                         progressDialog.dismiss();
-                        Toast.makeText(Login.this, "Enter Valid Company Id and Agent Id", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Login.this, "Enter Company Id and Agent Id", Toast.LENGTH_SHORT).show();
                     }
 
-                }
-                else{
+                } else {
 
                     main_layout.setVisibility(View.GONE);
                     noNetworkLayout.setVisibility(View.VISIBLE);
                 }
 
 
+//                if (haveNetwork()) {
+//                    //Connected to the internet
+//
+//                    agentId = clientId_edt.getText().toString();
+//                    companyId = companyId_edt.getText().toString();
+//
+//                    if (!agentId.isEmpty() && !companyId.isEmpty()) {
+//                        progressDialog.show();
+//
+//
+//                        databaseReference = FirebaseDatabase.getInstance().getReference().child("Company").child(companyId).child("agents");
+//                        valueEventListener = new ValueEventListener() {
+//                            @Override
+//                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//
+//                                Log.e("exception", "try check 4");
+//
+//
+//                                for (DataSnapshot data : dataSnapshot.getChildren()) {
+//                                    try {
+//                                        Log.e("exception", "try check");
+//
+//                                        AgentsModel model = data.getValue(AgentsModel.class);
+//
+//                                        if (model != null && model.getAgent_id().equals(agentId)) {
+//
+//                                            Log.e("exception", "try check 2");
+//                                            agent_name = model.getAgent_name();
+//
+//                                            progressDialog.dismiss();
+//                                            Intent intent = new Intent(Login.this, VerifyPhoneActivity.class);
+//                                            intent.putExtra("number", model.getAgent_no());
+//                                            intent.putExtra("agentnId", agentId);
+//                                            intent.putExtra("agentName", agent_name);
+//                                            intent.putExtra("companyId", companyId);
+//                                            startActivity(intent);
+//                                            finish();
+//
+//                                            return;
+//
+//                                        } else {
+//                                            progressDialog.dismiss();
+//                                            Toast.makeText(Login.this, "Enter Valid Company Id and Agent Id", Toast.LENGTH_SHORT).show();
+//                                        }
+//
+//                                    } catch (Exception e) {
+//                                        Log.e("exception", e.getLocalizedMessage());
+//                                        progressDialog.dismiss();
+//                                        Toast.makeText(Login.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+//
+//
+//                                    }
+//                                }
+//
+//
+//                            }
+//
+//                            @Override
+//                            public void onCancelled(@NonNull DatabaseError databaseError) {
+//                                Log.e("Exception", databaseError.getMessage());
+//                                progressDialog.dismiss();
+//                                Toast.makeText(Login.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+//
+//
+//                            }
+//                        };
+//
+//
+//                        databaseReference.addValueEventListener(valueEventListener);
+//
+//                    } else {
+//                        progressDialog.dismiss();
+//
+//                        Toast.makeText(Login.this, "Enter Valid Company Id and Agent Id", Toast.LENGTH_SHORT).show();
+//                    }
+//
+//                } else {
+//
+//                    main_layout.setVisibility(View.GONE);
+//                    noNetworkLayout.setVisibility(View.VISIBLE);
+//                }
+
+
             }
         });
 
     }
+
+
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//        if (valueEventListener != null)
+//            databaseReference.removeEventListener(valueEventListener);
+//    }
 
     public boolean haveNetwork() {
 
