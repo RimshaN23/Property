@@ -30,15 +30,28 @@ public class PropertyAdapter extends FirebaseRecyclerAdapter<Plots, PropertyAdap
     @Override
     protected void onBindViewHolder(@NonNull final PropertyViewHolder holder, int position, @NonNull Plots model) {
 
-        holder.propertyType.setText(model.getProperty_type_id());
+        String prprty_type_id = "";
+
+        if (model.getProperty_type_id().equals("1")) {
+            prprty_type_id = "Residential";
+        }
+        if (model.getProperty_type_id().equals("2")) {
+            prprty_type_id = "Commercial";
+        }
+
+        holder.propertyType.setText(prprty_type_id);
+
+
         holder.precinct.setText(model.getPrecinct_id());
         holder.road.setText(model.getRoad_id());
         holder.plotname.setText(model.getName());
-        holder.plotno.setText(model.getPlot_id());
+        holder.plotno.setText(model.getplot_no());
         holder.square_yard.setText(model.getSq_yrds());
         holder.pricerangeFrom.setText(model.getPlot_price_range_from()+ " Rs.");
         holder.pricerangeTo.setText(model.getPlot_price_range_to()+ " Rs.");
         holder.addedBy.setText("Company Id : "+ model.getCompany_id()+ "\nAgent name : " + model.getAgent_name()+ "\nAgent id : "+model.getAgent_id());
+
+
 
         holder.see_more.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,6 +74,7 @@ public class PropertyAdapter extends FirebaseRecyclerAdapter<Plots, PropertyAdap
                 holder.addedBy.setVisibility(View.VISIBLE);
 
 
+                holder.editProperty.setVisibility(View.VISIBLE);
 
                 holder.see_more.setVisibility(View.GONE);
 
@@ -88,6 +102,8 @@ public class PropertyAdapter extends FirebaseRecyclerAdapter<Plots, PropertyAdap
                 holder.addedBy.setVisibility(View.GONE);
 
 
+                holder.editProperty.setVisibility(View.GONE);
+
 
                 holder.see_more.setVisibility(View.VISIBLE);
 
@@ -111,7 +127,7 @@ public class PropertyAdapter extends FirebaseRecyclerAdapter<Plots, PropertyAdap
                 square_yard, pricerangeFrom, pricerangeTo, addedBy;
 
         TextView title_property_type, title_precinct, title_road,
-                see_more, title_square_yard,title_pricerange, title_addedBy, see_less;
+                see_more, title_square_yard,title_pricerange, title_addedBy, see_less, editProperty;
 
 
 
@@ -137,6 +153,8 @@ public class PropertyAdapter extends FirebaseRecyclerAdapter<Plots, PropertyAdap
 
             see_more = itemView.findViewById(R.id.seemore_btn);
             see_less = itemView.findViewById(R.id.seeless_btn);
+
+            editProperty = itemView.findViewById(R.id.edit_property);
 
         }
     }

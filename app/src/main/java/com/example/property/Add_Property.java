@@ -2,6 +2,7 @@ package com.example.property;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -66,6 +67,8 @@ public class Add_Property extends AppCompatActivity {
     String plotName, plotId, plotRoom, plotStories, plotAddress, plotSq_yrd, price_to, price_from;
 
     Button enter;
+    Toolbar toolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +79,19 @@ public class Add_Property extends AppCompatActivity {
         progressDialog.setMessage("Please Wait...");
         progressDialog.setCanceledOnTouchOutside(false);
 
+        toolbar = (Toolbar) findViewById(R.id.addproperty_page_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setHomeButtonEnabled(false);
+        toolbar.setNavigationIcon(R.drawable.ic_baseline_keyboard_backspace_24);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Intent intent = new Intent(Records.this, Home.class);
+//                startActivity(intent);
+                finish();
+            }
+        });
 
         Intent intent = getIntent();
         companyId = intent.getStringExtra("companyId");
@@ -439,10 +455,8 @@ public class Add_Property extends AppCompatActivity {
         is_constructed = findViewById(R.id.is_constructed);
         stories = findViewById(R.id.stories);
         rooms = findViewById(R.id.rooms);
-
         tv_rooms = findViewById(R.id.tv_rooms);
         tv_stories = findViewById(R.id.tv_stories);
-
         enter = findViewById(R.id.enter_registry);
 
     }

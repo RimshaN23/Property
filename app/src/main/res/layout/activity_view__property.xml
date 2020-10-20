@@ -8,23 +8,25 @@
      android:layout_height="match_parent"
     tools:context=".View_Property">
 
-    <TextView
-        android:id="@+id/tv_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginBottom="10dp"
-        android:textStyle="bold"
-        android:text="Plots"
-        android:textColor="@color/colorPrimary"
-        android:textSize="30sp"
-        />
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBar"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include
+            android:id="@+id/viewproperty_page_toolbar"
+            layout="@layout/showproperty_appbar" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_margin="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

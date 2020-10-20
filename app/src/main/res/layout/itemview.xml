@@ -15,6 +15,15 @@
     android:clickable="true"
     >
 
+    <TextView
+        android:id="@+id/edit_property"
+        android:drawableEnd="@drawable/edit_24"
+        android:visibility="gone"
+        android:layout_gravity="end"
+        android:layout_margin="20dp"
+        android:drawableTint="@color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
     <ScrollView
         android:layout_width="match_parent"
