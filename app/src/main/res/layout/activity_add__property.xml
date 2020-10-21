@@ -301,7 +301,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-
             <EditText
                 android:id="@+id/price_range_from"
                 android:layout_width="wrap_content"
@@ -309,6 +308,7 @@
                 android:layout_height="45dp"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
+                android:text="Rs. "
                 android:background="@drawable/background"
                 android:hint="From"
                 android:paddingLeft="8dp"
@@ -329,6 +329,8 @@
                     android:layout_margin="10dp"
                     android:background="@drawable/background"
                     android:hint="To"
+                    android:text="Rs. "
+
                     android:paddingLeft="8dp"
                     android:inputType="number"
                     android:paddingRight="8dp"
