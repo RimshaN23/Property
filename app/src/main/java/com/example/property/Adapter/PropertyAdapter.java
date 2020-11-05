@@ -1,5 +1,6 @@
 package com.example.property.Adapter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,18 +17,20 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 
 public class PropertyAdapter extends FirebaseRecyclerAdapter<Plots, PropertyAdapter.PropertyViewHolder> {
 
+    Context context;
     /**
      * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
      * {@link FirebaseRecyclerOptions} for configuration options.
      *
      * @param options
      */
-    public PropertyAdapter(@NonNull FirebaseRecyclerOptions<Plots> options) {
+    public PropertyAdapter(@NonNull FirebaseRecyclerOptions<Plots> options, Context context) {
         super(options);
+         this.context=context;
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull final PropertyViewHolder holder, int position, @NonNull Plots model) {
+    protected void onBindViewHolder(@NonNull final PropertyViewHolder holder, int position, @NonNull final Plots model) {
 
         String prprty_type_id = "";
 
@@ -97,9 +100,13 @@ public class PropertyAdapter extends FirebaseRecyclerAdapter<Plots, PropertyAdap
             public void onClick(View view) {
 
                 Intent sharingIntent= new Intent(Intent.ACTION_SEND);
-                sharingIntent.setType("text/plain");
-                sharingIntent.putExtra(Intent.EXTRA_TEXT, "text "+holder.propertyType);
-//hi
+                sharingIntent.setType("text/bold");
+                sharingIntent.putExtra(Intent.EXTRA_TEXT, "Plot Name: "+model.getName()
+                        + "\nPlot No: "+model.getplot_no()
+                        + "\nRoad: "+model.getRoad_id()
+                        + "\nSq/yrd: "+model.getSq_yrds()
+                        + "\nPrice: Rs."+model.getPlot_price_range_to() + " to Rs." +model.getPlot_price_range_from());
+                context.startActivity(Intent.createChooser(sharingIntent, "Share via"));
             }
         });
 

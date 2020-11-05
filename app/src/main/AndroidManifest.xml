@@ -36,9 +36,9 @@
         <activity android:name=".Dashboard" />
         <activity android:name=".Login" />
         <activity android:name=".VerifyPhoneActivity" />
-        <activity android:name=".View_Property" />
+        <activity android:name=".Splash" />
         <activity android:name=".Add_Property" />
-        <activity android:name=".Splash">
+        <activity android:name=".View_Property">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
