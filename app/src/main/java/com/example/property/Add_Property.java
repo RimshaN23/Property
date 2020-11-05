@@ -3,26 +3,36 @@ package com.example.property;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ClipDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.location.Location;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,7 +42,18 @@ import com.example.property.models.Plots;
 import com.example.property.models.Precinct;
 import com.example.property.models.SearchItems;
 import com.example.property.models.StreetRoads;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -46,13 +67,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Add_Property extends AppCompatActivity {
+public class Add_Property extends AppCompatActivity implements OnMapReadyCallback {
 
     EditText company_id, agent_id, agent_name, is_constructed;
 
     TextView precinct, road, plot_address, tv_stories, tv_rooms;
     EditText plot_no, square_yard, stories, rooms, plot_name, priceTo, priceFrom, property_type;
     Dialog dialog;
+
+    RelativeLayout mainLayout, mapLayout;
+    LinearLayout noNetworkLayout;
+
 
     ProgressDialog progressDialog;
 
@@ -63,12 +88,27 @@ public class Add_Property extends AppCompatActivity {
 
     String prprty_type, prprty_type_id, constructed;
     DatabaseReference databaseReference;
-    FirebaseUser firebaseUser;
 
     String plotName, plotId, plotRoom, plotStories, plotAddress, plotSq_yrd, price_to, price_from;
 
-    Button enter;
+    double latitude;
+    double longitude;
+    Button enter, retry_btn;
     Toolbar toolbar;
+
+
+    Location mlocation;
+    FusedLocationProviderClient fusedLocationProviderClient;
+    private static final int Request_Code = 101;
+    GoogleMap map;
+
+    LatLng newDragPosition;
+    Marker marker;
+    double lat, lng;
+    Button add_btn;
+
+
+    public static String sharedPrefsMapString = "MapSharedPreferences";
 
 
     @Override
@@ -80,6 +120,11 @@ public class Add_Property extends AppCompatActivity {
         progressDialog.setMessage("Please Wait...");
         progressDialog.setCanceledOnTouchOutside(false);
 
+        uId();
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+
+
         toolbar = (Toolbar) findViewById(R.id.addproperty_page_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
@@ -88,23 +133,67 @@ public class Add_Property extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(Records.this, Home.class);
-//                startActivity(intent);
+                Intent intent = new Intent(Add_Property.this, Dashboard.class);
+                startActivity(intent);
                 finish();
             }
         });
+
+        if (haveNetwork()) {
+            //Connected to the internet
+            mainLayout.setVisibility(View.VISIBLE);
+            noNetworkLayout.setVisibility(View.GONE);
+        } else {
+            mainLayout.setVisibility(View.GONE);
+            noNetworkLayout.setVisibility(View.VISIBLE);
+        }
+
+        retry_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (haveNetwork()) {
+                    mainLayout.setVisibility(View.VISIBLE);
+                    noNetworkLayout.setVisibility(View.GONE);
+                } else {
+                    Toast.makeText(Add_Property.this, " Please get Online first. ", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
 
         SharedPreferences preferences = getSharedPreferences("SharedPreferences", MODE_PRIVATE);
         companyId = preferences.getString("companyId", null);
         agentName = preferences.getString("agentName", null);
         agentId = preferences.getString("agentId", null);
 
-
-        uId();
-
         company_id.setText(companyId);
         agent_name.setText(agentName);
         agent_id.setText(agentId);
+
+        plot_address.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                addMap();
+
+            }
+        });
+
+        add_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                mainLayout.setVisibility(View.VISIBLE);
+                mapLayout.setVisibility(View.GONE);
+
+                latitude = lat;
+                longitude = lng;
+                plot_address.setText(latitude + "\n" + longitude);
+
+            }
+        });
 
         is_constructed.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -372,52 +461,72 @@ public class Add_Property extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                plotName = plot_name.getText().toString();
-                plotId = plot_no.getText().toString();
-                plotRoom = rooms.getText().toString();
-                plotStories = stories.getText().toString();
-                plotSq_yrd = square_yard.getText().toString();
-                plotAddress = plot_address.getText().toString();
-                price_from = priceFrom.getText().toString();
-                price_to = priceTo.getText().toString();
+                if (haveNetwork()) {
 
-                Plots plots = new Plots(precinct_id,prprty_type_id,roadid, plotName, plotAddress, plotSq_yrd, plotRoom, plotStories, companyId,
-                        plotId, constructed,"No", agentId, agentName, price_from, price_to);
+                    plotName = plot_name.getText().toString();
+                    plotId = plot_no.getText().toString();
+                    plotRoom = rooms.getText().toString();
+                    plotStories = stories.getText().toString();
+                    plotSq_yrd = square_yard.getText().toString();
+                    plotAddress = plot_address.getText().toString();
+                    price_from = priceFrom.getText().toString();
+                    price_to = priceTo.getText().toString();
 
-                databaseReference = FirebaseDatabase.getInstance().getReference().child("Plots");
+                    if (!property_type.getText().toString().isEmpty() && !precinct.getText().toString().isEmpty()
+                            && !road.getText().toString().isEmpty() && !plot_name.getText().toString().isEmpty()
+                            && !plot_name.getText().toString().isEmpty()) {
 
-                databaseReference.push().setValue(plots).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
+                        Plots plots = new Plots(precinct_id, prprty_type_id, roadid, plotName, latitude, longitude, plotSq_yrd, plotRoom, plotStories, companyId,
+                                plotId, constructed, "No", agentId, agentName, price_from, price_to);
 
-                            company_id.setText("");
-                            agent_id.setText("");
-                            agent_name.setText("");
-                            property_type.setText("");
-                            is_constructed.setHint("Yes or No");
-                            is_constructed.setText("");
-                            precinct.setText("");
-                            road.setText("");
-                            plot_name.setText("");
-                            plot_no.setText("");
-                            plot_address.setText("");
-                            square_yard.setText("");
-                            stories.setText("");
-                            rooms.setText("");
-                            tv_stories.setText("");
-                            tv_rooms.setText("");
-                            priceTo.setText("");
-                            priceFrom.setText("");
+                        databaseReference = FirebaseDatabase.getInstance().getReference().child("Plots");
 
-                        } else {
-                            Log.e("Execption2", task.getException().getMessage());
-                            progressDialog.dismiss();
+                        databaseReference.push().setValue(plots).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
 
-                        }
+                                    company_id.setText("");
+                                    agent_id.setText("");
+                                    agent_name.setText("");
+                                    property_type.setText("");
+                                    is_constructed.setHint("Yes or No");
+                                    is_constructed.setText("");
+                                    precinct.setText("");
+                                    road.setText("");
+                                    plot_name.setText("");
+                                    plot_no.setText("");
+                                    plot_address.setText("");
+                                    square_yard.setText("");
+                                    stories.setText("");
+                                    rooms.setText("");
+                                    tv_stories.setText("");
+                                    tv_rooms.setText("");
+                                    priceTo.setText("");
+                                    priceFrom.setText("");
+
+                                    SharedPreferences.Editor preferencesMap = getSharedPreferences("MapSharedPreferences", MODE_PRIVATE).edit();
+                                    preferencesMap.clear();
+                                    preferencesMap.apply();
+
+                                } else {
+                                    Log.e("Execption2", task.getException().getMessage());
+                                    progressDialog.dismiss();
+
+                                }
+                            }
+                        });
+                    } else {
+                        Toast.makeText(Add_Property.this, " Please enter data in all fields with *", Toast.LENGTH_LONG).show();
                     }
-                });
 
+
+                }
+                else {
+
+                    mainLayout.setVisibility(View.GONE);
+                    noNetworkLayout.setVisibility(View.VISIBLE);
+                }
             }
         });
 
@@ -440,8 +549,32 @@ public class Add_Property extends AppCompatActivity {
 
     }
 
+    public boolean haveNetwork() {
+
+        boolean haveConnectedWifi = false;
+        boolean haveConnectedMobile = false;
+
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo[] netInfo = cm.getAllNetworkInfo();
+        for (NetworkInfo ni : netInfo) {
+            if (ni.getTypeName().equalsIgnoreCase("WIFI"))
+                if (ni.isConnected())
+                    haveConnectedWifi = true;
+            if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
+                if (ni.isConnected())
+                    haveConnectedMobile = true;
+        }
+        return haveConnectedWifi || haveConnectedMobile;
+    }
 
     private void uId() {
+
+
+        mainLayout = findViewById(R.id.main_layout1);
+        mapLayout = findViewById(R.id.map_layout);
+        noNetworkLayout = findViewById(R.id.noNetworkLayout);
+        retry_btn = findViewById(R.id.retry);
+        add_btn = findViewById(R.id.add_btn);
 
         company_id = findViewById(R.id.company_id);
         agent_id = findViewById(R.id.agent_id);
@@ -462,5 +595,99 @@ public class Add_Property extends AppCompatActivity {
         tv_stories = findViewById(R.id.tv_stories);
         enter = findViewById(R.id.enter_registry);
 
+    }
+
+    private void addMap() {
+
+        mapLayout.setVisibility(View.VISIBLE);
+        mainLayout.setVisibility(View.GONE);
+        Getlastlocation();
+
+
+    }
+
+    private void Getlastlocation() {
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, Request_Code);
+            return;
+        }
+        Task<Location> task = fusedLocationProviderClient.getLastLocation();
+        task.addOnSuccessListener(new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+
+                if (location != null) {
+
+                    mlocation = location;
+
+                    Toast.makeText(getApplicationContext(), mlocation.getLatitude() + "" + mlocation.getLongitude(), Toast.LENGTH_SHORT).show();
+
+                    SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                            .findFragmentById(R.id.currentmaplocation);
+                    mapFragment.getMapAsync(Add_Property.this);
+
+
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onMapReady(final GoogleMap googleMap) {
+
+        map = googleMap;
+
+
+        LatLng latLng = new LatLng(mlocation.getLatitude(), mlocation.getLongitude());
+        marker = googleMap.addMarker(new MarkerOptions().position(latLng).title("Current Location").draggable(true));
+        googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+
+
+        map.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
+            @Override
+            public void onCameraChange(CameraPosition cameraPosition) {
+                if (marker != null && map != null) {
+                    marker.remove();
+                    newDragPosition = cameraPosition.target;
+                    marker = googleMap.addMarker(new MarkerOptions().position(newDragPosition).draggable(true));
+
+
+                    //add place pe newDragPosition sai latlng miljayega
+
+                }
+            }
+        });
+        map.setOnCameraIdleListener(new GoogleMap.OnCameraIdleListener() {
+            @Override
+            public void onCameraIdle() {
+                if (map != null) {
+                    marker.remove();
+                }
+
+                newDragPosition = map.getCameraPosition().target;
+
+                lat = map.getCameraPosition().target.latitude;
+                lng = map.getCameraPosition().target.longitude;
+                marker = googleMap.addMarker(new MarkerOptions().position(newDragPosition).draggable(true));
+
+            }
+        });
+
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        switch (requestCode) {
+
+            case Request_Code:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Getlastlocation();
+                }
+                break;
+        }
     }
 }

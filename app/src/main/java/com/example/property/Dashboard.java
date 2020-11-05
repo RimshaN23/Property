@@ -143,14 +143,11 @@ public class Dashboard extends AppCompatActivity {
             firebaseAuth.signOut();
             startActivity(new Intent(Dashboard.this, Login.class));
             finish();
-
-            Toast.makeText(this, "action logout", Toast.LENGTH_SHORT).show();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
 
     }
-
 
 }

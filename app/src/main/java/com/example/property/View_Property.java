@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -23,7 +24,6 @@ public class View_Property extends AppCompatActivity {
     Toolbar toolbar;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,8 +38,8 @@ public class View_Property extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(Records.this, Home.class);
-//                startActivity(intent);
+                Intent intent = new Intent(View_Property.this, Dashboard.class);
+                startActivity(intent);
                 finish();
             }
         });
@@ -52,22 +52,22 @@ public class View_Property extends AppCompatActivity {
 
         progressDialog.show();
 
-        recyclerView=  findViewById(R.id.recyclerview);
+        recyclerView = findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this) {
         });
 
+        getData();
 
+    }
 
-
+    private void getData() {
         FirebaseRecyclerOptions<Plots> options =
                 new FirebaseRecyclerOptions.Builder<Plots>()
                         .setQuery(FirebaseDatabase.getInstance().getReference().child("Plots"), Plots.class)
                         .build();
-
-        adapter= new PropertyAdapter(options);
+        adapter = new PropertyAdapter(options, this);
         recyclerView.setAdapter(adapter);
         progressDialog.dismiss();
-
     }
 
 

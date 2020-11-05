@@ -7,7 +7,8 @@ public class Plots {
     private String property_type_id;
     private String road_id;
     private String name;
-    private String address;
+    private double latitude;
+    private double longitude;
     private String sq_yrds;
     private String rooms;
     private String stories;
@@ -23,14 +24,15 @@ public class Plots {
     public Plots() {
     }
 
-    public Plots(String precinct_id, String property_type_id, String road_id, String name, String address, String sq_yrds, String rooms,
-                 String stories, String company_id, String plot_no, String constructed, String is_sold,
+    public Plots(String precinct_id, String property_type_id, String road_id, String name, double latitude, double longitude, String sq_yrds,
+                 String rooms, String stories, String company_id, String plot_no, String constructed, String is_sold,
                  String agent_id, String agent_name, String plot_price_range_from, String plot_price_range_to) {
         this.precinct_id = precinct_id;
         this.property_type_id = property_type_id;
         this.road_id = road_id;
         this.name = name;
-        this.address = address;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.sq_yrds = sq_yrds;
         this.rooms = rooms;
         this.stories = stories;
@@ -76,12 +78,20 @@ public class Plots {
         this.name = name;
     }
 
-    public String getAddress() {
-        return address;
+    public double getLatitude() {
+        return latitude;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
     public String getSq_yrds() {

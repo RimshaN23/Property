@@ -183,6 +183,33 @@
 
             <TextView
                 android:visibility="gone"
+                android:id="@+id/address_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="Address"
+                android:textColor="#000"
+                android:textSize="12sp" />
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/tv_address_text"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_margin="10dp"
+                android:layout_gravity="center"
+                android:gravity="center_vertical"
+                android:hint="Click Here To Open Map"
+                android:background="@drawable/background"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:textColor="#5A5A5A"
+                android:textColorHint="#B6B3B5"
+                android:textSize="14sp" />
+
+
+            <TextView
+                android:visibility="gone"
 
                 android:id="@+id/tv_text9"
                 android:layout_width="wrap_content"
@@ -202,7 +229,6 @@
                 android:layout_gravity="center"
                 android:gravity="center_vertical"
                 android:background="@drawable/background"
-                android:inputType="number"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:textColor="#5A5A5A"
@@ -231,7 +257,6 @@
 
                 <TextView
                     android:visibility="gone"
-
                     android:id="@+id/tv_price_range_from"
                     android:layout_width="wrap_content"
                     android:layout_weight="1"
@@ -250,7 +275,6 @@
                 <TextView
 
                     android:visibility="gone"
-
                     android:id="@+id/tv_price_range_to"
                     android:layout_width="wrap_content"
                     android:layout_weight="1"

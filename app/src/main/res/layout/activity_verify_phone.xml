@@ -25,16 +25,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Please type the verification code send to "
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:layout_centerInParent="true"
-        android:layout_above="@id/text3"/>
+        android:layout_above="@id/number"/>
 
     <TextView
-        android:id="@+id/text3"
+        android:id="@+id/number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="+xxxxxxxx "
-        android:textSize="16sp"
+        android:text="number"
+        android:textSize="18sp"
+        android:textStyle="bold"
         android:layout_centerInParent="true"
         android:layout_above="@id/PinView"/>
 

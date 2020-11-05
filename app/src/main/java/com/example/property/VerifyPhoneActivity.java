@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chaos.view.PinView;
@@ -26,6 +27,7 @@ import java.util.concurrent.TimeUnit;
 public class VerifyPhoneActivity extends AppCompatActivity {
 
     PinView editTextCode;
+    TextView mobile_no;
     Button verify_btn;
     private String mVerificationId;
     private FirebaseAuth mAuth;
@@ -39,6 +41,7 @@ public class VerifyPhoneActivity extends AppCompatActivity {
         //initializing objects
         mAuth = FirebaseAuth.getInstance();
         editTextCode = findViewById(R.id.PinView);
+        mobile_no = findViewById(R.id.number);
 
 
         //getting mobile number from the previous activity
@@ -46,6 +49,8 @@ public class VerifyPhoneActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String mobile = intent.getStringExtra("number");
         sendVerificationCode(mobile);
+
+        mobile_no.setText(mobile);
 
         verify_btn= findViewById(R.id.verifybtn);
 

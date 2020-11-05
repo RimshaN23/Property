@@ -1,14 +1,17 @@
 package com.example.property;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -24,7 +27,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
-public class Current_Location extends FragmentActivity implements OnMapReadyCallback {
+public class Add_Map extends FragmentActivity implements OnMapReadyCallback {
 
     Location mlocation;
     FusedLocationProviderClient fusedLocationProviderClient;
@@ -35,16 +38,40 @@ public class Current_Location extends FragmentActivity implements OnMapReadyCall
     Marker marker;
     String newLat, newLng ;
 
+    Button add_btn;
+
+    public static String sharedPrefsMapString = "MapSharedPreferences";
+    SharedPreferences.Editor preferences;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_current__location);
+        setContentView(R.layout.activity_add_map);
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
+        preferences = getSharedPreferences(sharedPrefsMapString, MODE_PRIVATE).edit();
 
         Getlastlocation();
+
+        add_btn = findViewById(R.id.add_btn);
+
+        add_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                preferences.putString("latitude", newLat);
+                preferences.putString("longitude", newLng);
+                preferences.apply();
+
+
+                Intent intent = new Intent(Add_Map.this, Add_Property.class);
+                startActivity(intent);
+                finish();
+
+            }
+        });
     }
 
     private void Getlastlocation() {
@@ -66,7 +93,7 @@ public class Current_Location extends FragmentActivity implements OnMapReadyCall
 
                     SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                             .findFragmentById(R.id.currentmaplocation);
-                    mapFragment.getMapAsync(Current_Location.this);
+                    mapFragment.getMapAsync(Add_Map.this);
 
 
                 }

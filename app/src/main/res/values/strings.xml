@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Property</string>
     <string name="try_again">Reconnect</string>
+    <string name="title_activity_view_map">Map</string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>
