@@ -99,7 +99,7 @@ public class PropertyAdapter extends FirebaseRecyclerAdapter<Plots, PropertyAdap
                 Intent sharingIntent= new Intent(Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
                 sharingIntent.putExtra(Intent.EXTRA_TEXT, "text "+holder.propertyType);
-
+//hi
             }
         });
 
