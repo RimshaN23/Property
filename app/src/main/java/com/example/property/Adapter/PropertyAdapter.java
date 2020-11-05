@@ -1,15 +1,14 @@
 package com.example.property.Adapter;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.property.R;
 import com.example.property.models.Plots;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -40,8 +39,6 @@ public class PropertyAdapter extends FirebaseRecyclerAdapter<Plots, PropertyAdap
         }
 
         holder.propertyType.setText(prprty_type_id);
-
-
         holder.precinct.setText(model.getPrecinct_id());
         holder.road.setText(model.getRoad_id());
         holder.plotname.setText(model.getName());
@@ -51,8 +48,6 @@ public class PropertyAdapter extends FirebaseRecyclerAdapter<Plots, PropertyAdap
         holder.pricerangeTo.setText(model.getPlot_price_range_to());
         holder.addedBy.setText("Company Id : "+ model.getCompany_id()+ "\nAgent name : " + model.getAgent_name()+ "\nAgent id : "+model.getAgent_id());
 
-
-
         holder.see_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -60,27 +55,21 @@ public class PropertyAdapter extends FirebaseRecyclerAdapter<Plots, PropertyAdap
                 holder.precinct.setVisibility(View.VISIBLE);
                 holder.title_property_type.setVisibility(View.VISIBLE);
                 holder.propertyType.setVisibility(View.VISIBLE);
-
                 holder.title_square_yard.setVisibility(View.VISIBLE);
                 holder.square_yard.setVisibility(View.VISIBLE);
-
                 holder.title_road.setVisibility(View.VISIBLE);
                 holder.road.setVisibility(View.VISIBLE);
-
                 holder.title_pricerange.setVisibility(View.VISIBLE);
                 holder.pricerangeTo.setVisibility(View.VISIBLE);
                 holder.pricerangeFrom.setVisibility(View.VISIBLE);
                 holder.title_addedBy.setVisibility(View.VISIBLE);
                 holder.addedBy.setVisibility(View.VISIBLE);
-
-
                 holder.editProperty.setVisibility(View.VISIBLE);
-
                 holder.see_more.setVisibility(View.GONE);
-
                 holder.see_less.setVisibility(View.VISIBLE);
             }
         });
+
         holder.see_less.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,26 +77,29 @@ public class PropertyAdapter extends FirebaseRecyclerAdapter<Plots, PropertyAdap
                 holder.precinct.setVisibility(View.GONE);
                 holder.title_property_type.setVisibility(View.GONE);
                 holder.propertyType.setVisibility(View.GONE);
-
                 holder.title_square_yard.setVisibility(View.GONE);
                 holder.square_yard.setVisibility(View.GONE);
-
                 holder.title_road.setVisibility(View.GONE);
                 holder.road.setVisibility(View.GONE);
-
                 holder.title_pricerange.setVisibility(View.GONE);
                 holder.pricerangeTo.setVisibility(View.GONE);
                 holder.pricerangeFrom.setVisibility(View.GONE);
                 holder.title_addedBy.setVisibility(View.GONE);
                 holder.addedBy.setVisibility(View.GONE);
-
-
                 holder.editProperty.setVisibility(View.GONE);
-
-
                 holder.see_more.setVisibility(View.VISIBLE);
-
                 holder.see_less.setVisibility(View.GONE);
+            }
+        });
+
+        holder.mShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent sharingIntent= new Intent(Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                sharingIntent.putExtra(Intent.EXTRA_TEXT, "text "+holder.propertyType);
+
             }
         });
 
@@ -128,6 +120,8 @@ public class PropertyAdapter extends FirebaseRecyclerAdapter<Plots, PropertyAdap
 
         TextView title_property_type, title_precinct, title_road,
                 see_more, title_square_yard,title_pricerange, title_addedBy, see_less, editProperty;
+
+        Button mShare;
 
 
 
@@ -155,6 +149,7 @@ public class PropertyAdapter extends FirebaseRecyclerAdapter<Plots, PropertyAdap
             see_less = itemView.findViewById(R.id.seeless_btn);
 
             editProperty = itemView.findViewById(R.id.edit_property);
+            mShare = itemView.findViewById(R.id.sharebtn);
 
         }
     }
