@@ -78,6 +78,7 @@ public class Add_Property extends AppCompatActivity implements OnMapReadyCallbac
     RelativeLayout mainLayout, mapLayout;
     LinearLayout noNetworkLayout;
 
+    String mapVisibility = "gone";
 
     ProgressDialog progressDialog;
 
@@ -107,9 +108,19 @@ public class Add_Property extends AppCompatActivity implements OnMapReadyCallbac
     double lat, lng;
     Button add_btn;
 
+    @Override
+    public void onBackPressed() {
 
-    public static String sharedPrefsMapString = "MapSharedPreferences";
+        if (mapVisibility.equals("visible")) {
 
+            mainLayout.setVisibility(View.VISIBLE);
+            mapLayout.setVisibility(View.GONE);
+            mapVisibility = "gone";
+
+        } else {
+            super.onBackPressed();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,11 +144,20 @@ public class Add_Property extends AppCompatActivity implements OnMapReadyCallbac
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Add_Property.this, Dashboard.class);
-                startActivity(intent);
-                finish();
+                if (mapVisibility.equals("visible")) {
+
+                    mainLayout.setVisibility(View.VISIBLE);
+                    mapLayout.setVisibility(View.GONE);
+                    mapVisibility = "gone";
+
+                } else {
+                    Intent intent = new Intent(Add_Property.this, Dashboard.class);
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
+
 
         if (haveNetwork()) {
             //Connected to the internet
@@ -176,7 +196,7 @@ public class Add_Property extends AppCompatActivity implements OnMapReadyCallbac
             public void onClick(View view) {
 
                 addMap();
-
+                mapVisibility = "visible";
             }
         });
 
@@ -187,7 +207,7 @@ public class Add_Property extends AppCompatActivity implements OnMapReadyCallbac
 
                 mainLayout.setVisibility(View.VISIBLE);
                 mapLayout.setVisibility(View.GONE);
-
+                mapVisibility = "gone";
                 latitude = lat;
                 longitude = lng;
                 plot_address.setText(latitude + "\n" + longitude);
@@ -509,6 +529,9 @@ public class Add_Property extends AppCompatActivity implements OnMapReadyCallbac
                                     preferencesMap.clear();
                                     preferencesMap.apply();
 
+                                    Toast.makeText(Add_Property.this, " Plot Register Successful :) ", Toast.LENGTH_LONG).show();
+
+
                                 } else {
                                     Log.e("Execption2", task.getException().getMessage());
                                     progressDialog.dismiss();
@@ -521,8 +544,7 @@ public class Add_Property extends AppCompatActivity implements OnMapReadyCallbac
                     }
 
 
-                }
-                else {
+                } else {
 
                     mainLayout.setVisibility(View.GONE);
                     noNetworkLayout.setVisibility(View.VISIBLE);
@@ -598,7 +620,7 @@ public class Add_Property extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private void addMap() {
-
+        mapVisibility = "visible";
         mapLayout.setVisibility(View.VISIBLE);
         mainLayout.setVisibility(View.GONE);
         Getlastlocation();

@@ -15,7 +15,8 @@
 
         <include
             android:id="@+id/addproperty_page_toolbar"
-            layout="@layout/addproperty_appbar" />
+            layout="@layout/addproperty_appbar"
+            />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -498,27 +499,38 @@
         tools:context=".Add_Property"
         >
 
+
         <fragment
 
             android:id="@+id/currentmaplocation"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
 
             >
 
         </fragment>
 
-
         <Button
-            android:layout_centerHorizontal="true"
             android:id="@+id/add_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:background="@color/colorPrimary"
             android:textColor="@color/quantum_white_100"
-            android:text=" Add Location "
+            android:text=" Get Location "
+            android:textSize="10sp"
+            android:layout_alignParentRight="true"
+            android:layout_margin="15dp"
+            />
+        <Button
+            android:id="@+id/cancel_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/quantum_white_100"
+            android:text=" Cancel "
             android:textSize="10sp"
             android:layout_margin="15dp"
             />

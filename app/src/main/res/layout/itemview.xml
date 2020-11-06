@@ -293,6 +293,80 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/text12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="Is Constructed"
+                android:textColor="#000"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/is_constructed"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:background="@drawable/background"
+                android:focusableInTouchMode="false"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:textColor="#5A5A5A"
+                android:textColorHint="#B6B3B5"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_stories"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:text="Stories"
+                android:textColor="#000"
+                android:textSize="12sp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/stories"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:background="@drawable/background"
+                android:gravity="center_vertical"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:textColor="#5A5A5A"
+                android:textColorHint="#B6B3B5"
+                android:textSize="14sp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_rooms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="Rooms"
+                android:textColor="#000"
+                android:textSize="12sp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/rooms"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:background="@drawable/background"
+                android:gravity="center_vertical"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:textColor="#5A5A5A"
+                android:textColorHint="#B6B3B5"
+                android:textSize="14sp"
+                android:visibility="gone" />
+
+
+            <TextView
                 android:visibility="gone"
 
                 android:id="@+id/tv_text11"
