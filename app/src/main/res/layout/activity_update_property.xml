@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UpdateProperty">
+
+
+    <RelativeLayout
+        android:id="@+id/main_layout1"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/enter_registry"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="6dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/text7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="Plot Name *"
+                    android:textColor="#000"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/plot_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/background"
+                    android:hint="Plot name"
+                    android:inputType="textCapSentences"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:textColor="#5A5A5A"
+                    android:textColorHint="#B6B3B5"
+                    android:textSize="14sp"
+
+
+                    />
+
+
+
+                <TextView
+                    android:id="@+id/text4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Price Range"
+                    android:textColor="#000"
+                    android:textSize="12sp" />
+
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/price_range_from"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/background"
+                        android:hint="From"
+                        android:inputType="number"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:text="Rs. "
+                        android:textColor="#5A5A5A"
+                        android:textColorHint="#B6B3B5"
+                        android:textSize="14sp" />
+
+
+                    <EditText
+
+                        android:id="@+id/price_range_to"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/background"
+                        android:hint="To"
+                        android:inputType="number"
+
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:text="Rs. "
+                        android:textColor="#5A5A5A"
+                        android:textColorHint="#B6B3B5"
+                        android:textSize="14sp" />
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/text12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="Is Constructed"
+                    android:textColor="#000"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/is_constructed"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/background"
+                    android:focusableInTouchMode="false"
+                    android:hint="Yes or No"
+                    android:inputType="textCapSentences"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:textColor="#5A5A5A"
+                    android:textColorHint="#B6B3B5"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_stories"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:text="Stories"
+                    android:textColor="#000"
+                    android:textSize="12sp"
+                    android:visibility="gone" />
+
+                <EditText
+                    android:id="@+id/stories"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/background"
+                    android:gravity="center_vertical"
+                    android:hint="No of stories"
+                    android:inputType="number"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:textColor="#5A5A5A"
+                    android:textColorHint="#B6B3B5"
+                    android:textSize="14sp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/tv_rooms"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="Rooms"
+                    android:textColor="#000"
+                    android:textSize="12sp"
+                    android:visibility="gone" />
+
+                <EditText
+                    android:id="@+id/rooms"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/background"
+                    android:gravity="center_vertical"
+                    android:hint="No of rooms"
+                    android:inputType="number"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:textColor="#5A5A5A"
+                    android:textColorHint="#B6B3B5"
+                    android:textSize="14sp"
+                    android:visibility="gone" />
+
+
+            </LinearLayout>
+        </ScrollView>
+
+        <Button
+            android:id="@+id/update_btn"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:layout_margin="15dp"
+            android:background="@color/colorPrimary"
+            android:clickable="true"
+            android:text="Update Property"
+            android:textSize="16sp"
+            android:textAllCaps="false"
+            android:textColor="#ffff" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/noNetworkLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:gravity="center"
+            android:layout_margin="22dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="28sp"
+            android:text="Unable to connect to Internet. Please check your network settings."/>
+
+
+        <Button
+            android:id="@+id/retry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@color/colorPrimary"
+            android:clickable="true"
+            android:textAllCaps="false"
+            android:text="Retry"
+            android:textColor="#fff"
+            android:textSize="16sp"
+            />
+    </LinearLayout>
+
+</RelativeLayout>
