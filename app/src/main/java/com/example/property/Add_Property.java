@@ -122,7 +122,7 @@ public class Add_Property extends AppCompatActivity implements OnMapReadyCallbac
 
 
     private static final int RESULT_LOAD_IMAGE = 1;
-    private ImageButton mSelectBtn;
+    private  Button mSelectBtn;
     private RecyclerView mUploadList;
 
     Uri fileUri;
@@ -134,6 +134,7 @@ public class Add_Property extends AppCompatActivity implements OnMapReadyCallbac
     private StorageReference mStorage;
 
 
+    String imageUri;
 
 
     @Override
@@ -554,7 +555,7 @@ public class Add_Property extends AppCompatActivity implements OnMapReadyCallbac
                             && !plot_name.getText().toString().isEmpty()) {
 
                         Plots plots = new Plots(precinct_id, prprty_type_id, roadid, plotName, latitude, longitude, plotSq_yrd, plotRoom, plotStories, companyId,
-                                plotId, constructed, "No", agentId, agentName, price_from, price_to, fileName);
+                                plotId, constructed, "No", agentId, agentName, price_from, price_to, imageUri);
 
                         databaseReference = FirebaseDatabase.getInstance().getReference().child("Plots");
 
@@ -785,7 +786,7 @@ public class Add_Property extends AppCompatActivity implements OnMapReadyCallbac
                     fileNameList.add(fileName);
                     fileDoneList.add("uploading");
                     uploadListAdapter.notifyDataSetChanged();
-                    StorageReference fileToUpload = mStorage.child("Images").child(fileName);
+                    final StorageReference fileToUpload = mStorage.child("Images").child(fileName);
 
                     final int finalI = i;
                     fileToUpload.putFile(fileUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -797,6 +798,14 @@ public class Add_Property extends AppCompatActivity implements OnMapReadyCallbac
 
                             uploadListAdapter.notifyDataSetChanged();
 
+                            fileToUpload.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+
+                                    imageUri= String.valueOf(uri);
+                                }
+                            });
+
                         }
                     });
 
@@ -804,7 +813,7 @@ public class Add_Property extends AppCompatActivity implements OnMapReadyCallbac
 
             }  else if (data.getData() != null){
 
-                Toast.makeText(Add_Property.this, "Selected Single File", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Add_Property.this, "Select more than one image", Toast.LENGTH_SHORT).show();
 
             }
 
