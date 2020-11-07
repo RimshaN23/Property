@@ -20,22 +20,13 @@ public class Plots {
     private String agent_name;
     private String plot_price_range_from;
     private String plot_price_range_to;
+    private String imageUrl;
+
 
     public Plots() {
     }
 
-    public Plots(String name, String rooms, String stories, String constructed, String plot_price_range_from, String plot_price_range_to) {
-        this.name = name;
-        this.rooms = rooms;
-        this.stories = stories;
-        this.constructed = constructed;
-        this.plot_price_range_from = plot_price_range_from;
-        this.plot_price_range_to = plot_price_range_to;
-    }
-
-    public Plots(String precinct_id, String property_type_id, String road_id, String name, double latitude, double longitude, String sq_yrds,
-                 String rooms, String stories, String company_id, String plot_no, String constructed, String is_sold,
-                 String agent_id, String agent_name, String plot_price_range_from, String plot_price_range_to) {
+    public Plots(String precinct_id, String property_type_id, String road_id, String name, double latitude, double longitude, String sq_yrds, String rooms, String stories, String company_id, String plot_no, String constructed, String is_sold, String agent_id, String agent_name, String plot_price_range_from, String plot_price_range_to, String imageUrl) {
         this.precinct_id = precinct_id;
         this.property_type_id = property_type_id;
         this.road_id = road_id;
@@ -51,6 +42,16 @@ public class Plots {
         this.is_sold = is_sold;
         this.agent_id = agent_id;
         this.agent_name = agent_name;
+        this.plot_price_range_from = plot_price_range_from;
+        this.plot_price_range_to = plot_price_range_to;
+        this.imageUrl = imageUrl;
+    }
+
+    public Plots(String name, String rooms, String stories, String constructed, String plot_price_range_from, String plot_price_range_to) {
+        this.name = name;
+        this.rooms = rooms;
+        this.stories = stories;
+        this.constructed = constructed;
         this.plot_price_range_from = plot_price_range_from;
         this.plot_price_range_to = plot_price_range_to;
     }
@@ -189,6 +190,14 @@ public class Plots {
 
     public void setPlot_price_range_to(String plot_price_range_to) {
         this.plot_price_range_to = plot_price_range_to;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     @Override

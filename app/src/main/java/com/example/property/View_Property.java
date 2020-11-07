@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.property.Adapter.PropertyAdapter;
+import com.example.property.Adapter.UploadListAdapter;
 import com.example.property.models.Plots;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.FirebaseDatabase;
@@ -22,7 +23,6 @@ public class View_Property extends AppCompatActivity {
     ProgressDialog progressDialog;
 
     Toolbar toolbar;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

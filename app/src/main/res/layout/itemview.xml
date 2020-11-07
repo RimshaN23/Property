@@ -395,6 +395,12 @@
                 android:textSize="14sp"
 
                 />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/imageRecyclerview2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </androidx.recyclerview.widget.RecyclerView>
 
             <TextView
                 android:id="@+id/seemore_btn"
