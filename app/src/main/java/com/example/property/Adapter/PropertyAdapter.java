@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,12 +23,6 @@ public class PropertyAdapter extends FirebaseRecyclerAdapter<Plots, PropertyAdap
 
     Context context;
 
-    /**
-     * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
-     * {@link FirebaseRecyclerOptions} for configuration options.
-     *
-     * @param options
-     */
     public PropertyAdapter(@NonNull FirebaseRecyclerOptions<Plots> options, Context context) {
         super(options);
         this.context = context;
@@ -62,22 +57,23 @@ public class PropertyAdapter extends FirebaseRecyclerAdapter<Plots, PropertyAdap
         holder.addedBy.setText("Company Id : " + model.getCompany_id() +
                 "\nAgent name : " + model.getAgent_name() + "\nAgent id : " + model.getAgent_id());
 
-        final String finalPrprty_type_id = prprty_type_id;
         holder.editProperty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 Intent intent = new Intent(context, UpdateProperty.class);
                 intent.putExtra("plotname",model.getName());
-                intent.putExtra("propertyType", finalPrprty_type_id);
                 intent.putExtra("constructed",constructed);
                 intent.putExtra("rooms",model.getRooms());
                 intent.putExtra("stories",model.getStories());
+                intent.putExtra("pricerangeFrom",model.getPlot_price_range_from());
+                intent.putExtra("pricerangeTo",model.getPlot_price_range_to());
                 intent.putExtra("key",key);
                 context.startActivity(intent);
 
             }
         });
+
         holder.see_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -169,10 +165,11 @@ public class PropertyAdapter extends FirebaseRecyclerAdapter<Plots, PropertyAdap
                 square_yard, pricerangeFrom, pricerangeTo, addedBy, is_constructed, stories, rooms;
 
         TextView title_property_type, title_precinct, title_road,
-                see_more, title_square_yard, title_pricerange, title_addedBy, see_less, editProperty, tv_stories, tv_rooms;
+                see_more, title_square_yard, title_pricerange, title_addedBy, see_less, tv_stories, tv_rooms;
 
         Button mShare;
 
+        ImageButton editProperty;
 
         public PropertyViewHolder(@NonNull View itemView) {
             super(itemView);

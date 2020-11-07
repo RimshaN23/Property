@@ -15,15 +15,26 @@
     android:clickable="true"
     >
 
-    <TextView
+
+    <ImageButton
         android:id="@+id/edit_property"
-        android:drawableEnd="@drawable/edit_24"
-        android:visibility="gone"
-        android:layout_gravity="end"
         android:layout_margin="20dp"
-        android:drawableTint="@color/black"
+        android:tint="@color/black"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:src="@drawable/edit_24"
+        android:background="@color/white"/>
+
+    <ImageButton
+        android:id="@+id/edit_propertey"
+        android:layout_margin="20dp"
+        android:tint="@color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:src="@drawable/ic_baseline_share_24"
+        android:background="@color/white"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -37,7 +48,6 @@
             android:layout_margin="10dp"
             android:padding="10dp"
             android:orientation="vertical">
-
 
             <TextView
                 android:id="@+id/tv_text7"
@@ -368,7 +378,6 @@
 
             <TextView
                 android:visibility="gone"
-
                 android:id="@+id/tv_text11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -379,7 +388,6 @@
 
             <TextView
                 android:visibility="gone"
-
                 android:id="@+id/tv_addedBy"
                 android:layout_width="match_parent"
                 android:layout_height="53dp"

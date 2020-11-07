@@ -506,9 +506,7 @@ public class Add_Property extends AppCompatActivity implements OnMapReadyCallbac
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
 
-                                    company_id.setText("");
-                                    agent_id.setText("");
-                                    agent_name.setText("");
+
                                     property_type.setText("");
                                     is_constructed.setHint("Yes or No");
                                     is_constructed.setText("");
@@ -525,16 +523,11 @@ public class Add_Property extends AppCompatActivity implements OnMapReadyCallbac
                                     priceTo.setText("");
                                     priceFrom.setText("");
 
-                                    SharedPreferences.Editor preferencesMap = getSharedPreferences("MapSharedPreferences", MODE_PRIVATE).edit();
-                                    preferencesMap.clear();
-                                    preferencesMap.apply();
-
                                     Toast.makeText(Add_Property.this, " Plot Register Successful :) ", Toast.LENGTH_LONG).show();
 
 
                                 } else {
                                     Log.e("Execption2", task.getException().getMessage());
-                                    progressDialog.dismiss();
 
                                 }
                             }

@@ -1,5 +1,6 @@
 package com.example.property;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -8,6 +9,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -20,22 +22,27 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.property.models.Plots;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class UpdateProperty extends AppCompatActivity {
 
     RelativeLayout mainLayout;
-    LinearLayout noNetworkLayout;
-    Button retry_btn, update;
+    LinearLayout noNetworkLayout, updateSuccessfulLayout;
+    Button retry_btn, update, goBack;
 
     TextView  tv_stories, tv_rooms;
     EditText stories, rooms, plot_name, priceTo, priceFrom, is_constructed;
     String plotName,constructed,  plotRoom, plotStories, price_to, price_from;
 
+    String getIntentKey, getIntentPlotName, getIntentConstructed, getIntentRoom, getIntentStories, getIntentPriceTo, getIntentPriceFrom;
 
     DatabaseReference databaseReference;
 
@@ -48,6 +55,8 @@ public class UpdateProperty extends AppCompatActivity {
 
         mainLayout = findViewById(R.id.main_layout1);
         noNetworkLayout = findViewById(R.id.noNetworkLayout);
+        updateSuccessfulLayout = findViewById(R.id.updateSuccessful);
+        goBack = findViewById(R.id.goBack);
         retry_btn = findViewById(R.id.retry);
 
         plot_name = findViewById(R.id.plot_name);
@@ -59,6 +68,23 @@ public class UpdateProperty extends AppCompatActivity {
         priceTo = findViewById(R.id.price_range_to);
         priceFrom = findViewById(R.id.price_range_from);
         update = findViewById(R.id.update_btn);
+
+        Intent intent = getIntent();
+        getIntentPlotName = intent.getStringExtra("plotname");
+        getIntentConstructed = intent.getStringExtra("constructed");
+        getIntentRoom = intent.getStringExtra("rooms");
+        getIntentStories = intent.getStringExtra("stories");
+        getIntentPriceFrom = intent.getStringExtra("pricerangeFrom");
+        getIntentPriceTo = intent.getStringExtra("pricerangeTo");
+        getIntentKey = intent.getStringExtra("key");
+
+        plot_name.setText(getIntentPlotName);
+        is_constructed.setText(getIntentConstructed);
+        rooms.setText(getIntentRoom);
+        stories.setText(getIntentStories);
+        priceFrom.setText(getIntentPriceFrom);
+        priceTo.setText(getIntentPriceTo);
+
 
         is_constructed.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,6 +128,19 @@ public class UpdateProperty extends AppCompatActivity {
                 price_from = priceFrom.getText().toString();
                 price_to = priceTo.getText().toString();
 
+                Plots plots = new Plots(plotName, plotRoom, plotStories, constructed, price_from, price_to);
+
+                databaseReference = FirebaseDatabase.getInstance().getReference().child("Plots").child(getIntentKey);
+                databaseReference.setValue(plots).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+
+                        updateSuccessfulLayout.setVisibility(View.VISIBLE);
+                        mainLayout.setVisibility(View.GONE);
+
+                    }
+                });
+
             }
         });
 
@@ -124,6 +163,13 @@ public class UpdateProperty extends AppCompatActivity {
                 } else {
                     Toast.makeText(UpdateProperty.this, " Please get Online first. ", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        goBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
 
