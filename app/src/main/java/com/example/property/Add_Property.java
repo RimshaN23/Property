@@ -136,6 +136,8 @@ public class Add_Property extends AppCompatActivity implements OnMapReadyCallbac
 
     String imageUri;
 
+    ArrayList<String> imagesUrl = new ArrayList<>();
+
 
     @Override
     public void onBackPressed() {
@@ -555,7 +557,7 @@ public class Add_Property extends AppCompatActivity implements OnMapReadyCallbac
                             && !plot_name.getText().toString().isEmpty()) {
 
                         Plots plots = new Plots(precinct_id, prprty_type_id, roadid, plotName, latitude, longitude, plotSq_yrd, plotRoom, plotStories, companyId,
-                                plotId, constructed, "No", agentId, agentName, price_from, price_to, imageUri);
+                                plotId, constructed, "No", agentId, agentName, price_from, price_to, imagesUrl);
 
                         databaseReference = FirebaseDatabase.getInstance().getReference().child("Plots");
 
@@ -770,19 +772,13 @@ public class Add_Property extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if(requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK) {
-
             if(data.getClipData() != null) {
-
                 int totalItemsSelected = data.getClipData().getItemCount();
-
                 for(int i = 0; i < totalItemsSelected; i++){
 
                      fileUri = data.getClipData().getItemAt(i).getUri();
-
                      fileName = getFileName(fileUri);
-
                     fileNameList.add(fileName);
                     fileDoneList.add("uploading");
                     uploadListAdapter.notifyDataSetChanged();
@@ -795,14 +791,15 @@ public class Add_Property extends AppCompatActivity implements OnMapReadyCallbac
 
                             fileDoneList.remove(finalI);
                             fileDoneList.add(finalI, "done");
-
                             uploadListAdapter.notifyDataSetChanged();
 
                             fileToUpload.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
 
-                                    imageUri= String.valueOf(uri);
+                                   // imageUri= String.valueOf(uri);
+
+                                    imagesUrl.add(String.valueOf(uri));
                                 }
                             });
 

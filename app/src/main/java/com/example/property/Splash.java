@@ -41,3 +41,18 @@ public class Splash extends AppCompatActivity {
 
 
     }
+
+//            holder.mShare.setOnClickListener(new View.OnClickListener() {
+//@Override
+//public void onClick(View view) {
+//
+//        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+//        sharingIntent.setType("text/bold");
+//        sharingIntent.putExtra(Intent.EXTRA_TEXT, "Plot Name: " + model.getName()
+//        + "\nPlot No: " + model.getplot_no()
+//        + "\nRoad: " + model.getRoad_id()
+//        + "\nSq/yrd: " + model.getSq_yrds()
+//        + "\nPrice: Rs." + model.getPlot_price_range_to() + " to Rs." + model.getPlot_price_range_from());
+//        context.startActivity(Intent.createChooser(sharingIntent, "Share via"));
+//        }
+//        });

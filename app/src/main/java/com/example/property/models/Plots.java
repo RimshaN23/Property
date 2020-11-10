@@ -1,5 +1,7 @@
 package com.example.property.models;
 
+import java.util.ArrayList;
+
 public class Plots {
 
 
@@ -20,13 +22,13 @@ public class Plots {
     private String agent_name;
     private String plot_price_range_from;
     private String plot_price_range_to;
-    private String imageUrl;
+    private ArrayList<String> imageUrl;
 
 
     public Plots() {
     }
 
-    public Plots(String precinct_id, String property_type_id, String road_id, String name, double latitude, double longitude, String sq_yrds, String rooms, String stories, String company_id, String plot_no, String constructed, String is_sold, String agent_id, String agent_name, String plot_price_range_from, String plot_price_range_to, String imageUrl) {
+    public Plots(String precinct_id, String property_type_id, String road_id, String name, double latitude, double longitude, String sq_yrds, String rooms, String stories, String company_id, String plot_no, String constructed, String is_sold, String agent_id, String agent_name, String plot_price_range_from, String plot_price_range_to, ArrayList<String> imageUrl) {
         this.precinct_id = precinct_id;
         this.property_type_id = property_type_id;
         this.road_id = road_id;
@@ -192,11 +194,11 @@ public class Plots {
         this.plot_price_range_to = plot_price_range_to;
     }
 
-    public String getImageUrl() {
+    public ArrayList<String> getImageUrl() {
         return imageUrl;
     }
 
-    public void setImageUrl(String imageUrl) {
+    public void setImageUrl(ArrayList<String> imageUrl) {
         this.imageUrl = imageUrl;
     }
 

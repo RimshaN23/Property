@@ -18,7 +18,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UpdateProperty"></activity>
+        <activity android:name=".PropertyDetail"></activity>
+        <activity android:name=".UpdateProperty" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -35,8 +36,8 @@
         <activity android:name=".Login" />
         <activity android:name=".VerifyPhoneActivity" />
         <activity android:name=".Splash" />
-        <activity android:name=".View_Property" />
-        <activity android:name=".Add_Property">
+        <activity android:name=".Add_Property" />
+        <activity android:name=".View_Property">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
