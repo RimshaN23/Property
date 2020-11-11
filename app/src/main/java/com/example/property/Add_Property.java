@@ -170,7 +170,7 @@ public class Add_Property extends AppCompatActivity implements OnMapReadyCallbac
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
 
-        toolbar = (Toolbar) findViewById(R.id.addproperty_page_toolbar);
+        toolbar = findViewById(R.id.addproperty_page_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setHomeButtonEnabled(false);
