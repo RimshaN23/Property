@@ -2,6 +2,7 @@ package com.example.property.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,9 @@ import com.example.property.UpdateProperty;
 import com.example.property.models.Plots;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 public class PropertyAdapter extends FirebaseRecyclerAdapter<Plots, PropertyAdapter.PropertyViewHolder> {
 
@@ -32,6 +36,11 @@ public class PropertyAdapter extends FirebaseRecyclerAdapter<Plots, PropertyAdap
 
     @Override
     protected void onBindViewHolder(@NonNull final PropertyViewHolder holder, int position, @NonNull final Plots model) {
+
+        ArrayList<String> imageUrl= model.getImageUrl();
+        Log.e("imagePosition",imageUrl.get(0));
+        Picasso.get().load(imageUrl.get(0)).into(holder.plotImage);
+
 
         final String key = getRef(position).getKey();
 
@@ -47,7 +56,7 @@ public class PropertyAdapter extends FirebaseRecyclerAdapter<Plots, PropertyAdap
 
         holder.propertyType.setText(prprty_type_id);
         holder.plotname.setText(model.getName());
-         holder.square_yard.setText(model.getSq_yrds());
+        holder.square_yard.setText(model.getSq_yrds());
         holder.pricerangeFrom.setText("PKR." + model.getPlot_price_range_to() + " to PKR." + model.getPlot_price_range_from());
 
 
