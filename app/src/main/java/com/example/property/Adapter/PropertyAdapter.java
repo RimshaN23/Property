@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.property.PropertyDetail;
 import com.example.property.R;
-import com.example.property.UpdateProperty;
 import com.example.property.models.Plots;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -38,8 +37,13 @@ public class PropertyAdapter extends FirebaseRecyclerAdapter<Plots, PropertyAdap
     protected void onBindViewHolder(@NonNull final PropertyViewHolder holder, int position, @NonNull final Plots model) {
 
         ArrayList<String> imageUrl= model.getImageUrl();
+        if (imageUrl!=null && imageUrl.size()>0){
         Log.e("imagePosition",imageUrl.get(0));
         Picasso.get().load(imageUrl.get(0)).into(holder.plotImage);
+        }
+        else {
+            Picasso.get().load(R.drawable.no_image).into(holder.plotImage);
+        }
 
 
         final String key = getRef(position).getKey();

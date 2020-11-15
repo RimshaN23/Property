@@ -75,7 +75,8 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                 mobile,
                 60,
                 TimeUnit.SECONDS,
-                TaskExecutors.MAIN_THREAD,
+                VerifyPhoneActivity.this,
+            //    TaskExecutors.MAIN_THREAD,
                 mCallbacks);
     }
 

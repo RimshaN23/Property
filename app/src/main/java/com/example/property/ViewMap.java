@@ -15,7 +15,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class ViewMap extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    String lat , lng, name;
+    String  name;
     Float latitude, longitude;
 
     @Override
@@ -26,11 +26,9 @@ public class ViewMap extends FragmentActivity implements OnMapReadyCallback {
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        Intent intent = getIntent();
-
         latitude = getIntent().getExtras().getFloat("lat");
         longitude = getIntent().getExtras().getFloat("lng");
-        name = intent.getStringExtra("name");
+        name = getIntent().getStringExtra("name");
 
 
     }

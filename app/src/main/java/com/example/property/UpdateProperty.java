@@ -134,7 +134,6 @@ public class UpdateProperty extends AppCompatActivity {
                 databaseReference.setValue(plots).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-
                         updateSuccessfulLayout.setVisibility(View.VISIBLE);
                         mainLayout.setVisibility(View.GONE);
 

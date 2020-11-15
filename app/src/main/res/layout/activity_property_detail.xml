@@ -10,38 +10,50 @@
     android:orientation="vertical"
     tools:context=".PropertyDetail">
 
-    <ImageView
 
-        android:id="@+id/image"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:background="@drawable/hhhh" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-
-        android:id="@+id/sharebtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/image"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="-20dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginRight="15dp"
-        android:backgroundTint="@color/white"
-        android:tint="@color/black"
-        android:src="@drawable/ic_baseline_share" />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/image"
+        android:layout_height="match_parent"
         android:layout_marginBottom="6dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <com.google.android.material.appbar.AppBarLayout
+                    android:id="@+id/appBar"
+                    android:layout_alignParentTop="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <include
+                        android:id="@+id/detail_page_toolbar"
+                        layout="@layout/property_details_toolbar" />
+
+                </com.google.android.material.appbar.AppBarLayout>
+
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/pager"
+                    android:layout_width="fill_parent"
+                    android:layout_height="200dp"
+                    />
+
+                <me.relex.circleindicator.CircleIndicator
+                    android:id="@+id/indicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_alignBottom="@+id/pager"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginBottom="10dp" />
+
+            </RelativeLayout>
 
 
             <LinearLayout
@@ -90,11 +102,11 @@
                         android:layout_height="40dp"
                         android:layout_marginTop="12dp"
                         android:layout_marginBottom="12dp"
-                        android:text="Location"
+                        android:background="@drawable/border"
                         android:padding="5dp"
+                        android:text="Location"
                         android:textColor="@color/black"
                         android:textSize="18sp"
-                        android:background="@drawable/border"
                         android:textStyle="bold" />
 
                     <LinearLayout
@@ -114,9 +126,9 @@
                                 android:id="@+id/goldenhouse"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
                                 android:layout_marginBottom="2dp"
                                 android:text="Golden House"
-                                android:layout_marginLeft="5dp"
                                 android:textColor="@color/black"
                                 android:textSize="16sp" />
 
@@ -124,17 +136,17 @@
                                 android:id="@+id/tv_address_text"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
                                 android:layout_marginBottom="3dp"
                                 android:text="Lat Lng"
-                                android:layout_marginLeft="5dp"
                                 android:textColor="@color/black"
                                 android:textSize="14sp" />
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="2dp"
                                 android:layout_marginLeft="5dp"
+                                android:layout_marginBottom="2dp"
 
                                 android:text="Bahria Town Karachi"
                                 android:textColor="@color/black"
@@ -149,6 +161,7 @@
                             android:layout_height="match_parent"
                             android:layout_gravity="end"
                             android:layout_weight="2"
+                            android:elevation="2dp"
                             android:backgroundTint="@color/white"
                             android:src="@drawable/googlemap" />
 
@@ -383,23 +396,23 @@
 
                                 <TextView
 
-                                    android:visibility="gone"
+                                    android:id="@+id/story_heading"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="Stories"
                                     android:textSize="14sp"
-                                    android:id="@+id/story_heading"/>
+                                    android:visibility="gone" />
 
                                 <TextView
                                     android:id="@+id/stories_no"
-                                    android:visibility="gone"
-
                                     android:layout_width="match_parent"
+
                                     android:layout_height="wrap_content"
                                     android:text="2"
                                     android:textColor="@color/black"
                                     android:textSize="16sp"
-                                    android:textStyle="normal" />
+                                    android:textStyle="normal"
+                                    android:visibility="gone" />
 
                             </LinearLayout>
 
@@ -415,23 +428,23 @@
 
                                 <TextView
                                     android:id="@+id/room_heading"
-                                    android:visibility="gone"
-
                                     android:layout_width="match_parent"
+
                                     android:layout_height="wrap_content"
                                     android:text="Rooms"
-                                    android:textSize="14sp" />
+                                    android:textSize="14sp"
+                                    android:visibility="gone" />
 
                                 <TextView
                                     android:id="@+id/rooms"
-                                    android:visibility="gone"
-
                                     android:layout_width="match_parent"
+
                                     android:layout_height="wrap_content"
                                     android:text="12"
                                     android:textColor="@color/black"
                                     android:textSize="16sp"
-                                    android:textStyle="normal" />
+                                    android:textStyle="normal"
+                                    android:visibility="gone" />
 
                             </LinearLayout>
 
@@ -453,12 +466,12 @@
 
                     <TextView
 
-                        android:padding="5dp"
-                        android:background="@drawable/border"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginTop="12dp"
                         android:layout_marginBottom="12dp"
+                        android:background="@drawable/border"
+                        android:padding="5dp"
                         android:text="Seller Details"
                         android:textColor="@color/black"
                         android:textSize="18sp"
@@ -479,9 +492,9 @@
 
                             <TextView
                                 android:id="@+id/tv_addedBy"
-                                android:layout_marginLeft="5dp"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
                                 android:layout_marginBottom="3dp"
                                 android:text="Seller Detail"
                                 android:textColor="@color/black"
