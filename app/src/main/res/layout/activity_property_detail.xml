@@ -166,17 +166,6 @@
                                 android:elevation="4dp"
                                 android:src="@drawable/ic_baseline_location_on_24" />
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Open Map"
-                                android:layout_marginTop="5dp"
-                                android:textColor="@color/colorPrimary"
-                                android:textSize="12sp"
-                                android:layout_gravity="center"
-                                android:gravity="center"
-                                />
-
 
                         </LinearLayout>
 

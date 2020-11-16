@@ -27,8 +27,8 @@ public class Plots {
     public Plots() {
     }
 
-    public Plots(String precinct_id, String property_type_id, String road_id, String name, double latitude, double longitude, String sq_yrds, String rooms,
-                 String stories, String company_id, String plot_no, String constructed, String is_sold,
+    public Plots(String precinct_id, String property_type_id, String road_id, String name, double latitude, double longitude, String sq_yrds,
+                 String rooms, String stories, String company_id, String plot_no, String constructed, String is_sold,
                  String agent_id, String agent_name, String plot_price_range_from, ArrayList<String> imageUrl) {
         this.precinct_id = precinct_id;
         this.property_type_id = property_type_id;

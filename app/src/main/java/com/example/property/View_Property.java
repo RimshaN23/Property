@@ -50,7 +50,7 @@ public class View_Property extends AppCompatActivity {
         progressDialog.setCanceledOnTouchOutside(false);
 
 
-        progressDialog.show();
+
 
         recyclerView = findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this) {
@@ -61,15 +61,19 @@ public class View_Property extends AppCompatActivity {
     }
 
     private void getData() {
+        progressDialog.show();
         FirebaseRecyclerOptions<Plots> options =
                 new FirebaseRecyclerOptions.Builder<Plots>()
                         .setQuery(FirebaseDatabase.getInstance().getReference().child("Plots"), Plots.class)
                         .build();
         adapter = new PropertyAdapter(options, this);
         recyclerView.setAdapter(adapter);
-        progressDialog.dismiss();
     }
 
+    public void dismissProgressBar() {
+        progressDialog.dismiss();
+
+    }
 
     @Override
     protected void onStart() {
@@ -83,4 +87,6 @@ public class View_Property extends AppCompatActivity {
         super.onStop();
         adapter.stopListening();
     }
+
+
 }

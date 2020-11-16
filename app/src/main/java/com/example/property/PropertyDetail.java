@@ -48,12 +48,14 @@ public class PropertyDetail extends AppCompatActivity {
     String key;
     double lat, lng;
 
+    SlidingImage_Adapter adapter;
     DatabaseReference databaseReference;
     Query query;
     private StorageReference mStorage;
     private static ViewPager mPager;
     private static int currentPage = 0;
     ArrayList<Plots> arrayList = new ArrayList<Plots>();
+    ArrayList<String> arrayList2 = new ArrayList<>();
 
     Toolbar toolbar;
 
@@ -85,6 +87,8 @@ public class PropertyDetail extends AppCompatActivity {
                         Plots model = data.getValue(Plots.class);
 
                         arrayList.add(model);
+                        arrayList2.add(String.valueOf(model.getImageUrl()));
+                        Log.e("arrayList2", arrayList2.size()+"  "+(model.getImageUrl()));
 
                         String prprty_type_id = "";
 
@@ -143,31 +147,37 @@ public class PropertyDetail extends AppCompatActivity {
                     }
 
                 }
-                if (arrayList != null){
-                    mPager.setAdapter(new SlidingImage_Adapter(PropertyDetail.this, arrayList));
+
+                if (arrayList != null) {
+                    Log.e("arraySize", arrayList.size()+"");
+                    Log.e("arrayList2", arrayList2.size()+"");
+                    adapter = new SlidingImage_Adapter(PropertyDetail.this, arrayList2);
+                    mPager.setAdapter(adapter);
                 }
-                        CircleIndicator indicator = findViewById(R.id.indicator);
 
-        indicator.setViewPager(mPager);
+                
+                CircleIndicator indicator = findViewById(R.id.indicator);
 
-        indicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                indicator.setViewPager(mPager);
 
-            @Override
-            public void onPageSelected(int position) {
-                currentPage = position;
+                indicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
-            }
+                    @Override
+                    public void onPageSelected(int position) {
+                        currentPage = position;
 
-            @Override
-            public void onPageScrolled(int pos, float arg1, int arg2) {
+                    }
 
-            }
+                    @Override
+                    public void onPageScrolled(int pos, float arg1, int arg2) {
 
-            @Override
-            public void onPageScrollStateChanged(int pos) {
+                    }
 
-            }
-        });
+                    @Override
+                    public void onPageScrollStateChanged(int pos) {
+
+                    }
+                });
 
             }
 
@@ -178,14 +188,12 @@ public class PropertyDetail extends AppCompatActivity {
         });
 
 
-
-
         mapImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 Intent intent = new Intent(PropertyDetail.this, ViewMap.class);
-                Log.e("latlng", lat+" "+lng);
+                Log.e("latlng", lat + " " + lng);
                 intent.putExtra("lat", lat);
                 intent.putExtra("lng", lng);
                 intent.putExtra("name", plot_name);
@@ -198,7 +206,6 @@ public class PropertyDetail extends AppCompatActivity {
 
     }
 
-    
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

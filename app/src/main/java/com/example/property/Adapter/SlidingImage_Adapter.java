@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.example.property.PropertyDetail;
 import com.example.property.R;
 import com.example.property.models.Plots;
 import com.squareup.picasso.Picasso;
@@ -23,12 +24,19 @@ public class SlidingImage_Adapter extends PagerAdapter {
     private ArrayList<Plots> IMAGES;
     private LayoutInflater inflater;
     private Context context;
+    ArrayList<String> arrayList2 = new ArrayList<>();
 
 
     public SlidingImage_Adapter(Context context,ArrayList<Plots> IMAGES) {
         this.context = context;
         this.IMAGES=IMAGES;
         inflater = LayoutInflater.from(context);
+    }
+
+    public SlidingImage_Adapter(PropertyDetail context, ArrayList<String> arrayList2) {
+        this.context = context;
+        inflater = LayoutInflater.from(context);
+        this.arrayList2 = arrayList2;
     }
 
     @Override
@@ -38,7 +46,7 @@ public class SlidingImage_Adapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return IMAGES.size();
+        return arrayList2.size();
     }
 
     @Override
@@ -46,8 +54,16 @@ public class SlidingImage_Adapter extends PagerAdapter {
 
         View imageLayout = inflater.inflate(R.layout.slidingimages_layout, view, false);
 
+//        ArrayList<String> imageUrl= IMAGES.get().getImageUrl();
+
+//                Log.e("getImageUrl", IMAGES.get(position).getImageUrl().toString()+"at position" + position+"\n");
+//        Log.e("getImageUrl", IMAGES.size()+"");
+
+        Log.e("getImageUrl", arrayList2.get(position)+"at position" + position+"\n");
+        Log.e("getImageUrl", arrayList2.size()+"");
+
         final ImageView imageView = imageLayout.findViewById(R.id.image);
-        Log.e("getImageUrl", IMAGES.get(position).getImageUrl().toString());
+//        Picasso.get().load(String.valueOf(imageUrl)).into(imageView);
 
         Picasso.get().load(String.valueOf(IMAGES.get(position).getImageUrl())).into(imageView);
 
