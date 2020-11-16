@@ -126,7 +126,7 @@ public class Add_Property extends AppCompatActivity implements OnMapReadyCallbac
     private RecyclerView mUploadList;
 
     Uri fileUri;
-    String fileName;
+    String fileName, result;
     private List<String> fileNameList;
     private List<String> fileDoneList;
 
@@ -209,6 +209,7 @@ public class Add_Property extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onClick(View view) {
 
+                mUploadList.setVisibility(View.VISIBLE);
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
@@ -543,59 +544,71 @@ public class Add_Property extends AppCompatActivity implements OnMapReadyCallbac
 
                 if (haveNetwork()) {
 
-                    plotName = plot_name.getText().toString();
-                    plotId = plot_no.getText().toString();
-                    plotRoom = rooms.getText().toString();
-                    plotStories = stories.getText().toString();
-                    plotSq_yrd = square_yard.getText().toString();
-                    plotAddress = plot_address.getText().toString();
-                    price_from = priceFrom.getText().toString();
-                    price_to = priceTo.getText().toString();
+                    Log.e("enterbutton", "in enter button");
 
-                    if (!property_type.getText().toString().isEmpty() && !precinct.getText().toString().isEmpty()
-                            && !road.getText().toString().isEmpty() && !plot_name.getText().toString().isEmpty()
-                            && !plot_name.getText().toString().isEmpty()) {
+                    try {
+                        plotName = plot_name.getText().toString();
+                        plotId = plot_no.getText().toString();
+                        plotRoom = rooms.getText().toString();
+                        plotStories = stories.getText().toString();
+                        plotSq_yrd = square_yard.getText().toString();
+                        plotAddress = plot_address.getText().toString();
+                        price_from = priceFrom.getText().toString();
 
-                        Plots plots = new Plots(precinct_id, prprty_type_id, roadid, plotName, latitude, longitude, plotSq_yrd, plotRoom, plotStories, companyId,
-                                plotId, constructed, "No", agentId, agentName, price_from, price_to, imagesUrl);
+                        if (!property_type.getText().toString().isEmpty() && !precinct.getText().toString().isEmpty()
+                                && !road.getText().toString().isEmpty() && !plot_name.getText().toString().isEmpty()
+                                && !plot_name.getText().toString().isEmpty()) {
 
-                        databaseReference = FirebaseDatabase.getInstance().getReference().child("Plots");
+                            Plots plots = new Plots(precinct_id, prprty_type_id, roadid, plotName, latitude, longitude, plotSq_yrd, plotRoom, plotStories, companyId,
+                                    plotId, constructed, "No", agentId, agentName, price_from, imagesUrl);
 
-                        databaseReference.push().setValue(plots).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
+                            databaseReference = FirebaseDatabase.getInstance().getReference().child("Plots");
+
+                            databaseReference.push().setValue(plots).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+
+                                        Log.e("addOnCompleteListener", "in addOnCompleteListener");
+
+                                        mUploadList.setVisibility(View.GONE);
+                                        fileNameList.clear();
+                                        fileDoneList.clear();
+                                        imagesUrl.clear();
+                                        property_type.setText("");
+                                        is_constructed.setHint("Yes or No");
+                                        is_constructed.setText("");
+                                        precinct.setText("");
+                                        road.setText("");
+                                        plot_name.setText("");
+                                        plot_no.setText("");
+                                        plot_address.setText("");
+                                        square_yard.setText("");
+                                        stories.setText("");
+                                        rooms.setText("");
+                                        tv_stories.setText("");
+                                        tv_rooms.setText("");
+                                        // priceTo.setText("");
+                                        priceFrom.setText("");
+
+                                        Toast.makeText(Add_Property.this, " Plot Register Successful :) ", Toast.LENGTH_LONG).show();
 
 
-                                    property_type.setText("");
-                                    is_constructed.setHint("Yes or No");
-                                    is_constructed.setText("");
-                                    precinct.setText("");
-                                    road.setText("");
-                                    plot_name.setText("");
-                                    plot_no.setText("");
-                                    plot_address.setText("");
-                                    square_yard.setText("");
-                                    stories.setText("");
-                                    rooms.setText("");
-                                    tv_stories.setText("");
-                                    tv_rooms.setText("");
-                                    priceTo.setText("");
-                                    priceFrom.setText("");
+                                    } else {
+                                        Log.e("Execption2", task.getException().getMessage());
 
-                                    Toast.makeText(Add_Property.this, " Plot Register Successful :) ", Toast.LENGTH_LONG).show();
-
-
-                                } else {
-                                    Log.e("Execption2", task.getException().getMessage());
-
+                                    }
                                 }
-                            }
-                        });
-                    } else {
-                        Toast.makeText(Add_Property.this, " Please enter data in all fields with *", Toast.LENGTH_LONG).show();
-                    }
+                            });
+                        } else {
+                            Toast.makeText(Add_Property.this, " Please enter data in all fields with *", Toast.LENGTH_LONG).show();
+                        }
 
+
+                    }catch (Exception e){
+                        Log.e("exception", e.getLocalizedMessage());
+
+                    }
 
                 } else {
 
@@ -657,7 +670,7 @@ public class Add_Property extends AppCompatActivity implements OnMapReadyCallbac
         company_id = findViewById(R.id.company_id);
         agent_id = findViewById(R.id.agent_id);
         agent_name = findViewById(R.id.agent_name);
-        priceTo = findViewById(R.id.price_range_to);
+      //  priceTo = findViewById(R.id.price_range_to);
         priceFrom = findViewById(R.id.price_range_from);
         property_type = findViewById(R.id.property_type);
         precinct = findViewById(R.id.precinct);
@@ -797,8 +810,7 @@ public class Add_Property extends AppCompatActivity implements OnMapReadyCallbac
                                 @Override
                                 public void onSuccess(Uri uri) {
 
-                               imageUri= String.valueOf(uri);
-
+                                    imageUri= String.valueOf(uri);
                                     imagesUrl.add(imageUri);
                                 }
                             });
@@ -819,7 +831,7 @@ public class Add_Property extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private String getFileName(Uri uri) {
-        String result = null;
+         result = null;
         if (uri.getScheme().equals("content")) {
             Cursor cursor = getContentResolver().query(uri, null, null, null, null);
             try {

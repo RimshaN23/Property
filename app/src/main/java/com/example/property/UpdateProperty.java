@@ -39,8 +39,8 @@ public class UpdateProperty extends AppCompatActivity {
     Button retry_btn, update, goBack;
 
     TextView  tv_stories, tv_rooms;
-    EditText stories, rooms, plot_name, priceTo, priceFrom, is_constructed;
-    String plotName,constructed,  plotRoom, plotStories, price_to, price_from;
+    EditText stories, rooms, plot_name, priceFrom, is_constructed;
+    String plotName,constructed,  plotRoom, plotStories, price_from;
 
     String getIntentKey, getIntentPlotName, getIntentConstructed, getIntentRoom, getIntentStories, getIntentPriceTo, getIntentPriceFrom;
 
@@ -65,7 +65,7 @@ public class UpdateProperty extends AppCompatActivity {
         rooms = findViewById(R.id.rooms);
         tv_rooms = findViewById(R.id.tv_rooms);
         tv_stories = findViewById(R.id.tv_stories);
-        priceTo = findViewById(R.id.price_range_to);
+      //  priceTo = findViewById(R.id.price_range_to);
         priceFrom = findViewById(R.id.price_range_from);
         update = findViewById(R.id.update_btn);
 
@@ -75,7 +75,6 @@ public class UpdateProperty extends AppCompatActivity {
         getIntentRoom = intent.getStringExtra("rooms");
         getIntentStories = intent.getStringExtra("stories");
         getIntentPriceFrom = intent.getStringExtra("pricerangeFrom");
-        getIntentPriceTo = intent.getStringExtra("pricerangeTo");
         getIntentKey = intent.getStringExtra("key");
 
         plot_name.setText(getIntentPlotName);
@@ -83,7 +82,6 @@ public class UpdateProperty extends AppCompatActivity {
         rooms.setText(getIntentRoom);
         stories.setText(getIntentStories);
         priceFrom.setText(getIntentPriceFrom);
-        priceTo.setText(getIntentPriceTo);
 
 
         is_constructed.setOnClickListener(new View.OnClickListener() {
@@ -126,9 +124,8 @@ public class UpdateProperty extends AppCompatActivity {
                 plotRoom = rooms.getText().toString();
                 plotStories = stories.getText().toString();
                 price_from = priceFrom.getText().toString();
-                price_to = priceTo.getText().toString();
 
-                Plots plots = new Plots(plotName, plotRoom, plotStories, constructed, price_from, price_to);
+                Plots plots = new Plots(plotName, plotRoom, plotStories, constructed, price_from);
 
                 databaseReference = FirebaseDatabase.getInstance().getReference().child("Plots").child(getIntentKey);
                 databaseReference.setValue(plots).addOnCompleteListener(new OnCompleteListener<Void>() {

@@ -11,7 +11,6 @@
     tools:context=".PropertyDetail">
 
 
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -24,14 +23,13 @@
 
             <RelativeLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                >
+                android:layout_height="wrap_content">
 
                 <com.google.android.material.appbar.AppBarLayout
                     android:id="@+id/appBar"
-                    android:layout_alignParentTop="true"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true">
 
                     <include
                         android:id="@+id/detail_page_toolbar"
@@ -42,8 +40,7 @@
                 <androidx.viewpager.widget.ViewPager
                     android:id="@+id/pager"
                     android:layout_width="fill_parent"
-                    android:layout_height="200dp"
-                    />
+                    android:layout_height="200dp" />
 
                 <me.relex.circleindicator.CircleIndicator
                     android:id="@+id/indicator"
@@ -83,7 +80,7 @@
                         android:id="@+id/price"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="PKR. 52000000"
+                        android:hint="PKR. 52000000"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="16sp" />
 
@@ -117,7 +114,7 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_gravity="center"
                             android:layout_weight="1"
                             android:orientation="vertical">
@@ -154,16 +151,35 @@
 
                         </LinearLayout>
 
-                        <ImageButton
-
-                            android:id="@+id/viewmap"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="end"
+                        <LinearLayout
                             android:layout_weight="2"
-                            android:elevation="2dp"
-                            android:backgroundTint="@color/white"
-                            android:src="@drawable/googlemap" />
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageButton
+                                android:id="@+id/viewmap"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:background="@drawable/roundcorner"
+                                android:elevation="4dp"
+                                android:src="@drawable/ic_baseline_location_on_24" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Open Map"
+                                android:layout_marginTop="5dp"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="12sp"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                />
+
+
+                        </LinearLayout>
+
 
 
                     </LinearLayout>

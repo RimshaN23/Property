@@ -61,7 +61,6 @@ public class PropertyAdapter extends FirebaseRecyclerAdapter<Plots, PropertyAdap
         holder.propertyType.setText(prprty_type_id);
         holder.plotname.setText(model.getName());
         holder.square_yard.setText(model.getSq_yrds());
-        holder.pricerangeFrom.setText("PKR." + model.getPlot_price_range_to() + " to PKR." + model.getPlot_price_range_from());
 
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {

@@ -97,10 +97,9 @@ public class PropertyDetail extends AppCompatActivity {
                         plotName.setText(model.getName());
 
                         plot_name = model.getName();
-                        priceRange = "PKR." + model.getPlot_price_range_to() + " to PKR." + model.getPlot_price_range_from();
+                        priceRange = "PKR." + model.getPlot_price_range_from();
                         price.setText(priceRange);
                         priceFrom = model.getPlot_price_range_from();
-                        priceTo = model.getPlot_price_range_to();
                         plotNameAgain.setText(model.getName());
                         address.setText("Lat: " + model.getLatitude() + "\nLng: " + model.getLongitude());
                         lat = model.getLatitude();

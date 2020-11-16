@@ -48,7 +48,7 @@ public class UploadListAdapter extends RecyclerView.Adapter<UploadListAdapter.Vi
 
         if(fileDone.equals("uploading")){
 
-            holder.fileDoneView.setImageResource(R.mipmap.progress);
+            holder.fileDoneView.setImageResource(R.mipmap.iconloading);
 
         } else {
 

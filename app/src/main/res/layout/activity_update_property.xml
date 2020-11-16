@@ -70,7 +70,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="10dp"
-                    android:text="Price Range"
+                    android:text="Price"
                     android:textColor="#000"
                     android:textSize="12sp" />
 
@@ -88,7 +88,6 @@
                         android:layout_margin="10dp"
                         android:layout_weight="1"
                         android:background="@drawable/background"
-                        android:hint="From"
                         android:inputType="number"
                         android:paddingLeft="8dp"
                         android:paddingRight="8dp"
@@ -98,24 +97,6 @@
                         android:textSize="14sp" />
 
 
-                    <EditText
-
-                        android:id="@+id/price_range_to"
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_gravity="center"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/background"
-                        android:hint="To"
-                        android:inputType="number"
-
-                        android:paddingLeft="8dp"
-                        android:paddingRight="8dp"
-                        android:text="Rs. "
-                        android:textColor="#5A5A5A"
-                        android:textColorHint="#B6B3B5"
-                        android:textSize="14sp" />
 
 
                 </LinearLayout>
