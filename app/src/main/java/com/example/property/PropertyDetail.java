@@ -195,20 +195,6 @@ public class PropertyDetail extends AppCompatActivity {
             }
         });
 
-//        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent sharingIntent = new Intent(Intent.ACTION_SEND);
-//        sharingIntent.setType("text/bold");
-//        sharingIntent.putExtra(Intent.EXTRA_TEXT, "Plot Name: "+plot_name
-//                + "\nPlot No: " + plot_no
-//        + "\nRoad: " +road_no
-//        + "\nSq/yrd: " +sqyrd
-//        + "\nPrice: Rs." +priceRange);
-//        startActivity(Intent.createChooser(sharingIntent, "Share via"));
-//
-//            }
-//        });
 
 
     }

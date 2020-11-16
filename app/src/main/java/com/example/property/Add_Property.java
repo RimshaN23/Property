@@ -797,9 +797,9 @@ public class Add_Property extends AppCompatActivity implements OnMapReadyCallbac
                                 @Override
                                 public void onSuccess(Uri uri) {
 
-                                   // imageUri= String.valueOf(uri);
+                               imageUri= String.valueOf(uri);
 
-                                    imagesUrl.add(String.valueOf(uri));
+                                    imagesUrl.add(imageUri);
                                 }
                             });
 

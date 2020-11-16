@@ -41,8 +41,6 @@
                 android:orientation="vertical">
 
 
-
-
                 <TextView
                     android:id="@+id/text"
                     android:layout_width="wrap_content"
@@ -444,6 +442,15 @@
                     android:textSize="14sp"
                     android:visibility="gone" />
 
+
+                <androidx.recyclerview.widget.RecyclerView
+
+                    android:id="@+id/imageRecyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"/>
+
+
                 <Button
                     android:id="@+id/imgBtn"
                     android:text="Upload Image"
@@ -462,12 +469,7 @@
                     android:layout_marginLeft="10dp"
                     />
 
-                <androidx.recyclerview.widget.RecyclerView
 
-                    android:id="@+id/imageRecyclerview"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"/>
 
 
             </LinearLayout>
