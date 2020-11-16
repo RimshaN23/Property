@@ -45,6 +45,7 @@
         android:layout_alignLeft="@+id/clientId"
         android:layout_marginTop="10dp"
         android:hint="Company Id"
+        android:text="12334567898765543"
         android:textCursorDrawable="@drawable/underline_color"
         android:backgroundTint="@color/colorAccent"
         android:textColorHint="@color/grey"

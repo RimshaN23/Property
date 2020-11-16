@@ -4,6 +4,7 @@ import androidx.fragment.app.FragmentActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -16,7 +17,7 @@ public class ViewMap extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     String  name;
-    Float latitude, longitude;
+    double latitude, longitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,9 +27,7 @@ public class ViewMap extends FragmentActivity implements OnMapReadyCallback {
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        latitude = getIntent().getExtras().getFloat("lat");
-        longitude = getIntent().getExtras().getFloat("lng");
-        name = getIntent().getStringExtra("name");
+
 
 
     }
@@ -37,11 +36,14 @@ public class ViewMap extends FragmentActivity implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
+        latitude = getIntent().getDoubleExtra("lat",0);
+        longitude = getIntent().getDoubleExtra("lng",0);
+        name = getIntent().getStringExtra("name");
         LatLng latLng = new LatLng(latitude, longitude);
+        Log.e("loation", latLng.toString());
         mMap.addMarker(new MarkerOptions().position(latLng).title(name));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
 
     }
 }

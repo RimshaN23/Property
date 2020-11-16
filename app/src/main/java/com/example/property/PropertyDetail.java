@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
-import me.relex.circleindicator.CircleIndicator;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -34,6 +33,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+
+import me.relex.circleindicator.CircleIndicator;
 
 public class PropertyDetail extends AppCompatActivity {
 
@@ -143,19 +144,10 @@ public class PropertyDetail extends AppCompatActivity {
                     }
 
                 }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        if (arrayList != null){
-        mPager.setAdapter(new SlidingImage_Adapter(PropertyDetail.this, arrayList));
-        }
-
-        CircleIndicator indicator = findViewById(R.id.indicator);
+                if (arrayList != null){
+                    mPager.setAdapter(new SlidingImage_Adapter(PropertyDetail.this, arrayList));
+                }
+                        CircleIndicator indicator = findViewById(R.id.indicator);
 
         indicator.setViewPager(mPager);
 
@@ -178,10 +170,23 @@ public class PropertyDetail extends AppCompatActivity {
             }
         });
 
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
+
         mapImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent intent = new Intent(PropertyDetail.this, ViewMap.class);
+                Log.e("latlng", lat+" "+lng);
                 intent.putExtra("lat", lat);
                 intent.putExtra("lng", lng);
                 intent.putExtra("name", plot_name);
