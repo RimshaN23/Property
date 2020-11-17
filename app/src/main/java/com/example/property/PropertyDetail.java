@@ -66,6 +66,15 @@ public class PropertyDetail extends AppCompatActivity {
 
         toolbar = findViewById(R.id.detail_page_toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_baseline_keyboard_backspace_24);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(PropertyDetail.this, View_Property.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setHomeButtonEnabled(false);

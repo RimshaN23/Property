@@ -38,14 +38,13 @@ public class UpdateProperty extends AppCompatActivity {
     LinearLayout noNetworkLayout, updateSuccessfulLayout;
     Button retry_btn, update, goBack;
 
-    TextView  tv_stories, tv_rooms;
+    TextView tv_stories, tv_rooms;
     EditText stories, rooms, plot_name, priceFrom, is_constructed;
-    String plotName,constructed,  plotRoom, plotStories, price_from;
+    String plotName, constructed, plotRoom, plotStories, price_from;
 
     String getIntentKey, getIntentPlotName, getIntentConstructed, getIntentRoom, getIntentStories, getIntentPriceTo, getIntentPriceFrom;
 
     DatabaseReference databaseReference;
-
 
 
     @Override
@@ -65,7 +64,7 @@ public class UpdateProperty extends AppCompatActivity {
         rooms = findViewById(R.id.rooms);
         tv_rooms = findViewById(R.id.tv_rooms);
         tv_stories = findViewById(R.id.tv_stories);
-      //  priceTo = findViewById(R.id.price_range_to);
+        //  priceTo = findViewById(R.id.price_range_to);
         priceFrom = findViewById(R.id.price_range_from);
         update = findViewById(R.id.update_btn);
 
@@ -126,16 +125,85 @@ public class UpdateProperty extends AppCompatActivity {
                 price_from = priceFrom.getText().toString();
 
                 Plots plots = new Plots(plotName, plotRoom, plotStories, constructed, price_from);
-
                 databaseReference = FirebaseDatabase.getInstance().getReference().child("Plots").child(getIntentKey);
-                databaseReference.setValue(plots).addOnCompleteListener(new OnCompleteListener<Void>() {
+
+                databaseReference.child("name").setValue(plotName).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        updateSuccessfulLayout.setVisibility(View.VISIBLE);
+                        if (task.isSuccessful()) {
+                            //  progressDialog.dismiss();
+                            updateSuccessfulLayout.setVisibility(View.VISIBLE);
                         mainLayout.setVisibility(View.GONE);
-
+                        } else {
+                            Toast.makeText(UpdateProperty.this, "Some errors while changing status..", Toast.LENGTH_SHORT).show();
+//                            progressDialog.hide();
+                        }
                     }
                 });
+                databaseReference.child("plot_price_range_from").setValue(price_from).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            //  progressDialog.dismiss();
+                            updateSuccessfulLayout.setVisibility(View.VISIBLE);
+                            mainLayout.setVisibility(View.GONE);
+                        } else {
+                            Toast.makeText(UpdateProperty.this, "Some errors while changing status..", Toast.LENGTH_SHORT).show();
+//                            progressDialog.hide();
+                        }
+                    }
+                });
+                databaseReference.child("constructed").setValue(constructed).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            //  progressDialog.dismiss();
+                            updateSuccessfulLayout.setVisibility(View.VISIBLE);
+                            mainLayout.setVisibility(View.GONE);
+                        } else {
+                            Toast.makeText(UpdateProperty.this, "Some errors while changing status..", Toast.LENGTH_SHORT).show();
+//                            progressDialog.hide();
+                        }
+                    }
+                });
+                databaseReference.child("rooms").setValue(plotRoom).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            //  progressDialog.dismiss();
+                            updateSuccessfulLayout.setVisibility(View.VISIBLE);
+                            mainLayout.setVisibility(View.GONE);
+                        } else {
+                            Toast.makeText(UpdateProperty.this, "Some errors while changing status..", Toast.LENGTH_SHORT).show();
+//                            progressDialog.hide();
+                        }
+                    }
+                });
+                databaseReference.child("stories").setValue(plotStories).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            //  progressDialog.dismiss();
+                            updateSuccessfulLayout.setVisibility(View.VISIBLE);
+                            mainLayout.setVisibility(View.GONE);
+                        } else {
+                            Toast.makeText(UpdateProperty.this, "Some errors while changing status..", Toast.LENGTH_SHORT).show();
+//                            progressDialog.hide();
+                        }
+                    }
+                });
+
+
+
+//                databaseReference = FirebaseDatabase.getInstance().getReference().child("Plots").child(getIntentKey);
+//                databaseReference.setValue(plots).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<Void> task) {
+//                        updateSuccessfulLayout.setVisibility(View.VISIBLE);
+//                        mainLayout.setVisibility(View.GONE);
+//
+//                    }
+//                });
 
             }
         });

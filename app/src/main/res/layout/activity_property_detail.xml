@@ -162,6 +162,7 @@
                                 android:id="@+id/viewmap"
                                 android:layout_width="50dp"
                                 android:layout_height="50dp"
+                                android:layout_margin="13dp"
                                 android:layout_gravity="center"
                                 android:background="@drawable/roundcorner"
                                 android:elevation="4dp"
