@@ -37,7 +37,7 @@ public class PropertyAdapter extends FirebaseRecyclerAdapter<Plots, PropertyAdap
     @Override
     protected void onBindViewHolder(@NonNull final PropertyViewHolder holder, int position, @NonNull final Plots model) {
 
-        ArrayList<String> imageUrl= model.getImageUrl();
+        final ArrayList<String> imageUrl= model.getImageUrl();
         if (imageUrl!=null && imageUrl.size()>0){
         Log.e("imageListSize", String.valueOf(imageUrl.size()));
         Log.e("imageUrl", String.valueOf(model.getImageUrl()));
@@ -71,6 +71,7 @@ public class PropertyAdapter extends FirebaseRecyclerAdapter<Plots, PropertyAdap
             public void onClick(View view) {
                 Intent intent = new Intent(context, PropertyDetail.class);
                 intent.putExtra("key", key);
+                intent.putExtra("imageUrl", imageUrl);
                 context.startActivity(intent);
             }
         });

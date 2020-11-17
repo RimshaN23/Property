@@ -56,6 +56,7 @@ public class PropertyDetail extends AppCompatActivity {
     private static int currentPage = 0;
     ArrayList<Plots> arrayList = new ArrayList<Plots>();
     ArrayList<String> arrayList2 = new ArrayList<>();
+    ArrayList<String> imageUrl = new ArrayList<>();
 
     Toolbar toolbar;
 
@@ -72,6 +73,7 @@ public class PropertyDetail extends AppCompatActivity {
 
         Ui();
 
+        imageUrl = getIntent().getExtras().getStringArrayList("imageUrl");
         key = getIntent().getExtras().getString("key");
         Log.e("key", key);
 
@@ -151,7 +153,7 @@ public class PropertyDetail extends AppCompatActivity {
                 if (arrayList != null) {
                     Log.e("arraySize", arrayList.size()+"");
                     Log.e("arrayList2", arrayList2.size()+"");
-                    adapter = new SlidingImage_Adapter(PropertyDetail.this, arrayList2);
+                    adapter = new SlidingImage_Adapter(PropertyDetail.this, imageUrl);
                     mPager.setAdapter(adapter);
                 }
 
