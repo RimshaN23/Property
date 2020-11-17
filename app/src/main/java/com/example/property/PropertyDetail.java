@@ -148,9 +148,12 @@ public class PropertyDetail extends AppCompatActivity {
 
                 }
 
-                if (arrayList2 != null) {
+                if (imageUrl!=null && imageUrl.size()>0){
                     adapter = new SlidingImage_Adapter(PropertyDetail.this, imageUrl);
                     mPager.setAdapter(adapter);
+                }
+                else {
+                    mPager.setVisibility(View.GONE);
                 }
 
                 
