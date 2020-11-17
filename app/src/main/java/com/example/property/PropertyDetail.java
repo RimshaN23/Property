@@ -54,7 +54,6 @@ public class PropertyDetail extends AppCompatActivity {
     private StorageReference mStorage;
     private static ViewPager mPager;
     private static int currentPage = 0;
-    ArrayList<Plots> arrayList = new ArrayList<Plots>();
     ArrayList<String> arrayList2 = new ArrayList<>();
     ArrayList<String> imageUrl = new ArrayList<>();
 
@@ -88,7 +87,6 @@ public class PropertyDetail extends AppCompatActivity {
                     try {
                         Plots model = data.getValue(Plots.class);
 
-                        arrayList.add(model);
                         arrayList2.add(String.valueOf(model.getImageUrl()));
                         Log.e("arrayList2", arrayList2.size()+"  "+(model.getImageUrl()));
 
@@ -150,9 +148,7 @@ public class PropertyDetail extends AppCompatActivity {
 
                 }
 
-                if (arrayList != null) {
-                    Log.e("arraySize", arrayList.size()+"");
-                    Log.e("arrayList2", arrayList2.size()+"");
+                if (arrayList2 != null) {
                     adapter = new SlidingImage_Adapter(PropertyDetail.this, imageUrl);
                     mPager.setAdapter(adapter);
                 }

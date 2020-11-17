@@ -54,15 +54,10 @@ public class SlidingImage_Adapter extends PagerAdapter {
 
         View imageLayout = inflater.inflate(R.layout.slidingimages_layout, view, false);
 
-
-//                Log.e("getImageUrl", IMAGES.get(position).getImageUrl().toString()+"at position" + position+"\n");
-//        Log.e("getImageUrl", IMAGES.size()+"");
-
         Log.e("getImageUrl", arrayList2.get(position)+"at position" + position+"\n");
         Log.e("getImageUrl", arrayList2.size()+"");
 
         final ImageView imageView = imageLayout.findViewById(R.id.image);
-//        Picasso.get().load(String.valueOf(imageUrl)).into(imageView);
 
         Picasso.get().load(String.valueOf(arrayList2.get(position))).into(imageView);
 
