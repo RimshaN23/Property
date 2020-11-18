@@ -40,6 +40,7 @@
                 <androidx.viewpager.widget.ViewPager
                     android:layout_below="@id/appBar"
                     android:id="@+id/pager"
+                    android:background="@drawable/no_image"
                     android:layout_width="fill_parent"
                     android:layout_height="200dp" />
 
@@ -96,16 +97,21 @@
                     android:padding="5dp">
 
                     <TextView
+
+                        android:id="@+id/location_tv"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginTop="12dp"
                         android:layout_marginBottom="12dp"
                         android:background="@drawable/border"
                         android:padding="5dp"
-                        android:text="Location"
+                        android:text="Location Details"
                         android:textColor="@color/black"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        />
+
+                    />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -164,7 +170,7 @@
                                 android:layout_height="50dp"
                                 android:layout_margin="13dp"
                                 android:layout_gravity="center"
-                                android:background="@drawable/roundcorner"
+                                android:background="@drawable/roundcircle"
                                 android:elevation="4dp"
                                 android:src="@drawable/ic_baseline_location_on_24" />
 
@@ -188,6 +194,9 @@
                     android:padding="5dp">
 
                     <TextView
+
+                        android:id="@+id/key_tv"
+
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginTop="12dp"
@@ -196,7 +205,7 @@
                         android:padding="5dp"
                         android:text="Key Details"
                         android:textColor="@color/black"
-                        android:textSize="18sp"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
 
                     <TableLayout
@@ -473,6 +482,8 @@
 
                     <TextView
 
+                        android:id="@+id/seller_tv"
+
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginTop="12dp"
@@ -481,7 +492,7 @@
                         android:padding="5dp"
                         android:text="Seller Details"
                         android:textColor="@color/black"
-                        android:textSize="18sp"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
 
                     <LinearLayout

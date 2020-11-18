@@ -9,6 +9,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -54,10 +55,12 @@ public class PropertyDetail extends AppCompatActivity {
     private StorageReference mStorage;
     private static ViewPager mPager;
     private static int currentPage = 0;
-    ArrayList<String> arrayList2 = new ArrayList<>();
     ArrayList<String> imageUrl = new ArrayList<>();
 
     Toolbar toolbar;
+
+    TextView location, key_detail, seller;
+    Typeface myfonts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,15 +69,32 @@ public class PropertyDetail extends AppCompatActivity {
 
         toolbar = findViewById(R.id.detail_page_toolbar);
         setSupportActionBar(toolbar);
+
         toolbar.setNavigationIcon(R.drawable.ic_baseline_keyboard_backspace_24);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(PropertyDetail.this, View_Property.class);
                 startActivity(intent);
+
                 finish();
             }
         });
+
+        location = findViewById(R.id.location_tv);
+       myfonts = Typeface.createFromAsset(this.getAssets(), "fonts/Heading-Pro-Bold-trial.ttf");
+        location.setTypeface(myfonts);
+
+
+        key_detail = findViewById(R.id.key_tv);
+       myfonts = Typeface.createFromAsset(this.getAssets(), "fonts/Heading-Pro-Bold-trial.ttf");
+        key_detail.setTypeface(myfonts);
+
+
+        seller = findViewById(R.id.seller_tv);
+       myfonts = Typeface.createFromAsset(this.getAssets(), "fonts/Heading-Pro-Bold-trial.ttf");
+        seller.setTypeface(myfonts);
+
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setHomeButtonEnabled(false);
@@ -82,6 +102,7 @@ public class PropertyDetail extends AppCompatActivity {
         Ui();
 
         imageUrl = getIntent().getExtras().getStringArrayList("imageUrl");
+        Log.e("array",String.valueOf(imageUrl));
         key = getIntent().getExtras().getString("key");
         Log.e("key", key);
 
@@ -96,8 +117,6 @@ public class PropertyDetail extends AppCompatActivity {
                     try {
                         Plots model = data.getValue(Plots.class);
 
-                        arrayList2.add(String.valueOf(model.getImageUrl()));
-                        Log.e("arrayList2", arrayList2.size()+"  "+(model.getImageUrl()));
 
                         String prprty_type_id = "";
 
@@ -207,6 +226,7 @@ public class PropertyDetail extends AppCompatActivity {
                 intent.putExtra("lat", lat);
                 intent.putExtra("lng", lng);
                 intent.putExtra("name", plot_name);
+                intent.putExtra("imageUrl", imageUrl);
                 startActivity(intent);
 
             }
@@ -270,7 +290,7 @@ public class PropertyDetail extends AppCompatActivity {
 
     private void Ui() {
 
-        mPager = (ViewPager) findViewById(R.id.pager);
+        mPager = findViewById(R.id.pager);
         plotName = findViewById(R.id.tv_plot_name);
         price = findViewById(R.id.price);
         mapImage = findViewById(R.id.viewmap);

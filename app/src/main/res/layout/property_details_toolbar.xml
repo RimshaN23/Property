@@ -11,4 +11,6 @@
     app:titleTextColor="@color/white"
     app:layout_scrollFlags="scroll|enterAlways">
 
+
+
 </androidx.appcompat.widget.Toolbar>

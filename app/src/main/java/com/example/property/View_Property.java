@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 
@@ -24,25 +25,27 @@ public class View_Property extends AppCompatActivity {
 
     Toolbar toolbar;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view__property);
 
 
-        toolbar = (Toolbar) findViewById(R.id.viewproperty_page_toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        getSupportActionBar().setHomeButtonEnabled(false);
-        toolbar.setNavigationIcon(R.drawable.ic_baseline_keyboard_backspace_24);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(View_Property.this, Dashboard.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+//        toolbar = (Toolbar) findViewById(R.id.viewproperty_page_toolbar);
+//        setSupportActionBar(toolbar);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+//        getSupportActionBar().setHomeButtonEnabled(false);
+//        toolbar.setNavigationIcon(R.drawable.ic_baseline_keyboard_backspace_24);
+//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(View_Property.this, Dashboard.class);
+//                startActivity(intent);
+//                finish();
+//            }
+//        });
 
 
         progressDialog = new ProgressDialog(this);

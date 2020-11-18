@@ -20,6 +20,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.net.ConnectivityManager;
@@ -72,6 +73,8 @@ import com.google.firebase.storage.UploadTask;
 import java.util.ArrayList;
 import java.util.List;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+
 
 public class Add_Property extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -115,23 +118,26 @@ public class Add_Property extends AppCompatActivity implements OnMapReadyCallbac
 
 
 
-    private static final int RESULT_LOAD_IMAGE = 1;
     private  Button mSelectBtn;
     private RecyclerView mUploadList;
 
     Uri fileUri;
     String fileName, result;
-    private List<String> fileNameList;
-    private List<String> fileDoneList;
-  private List<Uri> fileUriList;
-
-    private UploadListAdapter uploadListAdapter;
+    private static final int RESULT_LOAD_IMAGE = 1;
     private StorageReference mStorage;
 
 
     String imageUri;
 
     ArrayList<String> imagesUrl = new ArrayList<>();
+
+
+
+    private List<String> fileNameList;
+    private List<String> fileDoneList;
+    private List<Uri> fileUriList;
+
+    private UploadListAdapter uploadListAdapter;
 
 
     @Override
@@ -147,6 +153,7 @@ public class Add_Property extends AppCompatActivity implements OnMapReadyCallbac
             super.onBackPressed();
         }
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

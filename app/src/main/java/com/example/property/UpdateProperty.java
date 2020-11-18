@@ -1,8 +1,11 @@
 package com.example.property;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -10,10 +13,14 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.OpenableColumns;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,35 +29,61 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.property.Adapter.UploadListAdapter;
 import com.example.property.models.Plots;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class UpdateProperty extends AppCompatActivity {
 
     RelativeLayout mainLayout;
     LinearLayout noNetworkLayout, updateSuccessfulLayout;
-    Button retry_btn, update, goBack;
+    Button retry_btn, update, goBack,imgBtn;
+    RecyclerView recyclerView;
+    UploadListAdapter uploadListAdapter;
 
     TextView tv_stories, tv_rooms;
     EditText stories, rooms, plot_name, priceFrom, is_constructed;
     String plotName, constructed, plotRoom, plotStories, price_from;
 
     String getIntentKey, getIntentPlotName, getIntentConstructed, getIntentRoom, getIntentStories, getIntentPriceTo, getIntentPriceFrom;
+    ArrayList<String> imageUrl = new ArrayList<>();
 
     DatabaseReference databaseReference;
+    private List<String> fileNameList;
+    private List<String> fileDoneList;
+    private List<Uri> fileUriList;
+    Uri fileUri;
+    String fileName, result;
+    private static final int RESULT_LOAD_IMAGE = 1;
+    private StorageReference mStorage;
+    String imageUri;
+
+    ArrayList<String> imagesUrl = new ArrayList<>();
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_property);
+
+        mStorage = FirebaseStorage.getInstance().getReference();
+
+
 
         mainLayout = findViewById(R.id.main_layout1);
         noNetworkLayout = findViewById(R.id.noNetworkLayout);
@@ -75,6 +108,9 @@ public class UpdateProperty extends AppCompatActivity {
         getIntentStories = intent.getStringExtra("stories");
         getIntentPriceFrom = intent.getStringExtra("pricerangeFrom");
         getIntentKey = intent.getStringExtra("key");
+        imageUrl = getIntent().getExtras().getStringArrayList("imageUrl");
+        Log.e("arrayIntent",String.valueOf(imageUrl));
+
 
         plot_name.setText(getIntentPlotName);
         is_constructed.setText(getIntentConstructed);
@@ -115,6 +151,8 @@ public class UpdateProperty extends AppCompatActivity {
 
             }
         });
+
+
 
         update.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -195,15 +233,9 @@ public class UpdateProperty extends AppCompatActivity {
 
 
 
-//                databaseReference = FirebaseDatabase.getInstance().getReference().child("Plots").child(getIntentKey);
-//                databaseReference.setValue(plots).addOnCompleteListener(new OnCompleteListener<Void>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<Void> task) {
-//                        updateSuccessfulLayout.setVisibility(View.VISIBLE);
-//                        mainLayout.setVisibility(View.GONE);
-//
-//                    }
-//                });
+
+
+
 
             }
         });

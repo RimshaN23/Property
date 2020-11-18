@@ -2,6 +2,7 @@ package com.example.property.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +30,7 @@ import java.util.ArrayList;
 public class PropertyAdapter extends FirebaseRecyclerAdapter<Plots, PropertyAdapter.PropertyViewHolder> {
 
     Context context;
+
 
     public PropertyAdapter(@NonNull FirebaseRecyclerOptions<Plots> options, Context context) {
         super(options);
@@ -63,10 +65,11 @@ public class PropertyAdapter extends FirebaseRecyclerAdapter<Plots, PropertyAdap
         }
 
         holder.propertyType.setText(prprty_type_id);
-        holder.plotname.setText(model.getName());
-        holder.square_yard.setText(model.getSq_yrds());
+        holder.plotname.setText("Location, "+model.getName());
+        holder.square_yard.setText(model.getSq_yrds()+ " Sq. Ft.");
 
 
+        holder.pricerangeFrom.setText("PKR. "+model.getPlot_price_range_from());
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

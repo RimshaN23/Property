@@ -7,6 +7,7 @@ import androidx.cardview.widget.CardView;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,6 +37,9 @@ public class Dashboard extends AppCompatActivity {
 
     String agentId, companyId, agent_name;
 
+    Typeface myfonts;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +47,7 @@ public class Dashboard extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.main_page_toolbar);
         setSupportActionBar(toolbar);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setHomeButtonEnabled(false);
 
@@ -78,6 +84,7 @@ public class Dashboard extends AppCompatActivity {
                 }
             }
         });
+
 
         add_property_cv.setOnClickListener(new View.OnClickListener() {
             @Override

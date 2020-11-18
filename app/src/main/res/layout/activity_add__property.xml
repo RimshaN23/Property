@@ -435,9 +435,10 @@
                     android:background="@color/purple"
                     android:drawableTint="@color/white"
                     android:textColor="@color/white"
-                    android:drawableStart="@drawable/ic_baseline_image_24"
+                    android:drawableEnd="@drawable/addimage"
                     android:padding="12dp"
                     android:layout_marginLeft="10dp"
+
                     />
 
 
@@ -458,7 +459,8 @@
             android:clickable="true"
             android:text="Add Property"
             android:textAllCaps="false"
-            android:textColor="#ffff" />
+            android:textColor="#ffff"
+            />
     </RelativeLayout>
 
     <LinearLayout
