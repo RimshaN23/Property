@@ -37,6 +37,7 @@ public class Dashboard extends AppCompatActivity {
 
     String agentId, companyId, agent_name;
 
+    TextView add_pro, view_pro;
     Typeface myfonts;
 
 
@@ -57,6 +58,17 @@ public class Dashboard extends AppCompatActivity {
         main_layout = findViewById(R.id.main_layout);
         noNetworkLayout = findViewById(R.id.noNetworkLayout);
         retry_btn = findViewById(R.id.retry);
+
+        add_pro= findViewById(R.id.add_prperty_tv);
+        myfonts = Typeface.createFromAsset(this.getAssets(), "fonts/SourceCodePro-ExtraLight.ttf");
+        add_pro.setTypeface(myfonts);
+
+        view_pro= findViewById(R.id.view_prperty_tv);
+        myfonts = Typeface.createFromAsset(this.getAssets(), "fonts/SourceCodePro-ExtraLight.ttf");
+        view_pro.setTypeface(myfonts);
+
+
+
 
         add_property_cv = findViewById(R.id.add_prperty_cv);
         view_property_cv = findViewById(R.id.view_prperty_cv);

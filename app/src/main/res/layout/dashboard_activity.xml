@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@drawable/bg"
     >
 
     <com.google.android.material.appbar.AppBarLayout
@@ -30,10 +30,11 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/add_prperty_cv"
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="100dp"
             android:layout_margin="6dp"
             android:elevation="9dp"
+            android:layout_centerHorizontal="true"
             android:orientation="horizontal"
             android:padding="3dp"
             app:cardCornerRadius="10dp">
@@ -59,8 +60,7 @@
                     android:layout_height="50dp"
                     android:layout_alignParentEnd="true"
                     android:layout_margin="10dp"
-
-                    android:background="@drawable/add_property"
+                    android:background="@drawable/iconsadd"
 
                     />
 
@@ -73,8 +73,9 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/view_prperty_cv"
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
             android:layout_below="@id/add_prperty_cv"
             android:layout_margin="6dp"
             android:elevation="9dp"
@@ -104,7 +105,8 @@
                     android:layout_alignParentEnd="true"
                     android:layout_margin="10dp"
 
-                    android:background="@drawable/view_property"
+
+                    android:background="@drawable/iconsview"
 
                     />
 
