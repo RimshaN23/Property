@@ -280,6 +280,10 @@ public class PropertyDetail extends AppCompatActivity {
         }
 
         if (id == R.id.action_delete) {
+            FirebaseDatabase.getInstance().getReference("Plots").child(key).removeValue();
+            Intent intent = new Intent(PropertyDetail.this, View_Property.class);
+            startActivity(intent);
+            finish();
 
             return true;
         }
