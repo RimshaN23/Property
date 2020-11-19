@@ -231,25 +231,25 @@ public class UpdateProperty extends AppCompatActivity {
                     }
                 });
 
-                try {
-                    //    imageUrl.addAll(imagesUrl);
-                    databaseReference.child("imageUrl").setValue(imagesUrl).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                //  progressDialog.dismiss();
-                                updateSuccessfulLayout.setVisibility(View.VISIBLE);
-                                mainLayout.setVisibility(View.GONE);
-                            } else {
-                                Toast.makeText(UpdateProperty.this, "Some errors while changing status..", Toast.LENGTH_SHORT).show();
-//                            progressDialog.hide();
-                            }
-                        }
-                    });
-                }catch (Exception e) {
-                    Log.e("exception", e.getLocalizedMessage());
-
-                }
+//                try {
+//                    //    imageUrl.addAll(imagesUrl);
+//                    databaseReference.child("imageUrl").setValue(imagesUrl).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                        @Override
+//                        public void onComplete(@NonNull Task<Void> task) {
+//                            if (task.isSuccessful()) {
+//                                //  progressDialog.dismiss();
+//                                updateSuccessfulLayout.setVisibility(View.VISIBLE);
+//                                mainLayout.setVisibility(View.GONE);
+//                            } else {
+//                                Toast.makeText(UpdateProperty.this, "Some errors while changing status..", Toast.LENGTH_SHORT).show();
+////                            progressDialog.hide();
+//                            }
+//                        }
+//                    });
+//                }catch (Exception e) {
+//                    Log.e("exception", e.getLocalizedMessage());
+//
+//                }
 
 
 

@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg"
     >
 
     <com.google.android.material.appbar.AppBarLayout
@@ -52,17 +51,9 @@
                     android:padding="6dp"
                     android:text="Add Property"
                     android:textColor="@color/black"
+                    android:drawableEnd="@drawable/okayyy"
                     android:textSize="25sp" />
 
-                <ImageView
-                    android:id="@+id/add_property_icon"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_margin="10dp"
-                    android:background="@drawable/iconsadd"
-
-                    />
 
 
             </RelativeLayout>
@@ -96,19 +87,9 @@
                     android:padding="6dp"
                     android:text="View Property"
                     android:textColor="@color/black"
+                    android:drawableEnd="@drawable/iconsview"
                     android:textSize="25sp" />
 
-                <ImageView
-                    android:id="@+id/view_property_icon"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_margin="10dp"
-
-
-                    android:background="@drawable/iconsview"
-
-                    />
 
 
             </RelativeLayout>
