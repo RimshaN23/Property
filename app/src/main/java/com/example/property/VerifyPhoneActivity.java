@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -27,10 +29,13 @@ import java.util.concurrent.TimeUnit;
 public class VerifyPhoneActivity extends AppCompatActivity {
 
     PinView editTextCode;
-    TextView mobile_no;
-    Button verify_btn;
+    TextView mobile_no, timer;
+    Button verify_btn, resend_btn;
     private String mVerificationId;
     private FirebaseAuth mAuth;
+    int seconds;
+    boolean running;
+    String time;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,17 +47,20 @@ public class VerifyPhoneActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         editTextCode = findViewById(R.id.PinView);
         mobile_no = findViewById(R.id.number);
+        verify_btn = findViewById(R.id.verifybtn);
+        resend_btn = findViewById(R.id.resendBtn);
+        timer = findViewById(R.id.timer);
 
+        startTimer();
 
         //getting mobile number from the previous activity
         //and sending the verification code to the number
         Intent intent = getIntent();
-        String mobile = intent.getStringExtra("number");
+        final String mobile = intent.getStringExtra("number");
         sendVerificationCode(mobile);
 
         mobile_no.setText(mobile);
 
-        verify_btn= findViewById(R.id.verifybtn);
 
         verify_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,10 +68,46 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                 String code = editTextCode.getText().toString().trim();
                 if (code.isEmpty() || code.length() < 6) {
                     editTextCode.setError("Enter valid code");
-                }else {
+                } else {
                     //verifying the code entered manually
                     verifyVerificationCode(code);
                 }
+            }
+        });
+
+        resend_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendVerificationCode(mobile);
+                resend_btn.setVisibility(View.GONE);
+                startTimer();
+            }
+        });
+    }
+
+    private void startTimer() {
+
+        running = true;
+        seconds = 59;
+
+        final Handler handler = new Handler();
+        handler.post(new Runnable() {
+
+            @Override
+            public void run() {
+                int sec = seconds ;
+                int minutes = 0;
+                time = String.format("%02d:%02d", minutes, sec);
+                Log.e("time", time);
+                timer.setText(time);
+                if (running) {
+                    seconds--;
+                    if (seconds==0){
+                        running = false;
+                        resend_btn.setVisibility(View.VISIBLE);
+                    }
+                }
+                handler.postDelayed(this, 1000);
             }
         });
 
@@ -73,10 +117,10 @@ public class VerifyPhoneActivity extends AppCompatActivity {
     private void sendVerificationCode(String mobile) {
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 mobile,
-                60,
+                59,
                 TimeUnit.SECONDS,
                 VerifyPhoneActivity.this,
-            //    TaskExecutors.MAIN_THREAD,
+                //    TaskExecutors.MAIN_THREAD,
                 mCallbacks);
     }
 
@@ -144,7 +188,6 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                             }
 
 
-
                             final Snackbar snackbar = Snackbar.make(findViewById(R.id.parent), message, Snackbar.LENGTH_LONG);
                             snackbar.setAction("Dismiss", new View.OnClickListener() {
                                 @Override
@@ -158,6 +201,6 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                     }
                 });
 
-}
+    }
 
 }

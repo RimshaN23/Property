@@ -26,13 +26,6 @@ public class SlidingImage_Adapter extends PagerAdapter {
     private Context context;
     ArrayList<String> arrayList2 = new ArrayList<>();
 
-
-    public SlidingImage_Adapter(Context context,ArrayList<Plots> IMAGES) {
-        this.context = context;
-        this.IMAGES=IMAGES;
-        inflater = LayoutInflater.from(context);
-    }
-
     public SlidingImage_Adapter(PropertyDetail context, ArrayList<String> arrayList2) {
         this.context = context;
         inflater = LayoutInflater.from(context);

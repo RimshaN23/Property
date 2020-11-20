@@ -42,8 +42,6 @@ public class PropertyAdapter extends FirebaseRecyclerAdapter<Plots, PropertyAdap
 
         final ArrayList<String> imageUrl= model.getImageUrl();
         if (imageUrl!=null && imageUrl.size()>0){
-        Log.e("imageListSize", String.valueOf(imageUrl.size()));
-        Log.e("imageUrl", String.valueOf(model.getImageUrl()));
         Log.e("imagePosition",imageUrl.get(0));
         Picasso.get().load(imageUrl.get(0)).into(holder.plotImage);
         }
