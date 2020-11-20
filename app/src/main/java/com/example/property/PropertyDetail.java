@@ -12,10 +12,12 @@ import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -59,7 +61,7 @@ public class PropertyDetail extends AppCompatActivity {
 
     Toolbar toolbar;
 
-    TextView location, key_detail, seller;
+    TextView location, key_detail, seller, textView;
     Typeface myfonts;
 
     @Override
@@ -67,32 +69,34 @@ public class PropertyDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_property_detail);
 
-        toolbar = findViewById(R.id.detail_page_toolbar);
+        toolbar = findViewById(R.id.toolbar6);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setHomeButtonEnabled(false);
+        textView=findViewById(R.id.toolbar_title);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        Typeface typeface= Typeface.createFromAsset(getAssets(),"fonts/Montserrat-Italic.ttf");
+        textView.setTypeface(typeface);
+
 
         toolbar.setNavigationIcon(R.drawable.ic_baseline_keyboard_backspace_24);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(PropertyDetail.this, View_Property.class);
-                startActivity(intent);
-
                 finish();
             }
         });
 
         location = findViewById(R.id.location_tv);
-       myfonts = Typeface.createFromAsset(this.getAssets(), "fonts/Heading-Pro-Bold-trial.ttf");
+        myfonts = Typeface.createFromAsset(this.getAssets(), "fonts/Heading-Pro-Bold-trial.ttf");
         location.setTypeface(myfonts);
 
 
         key_detail = findViewById(R.id.key_tv);
-       myfonts = Typeface.createFromAsset(this.getAssets(), "fonts/Heading-Pro-Bold-trial.ttf");
         key_detail.setTypeface(myfonts);
 
 
         seller = findViewById(R.id.seller_tv);
-       myfonts = Typeface.createFromAsset(this.getAssets(), "fonts/Heading-Pro-Bold-trial.ttf");
         seller.setTypeface(myfonts);
 
 
@@ -280,12 +284,35 @@ public class PropertyDetail extends AppCompatActivity {
         }
 
         if (id == R.id.action_delete) {
-            FirebaseDatabase.getInstance().getReference("Plots").child(key).removeValue();
-            Intent intent = new Intent(PropertyDetail.this, View_Property.class);
-            startActivity(intent);
-            finish();
 
-            return true;
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            LayoutInflater inflater = this.getLayoutInflater();
+            final View dialogView = inflater.inflate(R.layout.delete_dialog, null);
+            builder.setView(dialogView);
+            final  AlertDialog alertDialog = builder.create();
+
+            final Button delete = dialogView.findViewById(R.id.del_Btn);
+            final Button cancel = dialogView.findViewById(R.id.cancel_action);
+
+            delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    FirebaseDatabase.getInstance().getReference("Plots").child(key).removeValue();
+                    finish();
+
+
+                }
+            });
+            cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    alertDialog.cancel();
+                }
+            });
+
+            alertDialog.show();
         }
 
         return super.onOptionsItemSelected(item);

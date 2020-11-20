@@ -116,6 +116,8 @@ public class Add_Property extends AppCompatActivity implements OnMapReadyCallbac
     double lat, lng;
     Button add_btn;
 
+    TextView textView;
+
 
 
     private  Button mSelectBtn;
@@ -172,10 +174,17 @@ public class Add_Property extends AppCompatActivity implements OnMapReadyCallbac
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
 
-        toolbar = findViewById(R.id.addproperty_page_toolbar);
+        toolbar = findViewById(R.id.toolbar4);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setHomeButtonEnabled(false);
+        textView=findViewById(R.id.toolbar_title);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        Typeface typeface= Typeface.createFromAsset(getAssets(),"fonts/Montserrat-Italic.ttf");
+        textView.setTypeface(typeface);
+
+
         toolbar.setNavigationIcon(R.drawable.ic_baseline_keyboard_backspace_24);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -187,8 +196,6 @@ public class Add_Property extends AppCompatActivity implements OnMapReadyCallbac
                     mapVisibility = "gone";
 
                 } else {
-                    Intent intent = new Intent(Add_Property.this, Dashboard.class);
-                    startActivity(intent);
                     finish();
                 }
             }

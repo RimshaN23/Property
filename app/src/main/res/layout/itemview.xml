@@ -29,7 +29,6 @@
                     android:id="@+id/plotImage"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
-                    android:src="@drawable/no_image"
                     android:scaleType="fitXY"
 
 

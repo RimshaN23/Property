@@ -8,19 +8,35 @@
      android:layout_height="match_parent"
     tools:context=".View_Property">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true">
+
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar5"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:background="@color/white"
+            >
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Plots"
+                android:textSize="20sp"
+
+                android:textColor="@android:color/black"
+                />
+        </androidx.appcompat.widget.Toolbar>
 
 
 
-    <TextView
 
-        android:text="Plots"
-        android:textSize="35sp"
-        android:layout_marginTop="14dp"
-        android:layout_marginLeft="18dp"
-        android:textColor="@color/black"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"

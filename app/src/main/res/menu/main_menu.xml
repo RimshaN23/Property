@@ -6,7 +6,7 @@
 
     <item
         android:id="@+id/action_logout"
-        android:title="LogOut"
+        android:title="Log Out"
         />
 
 </menu>

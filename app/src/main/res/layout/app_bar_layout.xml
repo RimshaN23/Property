@@ -5,8 +5,7 @@
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="60dp"
-    app:title="@string/app_name"
-    android:padding="3dp"
+     android:padding="3dp"
     android:background="@color/colorPrimary"
     app:titleTextColor="@color/white"
     app:layout_scrollFlags="scroll|enterAlways">

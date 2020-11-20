@@ -8,16 +8,17 @@
     android:orientation="vertical">
 
     <RelativeLayout
-        android:visibility="gone"
+        android:visibility="visible"
         android:id="@+id/main_layout"
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/imageview"
-        android:layout_width="100dp"
-        android:layout_height="150dp"
-        android:src="@drawable/view_property"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/images"
         android:layout_centerHorizontal="true"
         android:layout_margin="25dp"
         />
@@ -85,7 +86,7 @@
         android:layout_below="@+id/clientId"
         android:layout_centerInParent="true"
         android:layout_marginTop="30dp"
-        android:background="@color/colorPrimary"
+        android:background="@color/colorPrimaryDark"
         android:clickable="true"
         android:textAllCaps="false"
         android:text="LOG IN"
@@ -96,7 +97,7 @@
 </RelativeLayout>
 
     <LinearLayout
-        android:visibility="visible"
+        android:visibility="gone"
         android:id="@+id/noNetworkLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -117,7 +118,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:background="@color/colorPrimary"
+            android:background="@color/colorPrimaryDark"
             android:clickable="true"
             android:textAllCaps="false"
             android:text="Retry"

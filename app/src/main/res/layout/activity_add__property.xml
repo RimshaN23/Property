@@ -13,10 +13,27 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true">
 
-        <include
-            android:id="@+id/addproperty_page_toolbar"
-            layout="@layout/addproperty_appbar"
-            />
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar4"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:background="@color/white"
+            >
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Plot Register"
+                android:textSize="20sp"
+
+                android:textColor="@android:color/black"
+                />
+        </androidx.appcompat.widget.Toolbar>
+
+
+
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -224,6 +241,8 @@
                     android:hint="Plot name"
                     android:inputType="textCapSentences"
                     android:paddingLeft="8dp"
+                    android:drawableEnd="@drawable/ic_outline_edit_24"
+
                     android:paddingRight="8dp"
                     android:textColor="#5A5A5A"
                     android:textColorHint="#B6B3B5"
@@ -250,6 +269,8 @@
                     android:background="@drawable/background"
                     android:hint="eg. 345"
                     android:paddingLeft="8dp"
+                    android:drawableEnd="@drawable/ic_outline_edit_24"
+
                     android:paddingRight="8dp"
                     android:textColor="#5A5A5A"
                     android:textColorHint="#B6B3B5"
@@ -279,6 +300,8 @@
                     android:paddingRight="8dp"
                     android:textColor="#5A5A5A"
                     android:textColorHint="#B6B3B5"
+                    android:drawableEnd="@drawable/ic_outline_edit_24"
+
                     android:textSize="14sp" />
 
                 <TextView
@@ -298,6 +321,8 @@
                     android:layout_gravity="center"
                     android:layout_margin="10dp"
                     android:layout_weight="1"
+                    android:drawableEnd="@drawable/ic_outline_edit_24"
+
                     android:background="@drawable/background"
                     android:hint="PKR."
                     android:inputType="number"
@@ -381,6 +406,8 @@
                     android:inputType="number"
                     android:paddingLeft="8dp"
                     android:paddingRight="8dp"
+                    android:drawableEnd="@drawable/ic_outline_edit_24"
+
                     android:textColor="#5A5A5A"
                     android:textColorHint="#B6B3B5"
                     android:textSize="14sp"
@@ -409,6 +436,8 @@
                     android:paddingLeft="8dp"
                     android:paddingRight="8dp"
                     android:textColor="#5A5A5A"
+                    android:drawableEnd="@drawable/ic_outline_edit_24"
+
                     android:textColorHint="#B6B3B5"
                     android:textSize="14sp"
                     android:visibility="gone" />
@@ -455,7 +484,7 @@
             android:layout_centerInParent="true"
             android:layout_gravity="center"
             android:layout_margin="15dp"
-            android:background="@color/colorPrimary"
+            android:background="@color/colorPrimaryDark"
             android:clickable="true"
             android:text="Add Property"
             android:textAllCaps="false"
@@ -485,7 +514,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:background="@color/colorPrimary"
+            android:background="@color/colorPrimaryDark"
             android:clickable="true"
             android:textAllCaps="false"
             android:text="Retry"
@@ -519,7 +548,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:background="@color/colorPrimary"
+            android:background="@color/colorPrimaryDark"
             android:textColor="@color/quantum_white_100"
             android:text=" Get Location "
             android:textSize="10sp"

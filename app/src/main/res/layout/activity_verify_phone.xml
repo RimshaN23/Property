@@ -67,7 +67,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/PinView"
         android:layout_centerInParent="true"
-        android:background="@color/colorPrimary"
+        android:background="@color/colorPrimaryDark"
         android:clickable="true"
         android:textAllCaps="false"
         android:text="Verify"

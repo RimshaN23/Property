@@ -31,16 +31,32 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true">
 
-                    <include
-                        android:id="@+id/detail_page_toolbar"
-                        layout="@layout/property_details_toolbar" />
+
+                    <androidx.appcompat.widget.Toolbar
+                        android:id="@+id/toolbar6"
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:background="@color/white"
+                        >
+
+                        <TextView
+                            android:id="@+id/toolbar_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Plot Details"
+                            android:textSize="20sp"
+                            android:textColor="@android:color/black"
+                            />
+                    </androidx.appcompat.widget.Toolbar>
+
+
+
 
                 </com.google.android.material.appbar.AppBarLayout>
 
                 <androidx.viewpager.widget.ViewPager
                     android:layout_below="@id/appBar"
                     android:id="@+id/pager"
-                    android:background="@drawable/no_image"
                     android:layout_width="fill_parent"
                     android:layout_height="200dp" />
 
