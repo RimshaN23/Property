@@ -90,6 +90,7 @@ public class VerifyPhoneActivity extends AppCompatActivity {
         running = true;
         seconds = 59;
 
+
         final Handler handler = new Handler();
         handler.post(new Runnable() {
 
