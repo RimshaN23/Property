@@ -91,6 +91,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Golden House"
+                        android:paddingLeft="5dp"
                         android:textColor="@color/black"
                         android:textSize="25sp" />
 
@@ -99,6 +100,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="PKR. 52000000"
+                        android:paddingLeft="5dp"
+
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="16sp" />
 
@@ -533,6 +536,21 @@
                                 android:text="Seller Detail"
                                 android:textColor="@color/black"
                                 android:textSize="16sp" />
+
+                            <Button
+                                android:id="@+id/sell_property"
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:layout_alignParentBottom="true"
+                                android:layout_centerInParent="true"
+                                android:layout_gravity="center"
+                                android:layout_margin="15dp"
+                                android:background="@color/colorPrimaryDark"
+                                android:clickable="true"
+                                android:text="Sell Property"
+                                android:textAllCaps="false"
+                                android:textColor="#ffff"
+                                />
 
 
                         </LinearLayout>

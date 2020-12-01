@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true">
+
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar4"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:background="@color/white"
+            >
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Client Information"
+                android:textSize="20sp"
+
+                android:textColor="@android:color/black"
+                />
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <RelativeLayout
+        android:id="@+id/main_layout1"
+        android:layout_below="@id/appBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/submit_registry"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="6dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/client_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="Client Name"
+                    android:textColor="#000"
+                    android:textSize="12sp"
+                    />
+
+                <EditText
+                    android:id="@+id/client_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_below="@id/text2"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/background"
+                    android:hint="Client Name"
+                    android:inputType="textCapSentences"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:textColor="#5A5A5A"
+                    android:textColorHint="#B6B3B5"
+                    android:textSize="14sp"
+                    />
+
+                <TextView
+                    android:id="@+id/cnic_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="Client CNIC *"
+                    android:textColor="#000"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/cnic_no"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/background"
+                    android:hint="Enter CNIC number"
+                    android:inputType="numberDecimal"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:textColor="#5A5A5A"
+                    android:textColorHint="#B6B3B5"
+                    android:textSize="14sp"
+                    />
+
+                <TextView
+                    android:id="@+id/client_no_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="Client number *"
+                    android:textColor="#000"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/client_no"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/background"
+                    android:hint="001234****"
+                    android:inputType="phone"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:textColor="#5A5A5A"
+                    android:textColorHint="#B6B3B5"
+                    android:textSize="14sp"
+                    />
+
+                <TextView
+                    android:id="@+id/price_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Sold Price"
+                    android:textColor="#000"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/final_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/background"
+                    android:hint="PKR."
+                    android:inputType="number"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:textColor="#5A5A5A"
+                    android:textColorHint="#B6B3B5"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Image of Client CNIC (Front and Back)"
+                    android:textColor="#000"
+                    android:textSize="12sp" />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+
+                    android:id="@+id/imageRecyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"/>
+
+
+                <Button
+                    android:id="@+id/imgBtn"
+                    android:text="Upload Image"
+                    android:layout_width="200dp"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="15dp"
+                    android:textAllCaps="false"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:background="@color/purple"
+                    android:drawableTint="@color/white"
+                    android:textColor="@color/white"
+                    android:drawableEnd="@drawable/addimage"
+                    android:padding="12dp"
+                    android:layout_marginLeft="10dp"
+
+                    />
+
+            </LinearLayout>
+        </ScrollView>
+
+        <Button
+            android:id="@+id/submit_registry"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:background="@color/colorPrimaryDark"
+            android:clickable="true"
+            android:text="Submit"
+            android:textAllCaps="false"
+            android:textColor="#ffff"
+            />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/noNetworkLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:gravity="center"
+            android:layout_margin="22dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="28sp"
+            android:text="Unable to connect to Internet. Please check your network settings."/>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

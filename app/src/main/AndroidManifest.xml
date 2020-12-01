@@ -18,7 +18,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PropertyDetail"></activity>
+        <activity android:name=".Sold_Property"></activity>
+        <activity android:name=".PropertyDetail" />
         <activity android:name=".UpdateProperty" />
 
         <meta-data
@@ -31,10 +32,10 @@
         <activity
             android:name=".ViewMap"
             android:label="@string/title_activity_view_map" />
-         <activity android:name=".Dashboard" />
+        <activity android:name=".Dashboard" />
         <activity android:name=".Login" />
         <activity android:name=".VerifyPhoneActivity" />
-        <activity android:name=".Splash" >
+        <activity android:name=".Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -42,9 +43,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Add_Property" />
-        <activity android:name=".View_Property">
-
-        </activity>
+        <activity android:name=".View_Property"></activity>
 
         <uses-library
             android:name="org.apache.http.legacy"
