@@ -34,7 +34,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <RelativeLayout
-        android:id="@+id/main_layout1"
+        android:id="@+id/main_layout"
         android:layout_below="@id/appBar"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -231,5 +231,34 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/updateSuccessful"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Update Successful :)"
+            android:textSize="35sp"
+            android:layout_margin="22dp"
+            />
+        <Button
+            android:id="@+id/goBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@color/colorPrimaryDark"
+            android:clickable="true"
+            android:textAllCaps="false"
+            android:text="Back"
+            android:textColor="#fff"
+            android:textSize="16sp"
+            />
+    </LinearLayout>
 
 </RelativeLayout>

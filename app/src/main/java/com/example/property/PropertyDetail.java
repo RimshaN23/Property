@@ -60,6 +60,7 @@ public class PropertyDetail extends AppCompatActivity {
     ArrayList<String> imageUrl = new ArrayList<>();
 
     Toolbar toolbar;
+    Button sell_property;
 
     TextView location, key_detail, seller, textView;
     Typeface myfonts;
@@ -173,7 +174,8 @@ public class PropertyDetail extends AppCompatActivity {
                             tv_rooms.setVisibility(View.GONE);
                             roomsHeading.setVisibility(View.GONE);
                         }
-                    } catch (Exception e) {
+                    }
+                    catch (Exception e) {
                         Log.e("exception", e.getLocalizedMessage());
 
                     }
@@ -232,6 +234,18 @@ public class PropertyDetail extends AppCompatActivity {
                 intent.putExtra("name", plot_name);
                 intent.putExtra("imageUrl", imageUrl);
                 startActivity(intent);
+
+            }
+        });
+
+        sell_property.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(PropertyDetail.this, Sold_Property.class);
+                intent.putExtra("key", key);
+                startActivity(intent);
+                finish();
+
 
             }
         });
@@ -338,6 +352,7 @@ public class PropertyDetail extends AppCompatActivity {
         sellrDetails = findViewById(R.id.tv_addedBy);
         roomsHeading = findViewById(R.id.room_heading);
         storyHeading = findViewById(R.id.story_heading);
+        sell_property = findViewById(R.id.sell_property);
 
     }
 }

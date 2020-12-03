@@ -23,6 +23,39 @@ public class Plots {
     private String plot_price_range_from;
     private ArrayList<String> imageUrl;
 
+    private ArrayList<String> cnic_images;
+    private String client_name;
+    private String client_number;
+    private String client_cnic;
+    private String sold_price;
+
+    public Plots(String precinct_id, String property_type_id, String road_id, String name, double latitude, double longitude, String sq_yrds,
+                 String rooms, String stories, String company_id, String plot_no, String constructed, String is_sold,
+                 String agent_id, String agent_name, String plot_price_range_from, ArrayList<String> imageUrl,
+                 ArrayList<String> cnic_images, String client_name, String client_number, String client_cnic, String sold_price) {
+        this.precinct_id = precinct_id;
+        this.property_type_id = property_type_id;
+        this.road_id = road_id;
+        this.name = name;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.sq_yrds = sq_yrds;
+        this.rooms = rooms;
+        this.stories = stories;
+        this.company_id = company_id;
+        this.plot_no = plot_no;
+        this.constructed = constructed;
+        this.is_sold = is_sold;
+        this.agent_id = agent_id;
+        this.agent_name = agent_name;
+        this.plot_price_range_from = plot_price_range_from;
+        this.imageUrl = imageUrl;
+        this.cnic_images = cnic_images;
+        this.client_name = client_name;
+        this.client_number = client_number;
+        this.client_cnic = client_cnic;
+        this.sold_price = sold_price;
+    }
 
     public Plots() {
     }
@@ -199,4 +232,43 @@ public class Plots {
         return name;
     }
 
+    public ArrayList<String> getCnic_images() {
+        return cnic_images;
+    }
+
+    public void setCnic_images(ArrayList<String> cnic_images) {
+        this.cnic_images = cnic_images;
+    }
+
+    public String getClient_name() {
+        return client_name;
+    }
+
+    public void setClient_name(String client_name) {
+        this.client_name = client_name;
+    }
+
+    public String getClient_number() {
+        return client_number;
+    }
+
+    public void setClient_number(String client_number) {
+        this.client_number = client_number;
+    }
+
+    public String getClient_cnic() {
+        return client_cnic;
+    }
+
+    public void setClient_cnic(String client_cnic) {
+        this.client_cnic = client_cnic;
+    }
+
+    public String getSold_price() {
+        return sold_price;
+    }
+
+    public void setSold_price(String sold_price) {
+        this.sold_price = sold_price;
+    }
 }
