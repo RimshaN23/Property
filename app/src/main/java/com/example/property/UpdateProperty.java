@@ -284,12 +284,21 @@ public class UpdateProperty extends AppCompatActivity {
         goBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(UpdateProperty.this, PropertyDetail.class);
+                intent.putExtra("key", getIntentKey);
+                startActivity(intent);
                 finish();
             }
         });
 
     }
-
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(UpdateProperty.this, PropertyDetail.class);
+        intent.putExtra("key", getIntentKey);
+        startActivity(intent);
+        finish();
+    }
 
     public boolean haveNetwork() {
 
