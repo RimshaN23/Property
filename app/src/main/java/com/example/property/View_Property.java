@@ -56,7 +56,7 @@ public class View_Property extends AppCompatActivity {
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("loading");
-        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.setCanceledOnTouchOutside(true);
 
 
 
@@ -70,13 +70,13 @@ public class View_Property extends AppCompatActivity {
     }
 
     private void getData() {
-        progressDialog.show();
-        FirebaseRecyclerOptions<Plots> options =
-                new FirebaseRecyclerOptions.Builder<Plots>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Plots"), Plots.class)
-                        .build();
-        adapter = new PropertyAdapter(options, this);
-        recyclerView.setAdapter(adapter);
+//        progressDialog.show();
+//        FirebaseRecyclerOptions<Plots> options =
+//                new FirebaseRecyclerOptions.Builder<Plots>()
+//                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Plots"), Plots.class)
+//                        .build();
+//        adapter = new PropertyAdapter(options, this);
+     //   recyclerView.setAdapter(adapter);
     }
 
     public void dismissProgressBar() {

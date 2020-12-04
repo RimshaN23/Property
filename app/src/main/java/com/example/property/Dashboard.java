@@ -123,7 +123,7 @@ public class Dashboard extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(Dashboard.this, View_Property.class);
+                Intent intent = new Intent(Dashboard.this, MainActivity_view.class);
                 startActivity(intent);
             }
         });

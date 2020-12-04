@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.property.Fragments.Plots_Fragment;
 import com.example.property.PropertyDetail;
 import com.example.property.R;
 import com.example.property.View_Property;
@@ -77,22 +78,9 @@ public class PropertyAdapter extends FirebaseRecyclerAdapter<Plots, PropertyAdap
                 context.startActivity(intent);
             }
         });
-//        holder.editProperty.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                Intent intent = new Intent(context, UpdateProperty.class);
-//                intent.putExtra("plotname",model.getName());
-//                intent.putExtra("constructed",constructed);
-//                intent.putExtra("rooms",model.getRooms());
-//                intent.putExtra("stories",model.getStories());
-//                intent.putExtra("pricerangeFrom",model.getPlot_price_range_from());
-//                intent.putExtra("pricerangeTo",model.getPlot_price_range_to());
-//                intent.putExtra("key",key);
-//                context.startActivity(intent);
-//
-//            }
-//        });
+        Log.e("working","bind working");
+
+
 
     }
 
@@ -101,6 +89,7 @@ public class PropertyAdapter extends FirebaseRecyclerAdapter<Plots, PropertyAdap
     public PropertyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.itemview, parent, false);
+        Log.e("working","inflate working");
 
         return new PropertyViewHolder(view);
     }
