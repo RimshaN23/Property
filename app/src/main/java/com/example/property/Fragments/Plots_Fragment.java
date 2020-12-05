@@ -28,11 +28,6 @@ public class Plots_Fragment extends Fragment {
     PropertyAdapter adapter;
     ProgressDialog progressDialog;
 
-    Toolbar toolbar;
-
-
-    TextView textView;
-
     public Plots_Fragment() {
         // Required empty public constructor
     }

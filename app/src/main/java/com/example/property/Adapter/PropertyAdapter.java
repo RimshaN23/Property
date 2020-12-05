@@ -63,6 +63,7 @@ public class PropertyAdapter extends FirebaseRecyclerAdapter<Plots, PropertyAdap
             prprty_type_id = "Commercial";
         }
 
+        holder.sold.setText(model.getIs_sold());
         holder.propertyType.setText(prprty_type_id);
         holder.plotname.setText("Location, "+model.getName());
         holder.square_yard.setText(model.getSq_yrds()+ " Sq. Ft.");
@@ -104,7 +105,7 @@ public class PropertyAdapter extends FirebaseRecyclerAdapter<Plots, PropertyAdap
 
     class PropertyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView propertyType, plotname, square_yard, pricerangeFrom;
+        TextView propertyType, plotname, square_yard, pricerangeFrom, sold;
         ImageView plotImage;
         CardView cardView;
         public PropertyViewHolder(@NonNull View itemView) {
@@ -116,6 +117,7 @@ public class PropertyAdapter extends FirebaseRecyclerAdapter<Plots, PropertyAdap
               plotname = itemView.findViewById(R.id.tv_plot_name);
             square_yard = itemView.findViewById(R.id.tv_square_yard);
             pricerangeFrom = itemView.findViewById(R.id.priceRange);
+            sold= itemView.findViewById(R.id.tv_sold);
 
         }
     }
