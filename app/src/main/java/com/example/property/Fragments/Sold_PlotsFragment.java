@@ -61,9 +61,9 @@ public class Sold_PlotsFragment extends Fragment {
         FirebaseRecyclerOptions<Plots> options =
                 new FirebaseRecyclerOptions.Builder<Plots>()
                         .setQuery(FirebaseDatabase.getInstance().getReference().child("Plots")
-                                .child("is_sold").child("yes"), Plots.class)
+                                .child("is_sold").equalTo("yes"), Plots.class)
                         .build();
-        adapter = new PropertyAdapter(options, getContext());
+        adapter = new PropertyAdapter(options, getContext(),progressDialog);
         Log.e("working","adapter working");
 
         recyclerView.setAdapter(adapter);

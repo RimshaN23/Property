@@ -17,7 +17,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity_view extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-androidx.appcompat.widget.Toolbar toolbar;
+    androidx.appcompat.widget.Toolbar toolbar;
     TextView textView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,5 +85,15 @@ androidx.appcompat.widget.Toolbar toolbar;
         }
 
         return loadFragment(fragment);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
     }
 }

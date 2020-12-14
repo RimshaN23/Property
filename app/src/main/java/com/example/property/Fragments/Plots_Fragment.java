@@ -64,7 +64,7 @@ public class Plots_Fragment extends Fragment {
                 new FirebaseRecyclerOptions.Builder<Plots>()
                         .setQuery(FirebaseDatabase.getInstance().getReference().child("Plots"), Plots.class)
                         .build();
-        adapter = new PropertyAdapter(options, getContext());
+        adapter = new PropertyAdapter(options, getContext(),progressDialog);
         Log.e("working","adapter working");
 
         recyclerView.setAdapter(adapter);
@@ -78,4 +78,17 @@ public class Plots_Fragment extends Fragment {
     }
 
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        adapter.startListening();
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        adapter.stopListening();
+    }
+
+
+}
