@@ -42,7 +42,7 @@ public class Plots_Fragment extends Fragment {
 
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("loading");
-        progressDialog.setCanceledOnTouchOutside(true);
+        progressDialog.setCanceledOnTouchOutside(false);
 
         recyclerView = view.findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()) {
@@ -72,10 +72,6 @@ public class Plots_Fragment extends Fragment {
 
     }
 
-    public void dismissProgressBar() {
-        progressDialog.dismiss();
-
-    }
 
 
     @Override

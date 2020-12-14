@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.property.Adapter.PropertyAdapter;
+import com.example.property.Adapter.Sold_Property_Adapter;
 import com.example.property.R;
 import com.example.property.models.Plots;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -22,7 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class Sold_PlotsFragment extends Fragment {
 
     RecyclerView recyclerView;
-    PropertyAdapter adapter;
+    Sold_Property_Adapter adapter;
     ProgressDialog progressDialog;
 
 
@@ -40,7 +41,7 @@ public class Sold_PlotsFragment extends Fragment {
 
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("loading");
-        progressDialog.setCanceledOnTouchOutside(true);
+        progressDialog.setCanceledOnTouchOutside(false);
 
         recyclerView = view.findViewById(R.id.recyclerview_sold);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()) {
@@ -60,14 +61,27 @@ public class Sold_PlotsFragment extends Fragment {
 
         FirebaseRecyclerOptions<Plots> options =
                 new FirebaseRecyclerOptions.Builder<Plots>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Plots")
-                                .child("is_sold").equalTo("yes"), Plots.class)
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Plots"), Plots.class)
                         .build();
-        adapter = new PropertyAdapter(options, getContext(),progressDialog);
+        adapter = new Sold_Property_Adapter(options, getContext(),progressDialog);
         Log.e("working","adapter working");
 
         recyclerView.setAdapter(adapter);
         Log.e("working","rview working");
 
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        adapter.startListening();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        adapter.stopListening();
+    }
+
+
 }

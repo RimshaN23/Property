@@ -129,7 +129,7 @@ public class Sold_Property extends AppCompatActivity {
                 databaseReference.child("client_number").setValue(clientNumber);
                 databaseReference.child("client_cnic").setValue(clientCnic);
                 databaseReference.child("sold_price").setValue(soldPrice);
-                databaseReference.child("is_sold").setValue("yes");
+                databaseReference.child("is_sold").setValue("Yes");
 
                 databaseReference.child("cnic_images").setValue(imagesUrl);
                 updateSuccessfulLayout.setVisibility(View.VISIBLE);
