@@ -1,19 +1,11 @@
 package com.example.property;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
-import android.net.Network;
-import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -23,14 +15,15 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-
 import com.example.property.models.AgentsModel;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class Login extends AppCompatActivity {
 
@@ -129,6 +122,7 @@ public class Login extends AppCompatActivity {
 
                                             preferences.putString("agentId", agentId);
                                             preferences.putString("agentName", agent_name);
+                                            preferences.putString("agentNum", model.getAgent_no());
                                             preferences.putString("companyId", companyId);
                                             preferences.apply();
 
@@ -152,7 +146,7 @@ public class Login extends AppCompatActivity {
                                     }
                                 }
 
-                                if (!logging.equals("done")){
+                                if (!logging.equals("done")) {
                                     progressDialog.dismiss();
                                     Toast.makeText(Login.this, "Enter Valid Company Id and Agent Id", Toast.LENGTH_SHORT).show();
                                 }
@@ -215,5 +209,4 @@ public class Login extends AppCompatActivity {
         }
         return haveConnectedWifi || haveConnectedMobile;
     }
-
 }

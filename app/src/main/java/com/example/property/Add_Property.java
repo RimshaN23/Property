@@ -94,7 +94,7 @@ public class Add_Property extends AppCompatActivity implements OnMapReadyCallbac
     String precinct_id;
     String precinct_name;
     String roadname, roadid;
-    String agentId, companyId, agentName;
+    String agentId, companyId, agentName, agentNumber;
 
     String prprty_type, prprty_type_id, constructed;
     DatabaseReference databaseReference;
@@ -258,6 +258,7 @@ public class Add_Property extends AppCompatActivity implements OnMapReadyCallbac
         companyId = preferences.getString("companyId", null);
         agentName = preferences.getString("agentName", null);
         agentId = preferences.getString("agentId", null);
+        agentNumber = preferences.getString("agentNum", null);
 
         company_id.setText(companyId);
         agent_name.setText(agentName);
@@ -571,7 +572,7 @@ public class Add_Property extends AppCompatActivity implements OnMapReadyCallbac
                                 && !plot_name.getText().toString().isEmpty()) {
 
                             Plots plots = new Plots(precinct_id, prprty_type_id, roadid, plotName, latitude, longitude, plotSq_yrd, plotRoom, plotStories, companyId,
-                                    plotId, constructed, "No", agentId, agentName, price_from, imagesUrl);
+                                    plotId, constructed, "No", agentId, agentName, agentNumber, price_from, imagesUrl);
 
                             databaseReference = FirebaseDatabase.getInstance().getReference().child("Plots");
 
