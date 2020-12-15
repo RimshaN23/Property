@@ -79,6 +79,7 @@ public class Plots {
         this.is_sold = is_sold;
         this.agent_id = agent_id;
         this.agent_name = agent_name;
+        this.agent_number = agent_number;
         this.plot_price_range_from = plot_price_range_from;
         this.imageUrl = imageUrl;
     }
