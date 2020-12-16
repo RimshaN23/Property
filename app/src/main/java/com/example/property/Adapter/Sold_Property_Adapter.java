@@ -36,7 +36,7 @@ public class Sold_Property_Adapter extends RecyclerView.Adapter<Sold_Property_Ad
     @NonNull
     @Override
     public SoldPropertyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_single, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.itemview, parent, false);
         return new SoldPropertyViewHolder(v);
     }
 
@@ -47,8 +47,8 @@ public class Sold_Property_Adapter extends RecyclerView.Adapter<Sold_Property_Ad
             final ArrayList<String> imageUrl = model.getImageUrl();
             if (imageUrl != null && imageUrl.size() > 0) {
                 Log.e("imagePosition", imageUrl.get(0));
-            //    Picasso.get().load(imageUrl.get(0)).into(holder.plotImage);
-            } else {
+               Picasso.get().load(imageUrl.get(0)).into(holder.plotImage);
+            }else {
                 Picasso.get().load(R.drawable.no_image).into(holder.plotImage);
             }
 
