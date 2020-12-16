@@ -34,9 +34,6 @@ public class UploadListAdapter extends RecyclerView.Adapter<UploadListAdapter.Vi
     }
 
 
-
-
-
     @NonNull
     @Override
     public UploadListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
