@@ -48,7 +48,7 @@ public class PropertyDetail extends AppCompatActivity {
     TextView plotNameAgain, address;
     TextView precinct, road, properyType, plotNo, sqyrds, isConstructed, tv_stories, tv_rooms, sellrDetails, roomsHeading, storyHeading;
     String plot_name, plot_no, road_no, priceRange, sqyrd, constructed, rooms, stories, priceFrom, priceTo;
-    String key;
+    String key, sold,name,num,nic;
     double lat, lng;
 
     SlidingImage_Adapter adapter;
@@ -58,9 +58,9 @@ public class PropertyDetail extends AppCompatActivity {
     private static ViewPager mPager;
     private static int currentPage = 0;
     ArrayList<String> imageUrl = new ArrayList<>();
-
+    ArrayList<String> cnicUrl = new ArrayList<>();
     Toolbar toolbar;
-    Button sell_property;
+    Button sell_property, buyer;
 
     TextView location, key_detail, seller, textView;
     Typeface myfonts;
@@ -107,9 +107,13 @@ public class PropertyDetail extends AppCompatActivity {
         Ui();
 
         imageUrl = getIntent().getExtras().getStringArrayList("imageUrl");
-        Log.e("array",String.valueOf(imageUrl));
+       cnicUrl = getIntent().getExtras().getStringArrayList("cnicUrl");
+        Log.e("array",String.valueOf(cnicUrl));
         key = getIntent().getExtras().getString("key");
+       sold = getIntent().getExtras().getString("sold");
         Log.e("key", key);
+
+
 
         mStorage = FirebaseStorage.getInstance().getReference();
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Plots");
@@ -159,6 +163,22 @@ public class PropertyDetail extends AppCompatActivity {
                         sellrDetails.setText("Company Id: " + model.getCompany_id()
                                 + "\nAget Name: " + model.getAgent_name()
                                 + "\nAgent Id: " + model.getAgent_id());
+                        if (sold.equals("Yes")){
+                            sell_property.setVisibility(View.GONE);
+                            buyer.setVisibility(View.VISIBLE);
+
+                            sellrDetails.setText("Company Id: " + model.getCompany_id()
+                                    + "\nAget Name: " + model.getAgent_name()
+                                    + "\nAgent Id: " + model.getAgent_id()
+                                   + "\nCustomer Name: " + model.getClient_name()
+                                    + "\nCustomer Id: " + model.getClient_number()
+
+                            );
+
+                            name= model.getClient_name();
+                            num= model.getClient_number();
+                            nic= model.getClient_cnic();
+                        }
 
                         if (constructed.equals("Yes")) {
                             tv_stories.setVisibility(View.VISIBLE);
@@ -238,6 +258,7 @@ public class PropertyDetail extends AppCompatActivity {
             }
         });
 
+
         sell_property.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -250,6 +271,19 @@ public class PropertyDetail extends AppCompatActivity {
             }
         });
 
+        buyer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent= new Intent(PropertyDetail.this,Buyer_Details.class);
+                intent.putExtra("name",name);
+                intent.putExtra("num",num);
+                intent.putExtra("nic",nic);
+               intent.putExtra("cnic",cnicUrl);
+               intent.putExtra("key",key);
+                startActivity(intent);
+            }
+        });
 
 
     }
@@ -353,6 +387,7 @@ public class PropertyDetail extends AppCompatActivity {
         roomsHeading = findViewById(R.id.room_heading);
         storyHeading = findViewById(R.id.story_heading);
         sell_property = findViewById(R.id.sell_property);
+        buyer= findViewById(R.id.buyerDetails);
 
     }
 }

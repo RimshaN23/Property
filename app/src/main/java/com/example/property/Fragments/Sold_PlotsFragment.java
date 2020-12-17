@@ -51,20 +51,12 @@ public class Sold_PlotsFragment extends Fragment {
         progressDialog.setMessage("loading");
         progressDialog.setCanceledOnTouchOutside(false);
 
-        getData();
 
         recyclerView = view.findViewById(R.id.recyclerview_sold);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()) {
         });
 
-        adapter = new Sold_Property_Adapter(arrayList, getContext(), progressDialog);
-        Log.e("working", "adapter working");
-
-        recyclerView.setAdapter(adapter);
-
-
-        Log.e("working", "rview working");
-
+        getData();
 
         return view;
     }
@@ -73,60 +65,74 @@ public class Sold_PlotsFragment extends Fragment {
 
         progressDialog.show();
         Log.e("working", "progress working");
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("Plots");
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        FirebaseRecyclerOptions<Plots> options =
+                new FirebaseRecyclerOptions.Builder<Plots>()
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Plots")
+                              .orderByChild("is_sold").equalTo("Yes")
+                                , Plots.class)
+                        .build();
+        adapter = new Sold_Property_Adapter(options, getContext(),progressDialog);
+        Log.e("working","adapter working");
 
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+        recyclerView.setAdapter(adapter);
+        Log.e("working","rview working");
 
-
-                arrayList.clear();
-
-                for (DataSnapshot data : dataSnapshot.getChildren()) {
-
-
-                    Plots model = data.getValue(Plots.class);
-
-                    Log.e("modeladmin", model.getIs_sold());
-
-
-                    if (model != null && model.getIs_sold().equals("Yes")) {
-
-                        //check if already exists
-                        Log.e("checked", "su");
-
-                        arrayList.add(model);
-                        adapter.notifyDataSetChanged();
-                        Log.e("model", "" + data.getKey());
-                        progressDialog.dismiss();
-                    }
-                    Log.e("checked", String.valueOf(arrayList.size()));
-
-                }
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
+//        databaseReference = FirebaseDatabase.getInstance().getReference().child("Plots");
+//
+//        databaseReference.addValueEventListener(new ValueEventListener() {
+//
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//
+//
+//                arrayList.clear();
+//
+//                for (DataSnapshot data : dataSnapshot.getChildren()) {
+//
+//
+//                    Plots model = data.getValue(Plots.class);
+//
+//                    Log.e("modeladmin", model.getIs_sold());
+//
+//                    data.getKey();
+//
+//                    if (model != null && model.getIs_sold().equals("Yes")) {
+//
+//                        //check if already exists
+//                        Log.e("checked", "su");
+//
+//                        arrayList.add(model);
+//                        adapter.notifyDataSetChanged();
+//                        Log.e("model", "" + data.getKey());
+//                        progressDialog.dismiss();
+//                    }
+//                    Log.e("checked", String.valueOf(arrayList.size()));
+//
+//                }
+//                adapter.notifyDataSetChanged();
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
+//
 
     }
 
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        adapter.startListening();
-//    }
-//
-//    @Override
-//    public void onPause() {
-//        super.onPause();
-//        adapter.stopListening();
-//    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        adapter.startListening();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        adapter.stopListening();
+    }
 
 
 }

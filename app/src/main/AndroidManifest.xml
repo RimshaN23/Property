@@ -18,7 +18,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity_view"></activity>
+        <activity android:name=".Buyer_Details"></activity>
+        <activity android:name=".MainActivity_view" />
         <activity android:name=".Sold_Property" />
         <activity android:name=".PropertyDetail" />
         <activity android:name=".UpdateProperty" />

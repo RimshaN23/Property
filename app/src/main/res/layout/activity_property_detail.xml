@@ -551,6 +551,21 @@
                                 android:textAllCaps="false"
                                 android:textColor="#ffff"
                                 />
+                            <Button
+                                android:visibility="gone"
+                                android:id="@+id/buyerDetails"
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:layout_alignParentBottom="true"
+                                android:layout_centerInParent="true"
+                                android:layout_gravity="center"
+                                android:layout_margin="15dp"
+                                android:background="@color/colorPrimaryDark"
+                                android:clickable="true"
+                                android:text="Buyer's Detail"
+                                android:textAllCaps="false"
+                                android:textColor="#ffff"
+                                />
 
 
                         </LinearLayout>

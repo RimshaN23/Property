@@ -45,6 +45,7 @@ public class PropertyAdapter extends FirebaseRecyclerAdapter<Plots, PropertyAdap
     protected void onBindViewHolder(@NonNull final PropertyViewHolder holder, int position, @NonNull final Plots model) {
 
         final ArrayList<String> imageUrl = model.getImageUrl();
+        final ArrayList<String> cnicUrl = model.getCnic_images();
         if (imageUrl != null && imageUrl.size() > 0) {
             Log.e("imagePosition", imageUrl.get(0));
             Picasso.get().load(imageUrl.get(0)).into(holder.plotImage);
@@ -54,6 +55,7 @@ public class PropertyAdapter extends FirebaseRecyclerAdapter<Plots, PropertyAdap
 
 
         final String key = getRef(position).getKey();
+        final String sold = model.getIs_sold();
 
         String prprty_type_id = "";
         final String constructed = model.getConstructed();
@@ -69,19 +71,21 @@ public class PropertyAdapter extends FirebaseRecyclerAdapter<Plots, PropertyAdap
         holder.propertyType.setText(prprty_type_id);
         holder.plotname.setText("Location, " + model.getName());
         holder.square_yard.setText(model.getSq_yrds() + " Sq. Ft.");
-
-
         holder.pricerangeFrom.setText("PKR. " + model.getPlot_price_range_from());
+
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, PropertyDetail.class);
                 intent.putExtra("key", key);
+                intent.putExtra("sold", sold);
                 intent.putExtra("imageUrl", imageUrl);
+               intent.putExtra("cnicUrl", cnicUrl);
                 context.startActivity(intent);
             }
         });
         Log.e("working", "bind working");
+        Log.e("cnic",String.valueOf(cnicUrl));
     }
 
     @NonNull

@@ -1,6 +1,5 @@
 package com.example.property.Adapter;
 
-
 import android.content.Context;
 import android.os.Parcelable;
 import android.util.Log;
@@ -9,29 +8,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.example.property.Buyer_Details;
 import com.example.property.PropertyDetail;
 import com.example.property.R;
-import com.example.property.models.Plots;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
-public class SlidingImage_Adapter extends PagerAdapter {
+public class CnicAdapter extends PagerAdapter {
 
-
-    private ArrayList<Plots> IMAGES;
     private LayoutInflater inflater;
     private Context context;
     ArrayList<String> arrayList2 = new ArrayList<>();
-
-    public SlidingImage_Adapter(PropertyDetail context, ArrayList<String> arrayList2) {
+    public CnicAdapter(Buyer_Details context, ArrayList<String> arrayList2) {
         this.context = context;
         inflater = LayoutInflater.from(context);
         this.arrayList2 = arrayList2;
     }
-
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         container.removeView((View) object);
@@ -41,7 +37,6 @@ public class SlidingImage_Adapter extends PagerAdapter {
     public int getCount() {
         return arrayList2.size();
     }
-
     @Override
     public Object instantiateItem(ViewGroup view, int position) {
 
@@ -59,12 +54,11 @@ public class SlidingImage_Adapter extends PagerAdapter {
         return imageLayout;
     }
 
-    @Override
-    public boolean isViewFromObject(View view, Object object) {
 
+    @Override
+    public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
         return view.equals(object);
     }
-
     @Override
     public void restoreState(Parcelable state, ClassLoader loader) {
     }
@@ -73,6 +67,5 @@ public class SlidingImage_Adapter extends PagerAdapter {
     public Parcelable saveState() {
         return null;
     }
-
 
 }
