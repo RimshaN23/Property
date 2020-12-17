@@ -92,7 +92,6 @@ public class PropertyDetail extends AppCompatActivity {
         myfonts = Typeface.createFromAsset(this.getAssets(), "fonts/Heading-Pro-Bold-trial.ttf");
         location.setTypeface(myfonts);
 
-
         key_detail = findViewById(R.id.key_tv);
         key_detail.setTypeface(myfonts);
 
