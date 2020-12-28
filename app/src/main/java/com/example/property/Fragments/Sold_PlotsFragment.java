@@ -77,49 +77,6 @@ public class Sold_PlotsFragment extends Fragment {
 
         recyclerView.setAdapter(adapter);
         Log.e("working","rview working");
-
-//        databaseReference = FirebaseDatabase.getInstance().getReference().child("Plots");
-//
-//        databaseReference.addValueEventListener(new ValueEventListener() {
-//
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//
-//
-//                arrayList.clear();
-//
-//                for (DataSnapshot data : dataSnapshot.getChildren()) {
-//
-//
-//                    Plots model = data.getValue(Plots.class);
-//
-//                    Log.e("modeladmin", model.getIs_sold());
-//
-//                    data.getKey();
-//
-//                    if (model != null && model.getIs_sold().equals("Yes")) {
-//
-//                        //check if already exists
-//                        Log.e("checked", "su");
-//
-//                        arrayList.add(model);
-//                        adapter.notifyDataSetChanged();
-//                        Log.e("model", "" + data.getKey());
-//                        progressDialog.dismiss();
-//                    }
-//                    Log.e("checked", String.valueOf(arrayList.size()));
-//
-//                }
-//                adapter.notifyDataSetChanged();
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
-//
-
     }
 
     @Override
