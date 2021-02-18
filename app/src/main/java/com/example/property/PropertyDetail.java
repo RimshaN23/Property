@@ -3,13 +3,18 @@ package com.example.property;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import androidx.viewpager.widget.ViewPager;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Typeface;
+import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,6 +30,9 @@ import android.widget.TextView;
 import com.example.property.Adapter.SlidingImage_Adapter;
 import com.example.property.models.Plots;
 import com.example.property.models.StreetRoads;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -36,6 +44,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import me.relex.circleindicator.CircleIndicator;
 
@@ -46,11 +55,14 @@ public class PropertyDetail extends AppCompatActivity {
     TextView plotName, price;
     ImageButton mapImage;
     TextView plotNameAgain, address;
-    TextView precinct, road, properyType, plotNo, sqyrds, isConstructed, tv_stories, tv_rooms, sellrDetails, roomsHeading, storyHeading;
+    TextView precinct, road, properyType, plotNo, sqyrds, fileHeading, filecomplete,
+            isConstructed, tv_stories, tv_rooms, sellrDetails, roomsHeading, storyHeading;
     String plot_name, plot_no, road_no, priceRange, sqyrd, constructed, rooms, stories, priceFrom, priceTo;
-    String key, sold,name,num,nic;
+    String key, sold,name,num,nic, filecomp;
     double lat, lng;
 
+    FusedLocationProviderClient fusedLocationProviderClient;
+    Location mlocation;
     SlidingImage_Adapter adapter;
     DatabaseReference databaseReference;
     Query query;
@@ -59,6 +71,7 @@ public class PropertyDetail extends AppCompatActivity {
     private static int currentPage = 0;
     ArrayList<String> imageUrl = new ArrayList<>();
     ArrayList<String> cnicUrl = new ArrayList<>();
+    ArrayList<String> fileUrl= new ArrayList<>();
     Toolbar toolbar;
     Button sell_property, buyer;
 
@@ -75,7 +88,7 @@ public class PropertyDetail extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(false);
         textView=findViewById(R.id.toolbar_title);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-
+//        Getlastlocation();
         Typeface typeface= Typeface.createFromAsset(getAssets(),"fonts/Montserrat-Italic.ttf");
         textView.setTypeface(typeface);
 
@@ -107,6 +120,8 @@ public class PropertyDetail extends AppCompatActivity {
 
         imageUrl = getIntent().getExtras().getStringArrayList("imageUrl");
        cnicUrl = getIntent().getExtras().getStringArrayList("cnicUrl");
+       fileUrl = getIntent().getExtras().getStringArrayList("fileUrl");
+
         Log.e("array",String.valueOf(cnicUrl));
         key = getIntent().getExtras().getString("key");
        sold = getIntent().getExtras().getString("sold");
@@ -136,11 +151,12 @@ public class PropertyDetail extends AppCompatActivity {
                         }
                         plotName.setText(model.getName());
 
+                        filecomplete.setText(model.getIs_file());
                         plot_name = model.getName();
                         priceRange = "PKR." + model.getPlot_price_range_from();
                         price.setText(priceRange);
                         priceFrom = model.getPlot_price_range_from();
-                        plotNameAgain.setText(model.getName());
+                        filecomp=(model.getIs_file());
                         address.setText("Lat: " + model.getLatitude() + "\nLng: " + model.getLongitude());
                         lat = model.getLatitude();
                         lng = model.getLongitude();
@@ -169,8 +185,6 @@ public class PropertyDetail extends AppCompatActivity {
                             sellrDetails.setText("Company Id: " + model.getCompany_id()
                                     + "\nAget Name: " + model.getAgent_name()
                                     + "\nAgent Id: " + model.getAgent_id()
-                                   + "\nCustomer Name: " + model.getClient_name()
-                                    + "\nCustomer Id: " + model.getClient_number()
 
                             );
 
@@ -241,17 +255,44 @@ public class PropertyDetail extends AppCompatActivity {
             }
         });
 
+        plotNameAgain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(PropertyDetail.this, File_Details.class);
+                intent.putExtra("filecomp",filecomp);
+                intent.putExtra("fileUrl",fileUrl);
+                startActivity(intent);
+
+
+            }
+        });
 
         mapImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+//
                 Intent intent = new Intent(PropertyDetail.this, ViewMap.class);
                 Log.e("latlng", lat + " " + lng);
                 intent.putExtra("lat", lat);
                 intent.putExtra("lng", lng);
                 intent.putExtra("name", plot_name);
                 intent.putExtra("imageUrl", imageUrl);
+
+
+//                String uri = String.format(Locale.ENGLISH, "http://maps.google.com/maps?saddr=%f,%f(%s)&daddr=%f,%f (%s)",
+//                        mlocation.getLatitude(), mlocation.getLongitude(), "Home Sweet Home", lat, lng, "Where the party is at");
+
+//                Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+//                        Uri.parse(uri));
+//                //    intent.setPackage("com.google.android.apps.maps");
+//                Log.e("latlng", lat + " " + lng);
+//                intent.putExtra("lat", lat);
+//                intent.putExtra("lng", lng);
+//                intent.putExtra("name", plot_name);
+//
+//                intent.setClassName("com.example.propertycostumer",
+//                        "com.example.propertycostumer.ViewMap");
+
                 startActivity(intent);
 
             }
@@ -325,6 +366,8 @@ public class PropertyDetail extends AppCompatActivity {
             intent.putExtra("pricerangeFrom", priceFrom);
             intent.putExtra("pricerangeTo", priceTo);
             intent.putExtra("key", key);
+            intent.putExtra("file", filecomp);
+
             startActivity(intent);
 
             return true;
@@ -372,7 +415,7 @@ public class PropertyDetail extends AppCompatActivity {
         plotName = findViewById(R.id.tv_plot_name);
         price = findViewById(R.id.price);
         mapImage = findViewById(R.id.viewmap);
-        plotNameAgain = findViewById(R.id.goldenhouse);
+        plotNameAgain = findViewById(R.id.housefile);
         address = findViewById(R.id.tv_address_text);
         precinct = findViewById(R.id.tv_precinct);
         road = findViewById(R.id.tv_road);
@@ -388,5 +431,32 @@ public class PropertyDetail extends AppCompatActivity {
         sell_property = findViewById(R.id.sell_property);
         buyer= findViewById(R.id.buyerDetails);
 
+        fileHeading= findViewById(R.id.file_heading);
+        filecomplete= findViewById(R.id.filecomp);
     }
+//    private void Getlastlocation() {
+//
+//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+//                != PackageManager.PERMISSION_GRANTED &&
+//                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+//                        != PackageManager.PERMISSION_GRANTED) {
+//
+//            return;
+//        }
+//        Task<Location> task = fusedLocationProviderClient.getLastLocation();
+//        task.addOnSuccessListener(new OnSuccessListener<Location>() {
+//            @Override
+//            public void onSuccess(Location location) {
+//                if (location != null) {
+//
+//                    mlocation = location;
+//
+//
+//                }
+//
+//            }
+//        });
+//
+//
+//    }
 }

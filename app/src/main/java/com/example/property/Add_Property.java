@@ -42,6 +42,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.property.Adapter.FileAdapter;
 import com.example.property.Adapter.UploadListAdapter;
 import com.example.property.models.Plots;
 import com.example.property.models.Precinct;
@@ -70,7 +71,9 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
@@ -78,7 +81,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 public class Add_Property extends AppCompatActivity implements OnMapReadyCallback {
 
-    EditText company_id, agent_id, agent_name, is_constructed;
+    EditText company_id, agent_id, agent_name, is_constructed,isfilecomplete;
 
     TextView precinct, road, plot_address, tv_stories, tv_rooms;
     EditText plot_no, square_yard, stories, rooms, plot_name, priceTo, priceFrom, property_type;
@@ -96,7 +99,7 @@ public class Add_Property extends AppCompatActivity implements OnMapReadyCallbac
     String roadname, roadid;
     String agentId, companyId, agentName, agentNumber;
 
-    String prprty_type, prprty_type_id, constructed;
+    String prprty_type, prprty_type_id, constructed,filecomplete;
     DatabaseReference databaseReference;
 
     String plotName, plotId, plotRoom, plotStories, plotAddress, plotSq_yrd, price_to, price_from;
@@ -120,27 +123,38 @@ public class Add_Property extends AppCompatActivity implements OnMapReadyCallbac
 
 
 
-    private  Button mSelectBtn;
-    private RecyclerView mUploadList;
+    private  Button mSelectBtn, file_btn;
+    private RecyclerView mUploadList, file_rview;
 
-    Uri fileUri;
+    Uri image_Uri, fileUri;
     String fileName, result;
     private static final int RESULT_LOAD_IMAGE = 1;
+    private static final int RESULT_LOAD_FILE = 100;
     private StorageReference mStorage;
 
 
-    String imageUri;
+    String imageUri, file_uri;
 
     ArrayList<String> imagesUrl = new ArrayList<>();
+    ArrayList<String> files_Url = new ArrayList<>();
 
 
-
+//for images
     private List<String> fileNameList;
     private List<String> fileDoneList;
     private List<Uri> fileUriList;
 
     private UploadListAdapter uploadListAdapter;
 
+    //for file complete
+
+    private List<String> file_Name;
+    private List<String> file_Done;
+
+    private FileAdapter fileAdapter;
+
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    String date;
 
     @Override
     public void onBackPressed() {
@@ -168,6 +182,7 @@ public class Add_Property extends AppCompatActivity implements OnMapReadyCallbac
 
         mStorage = FirebaseStorage.getInstance().getReference();
 
+        date = simpleDateFormat.format(Calendar.getInstance().getTime());
 
         uId();
 
@@ -201,6 +216,7 @@ public class Add_Property extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
 
+
         //image upload work
 
         fileNameList = new ArrayList<>();
@@ -216,6 +232,7 @@ public class Add_Property extends AppCompatActivity implements OnMapReadyCallbac
         mUploadList.setHasFixedSize(true);
         mUploadList.setAdapter(uploadListAdapter);
 
+
         mSelectBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -226,6 +243,33 @@ public class Add_Property extends AppCompatActivity implements OnMapReadyCallbac
                 intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(intent,"Select Picture"), RESULT_LOAD_IMAGE);
+
+            }
+        });
+
+        // for file upload
+        file_Name = new ArrayList<>();
+        file_Done = new ArrayList<>();
+
+
+        fileAdapter = new FileAdapter(file_Name, file_Done);
+
+        //   RecyclerView
+
+        file_rview.setLayoutManager(new LinearLayoutManager(this));
+        file_rview.setHasFixedSize(true);
+        file_rview.setAdapter(fileAdapter);
+
+        file_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                file_rview.setVisibility(View.VISIBLE);
+
+                Intent intent = new Intent();
+                intent.setType("*/*");
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent,"Select File"), RESULT_LOAD_FILE);
 
             }
         });
@@ -287,6 +331,29 @@ public class Add_Property extends AppCompatActivity implements OnMapReadyCallbac
 
             }
         });
+
+        isfilecomplete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final String[] choose = {"Yes", "No"};
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(Add_Property.this);
+                builder.setTitle("Pick one");
+                builder.setItems(choose, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // the user clicked on colors[which]
+                        filecomplete = choose[which];
+                        isfilecomplete.setText(filecomplete);
+
+                      }
+
+                });
+                builder.show();
+
+            }
+        });
+
 
         is_constructed.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -572,7 +639,8 @@ public class Add_Property extends AppCompatActivity implements OnMapReadyCallbac
                                 && !plot_name.getText().toString().isEmpty()) {
 
                             Plots plots = new Plots(precinct_id, prprty_type_id, roadid, plotName, latitude, longitude, plotSq_yrd, plotRoom, plotStories, companyId,
-                                    plotId, constructed, "No", agentId, agentName, agentNumber, price_from, imagesUrl);
+                                    plotId, constructed, "No",
+                                    agentId, agentName, agentNumber, price_from, imagesUrl,filecomplete, files_Url,date);
 
                             databaseReference = FirebaseDatabase.getInstance().getReference().child("Plots");
 
@@ -584,9 +652,12 @@ public class Add_Property extends AppCompatActivity implements OnMapReadyCallbac
                                         Log.e("addOnCompleteListener", "in addOnCompleteListener");
 
                                         mUploadList.setVisibility(View.GONE);
+                                        file_rview.setVisibility(View.GONE);
+
                                         fileNameList.clear();
                                         fileDoneList.clear();
                                         imagesUrl.clear();
+                                        files_Url.clear();
                                         property_type.setText("");
                                         is_constructed.setHint("Yes or No");
                                         is_constructed.setText("");
@@ -697,6 +768,9 @@ public class Add_Property extends AppCompatActivity implements OnMapReadyCallbac
         tv_rooms = findViewById(R.id.tv_rooms);
         tv_stories = findViewById(R.id.tv_stories);
         enter = findViewById(R.id.enter_registry);
+        isfilecomplete= findViewById(R.id.is_file);
+        file_btn= findViewById(R.id.fileBtn);
+        file_rview= findViewById(R.id.fileRecyclerview);
 
     }
 
@@ -802,18 +876,18 @@ public class Add_Property extends AppCompatActivity implements OnMapReadyCallbac
                 int totalItemsSelected = data.getClipData().getItemCount();
                 for(int i = 0; i < totalItemsSelected; i++){
 
-                    fileUri = data.getClipData().getItemAt(i).getUri();
-                     fileName = getFileName(fileUri);
+                    image_Uri = data.getClipData().getItemAt(i).getUri();
+                     fileName = getFileName(image_Uri);
                      Log.e("imageName","fileName "+fileName+"\nfileUri "+fileUri);
                     fileNameList.add(fileName);
                     fileDoneList.add("uploading");
-                    fileUriList.add(fileUri);
+                    fileUriList.add(image_Uri);
 
                     uploadListAdapter.notifyDataSetChanged();
                     final StorageReference fileToUpload = mStorage.child("Images").child(fileName);
 
                     final int finalI = i;
-                    fileToUpload.putFile(fileUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    fileToUpload.putFile(image_Uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
@@ -842,6 +916,55 @@ public class Add_Property extends AppCompatActivity implements OnMapReadyCallbac
             }
 
         }
+
+        try {
+            if(requestCode == RESULT_LOAD_FILE && resultCode == RESULT_OK) {
+                if(data.getClipData() != null) {
+                    int totalItemsSelected = data.getClipData().getItemCount();
+                    for(int i = 0; i < totalItemsSelected; i++){
+
+                        fileUri = data.getClipData().getItemAt(i).getUri();
+                        fileName = getFileName(fileUri);
+                        Log.e("imageName","fileName "+fileName+"\nfileUri "+fileUri);
+                        file_Name.add(fileName);
+                        file_Done.add("uploading");
+                        fileAdapter.notifyDataSetChanged();
+
+                        final StorageReference fileToUpload = mStorage.child("Files").child(fileName);
+                        final int finalI = i;
+                        fileToUpload.putFile(fileUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                file_Done.remove(finalI);
+                                file_Done.add(finalI, "done");
+                                fileAdapter.notifyDataSetChanged();
+
+                                fileToUpload.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+
+                                        file_uri= String.valueOf(uri);
+                                        files_Url.add(file_uri);
+                                    }
+                                });
+                            }
+                        });
+
+                    }
+
+                }  else if (data.getData() != null){
+
+                    Toast.makeText(Add_Property.this, "Select more than one image", Toast.LENGTH_SHORT).show();
+
+                }
+
+            }
+
+        } catch (Exception e) {
+            Log.e("exception", e.getMessage());
+            e.getMessage();
+        }
+
 
     }
 

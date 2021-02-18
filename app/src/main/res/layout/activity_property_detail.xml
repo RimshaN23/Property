@@ -145,15 +145,6 @@
                             android:layout_weight="1"
                             android:orientation="vertical">
 
-                            <TextView
-                                android:id="@+id/goldenhouse"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="5dp"
-                                android:layout_marginBottom="2dp"
-                                android:text="Golden House"
-                                android:textColor="@color/black"
-                                android:textSize="16sp" />
 
                             <TextView
                                 android:id="@+id/tv_address_text"
@@ -173,7 +164,20 @@
 
                                 android:text="Bahria Town Karachi"
                                 android:textColor="@color/black"
-                                android:textSize="14sp" />
+                                android:textSize="14sp"
+                                />
+                            <TextView
+                                android:id="@+id/housefile"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginBottom="2dp"
+                                android:text="File Details"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="18sp"
+                                android:textStyle="bold"
+                                android:clickable="true"
+                                android:shadowColor="@color/blue"/>
 
                         </LinearLayout>
 
@@ -480,6 +484,35 @@
                                     android:textSize="16sp"
                                     android:textStyle="normal"
                                     android:visibility="gone" />
+
+                            </LinearLayout>
+                            <LinearLayout
+
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="2dp"
+                                android:layout_weight="1"
+
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/file_heading"
+                                    android:layout_width="match_parent"
+
+                                    android:layout_height="wrap_content"
+                                    android:text="file complete"
+                                    android:textSize="14sp"
+                                    android:visibility="gone" />
+
+                                <TextView
+                                    android:id="@+id/filecomp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Yes/No"
+                                    android:textColor="@color/black"
+                                    android:textSize="16sp"
+                                    android:textStyle="normal"
+                                    />
 
                             </LinearLayout>
 

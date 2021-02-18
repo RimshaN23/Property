@@ -56,10 +56,10 @@ public class UpdateProperty extends AppCompatActivity {
     UploadListAdapter uploadListAdapter;
 
     TextView tv_stories, tv_rooms;
-    EditText stories, rooms, plot_name, priceFrom, is_constructed;
-    String plotName, constructed, plotRoom, plotStories, price_from;
+    EditText stories, rooms, plot_name, priceFrom, is_constructed,filecomp;
+    String plotName, constructed, plotRoom, plotStories, price_from, file;
 
-    String getIntentKey, getIntentPlotName, getIntentConstructed, getIntentRoom, getIntentStories, getIntentPriceTo, getIntentPriceFrom;
+    String getIntentKey,getIntentfile, getIntentPlotName, getIntentConstructed, getIntentRoom, getIntentStories, getIntentPriceTo, getIntentPriceFrom;
     ArrayList<String> imageUrl = new ArrayList<>();
 
     DatabaseReference databaseReference;
@@ -99,6 +99,7 @@ public class UpdateProperty extends AppCompatActivity {
         tv_stories = findViewById(R.id.tv_stories);
         //  priceTo = findViewById(R.id.price_range_to);
         priceFrom = findViewById(R.id.price_range_from);
+        filecomp = findViewById(R.id.filecomplete);
         update = findViewById(R.id.update_btn);
 
         Intent intent = getIntent();
@@ -108,6 +109,7 @@ public class UpdateProperty extends AppCompatActivity {
         getIntentStories = intent.getStringExtra("stories");
         getIntentPriceFrom = intent.getStringExtra("pricerangeFrom");
         getIntentKey = intent.getStringExtra("key");
+        getIntentfile = intent.getStringExtra("file");
         imageUrl = getIntent().getExtras().getStringArrayList("imageUrl");
         Log.e("arrayIntent",String.valueOf(imageUrl));
 
@@ -117,6 +119,7 @@ public class UpdateProperty extends AppCompatActivity {
         rooms.setText(getIntentRoom);
         stories.setText(getIntentStories);
         priceFrom.setText(getIntentPriceFrom);
+        filecomp.setText(getIntentfile);
 
 
         is_constructed.setOnClickListener(new View.OnClickListener() {
@@ -161,11 +164,25 @@ public class UpdateProperty extends AppCompatActivity {
                 plotRoom = rooms.getText().toString();
                 plotStories = stories.getText().toString();
                 price_from = priceFrom.getText().toString();
+                file= filecomp.getText().toString();
 
                 Plots plots = new Plots(plotName, plotRoom, plotStories, constructed, price_from);
                 databaseReference = FirebaseDatabase.getInstance().getReference().child("Plots").child(getIntentKey);
 
                 databaseReference.child("name").setValue(plotName).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            //  progressDialog.dismiss();
+                            updateSuccessfulLayout.setVisibility(View.VISIBLE);
+                        mainLayout.setVisibility(View.GONE);
+                        } else {
+                            Toast.makeText(UpdateProperty.this, "Some errors while changing status..", Toast.LENGTH_SHORT).show();
+//                            progressDialog.hide();
+                        }
+                    }
+                });
+                databaseReference.child("is_file").setValue(file).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {

@@ -29,11 +29,16 @@ public class Plots {
     private String client_number;
     private String client_cnic;
     private String sold_price;
+    String is_file;
+    private ArrayList<String> fileUrl;
+
+
+    String date;
 
     public Plots(String precinct_id, String property_type_id, String road_id, String name, double latitude, double longitude, String sq_yrds,
                  String rooms, String stories, String company_id, String plot_no, String constructed, String is_sold,
                  String agent_id, String agent_name, String plot_price_range_from, ArrayList<String> imageUrl,
-                 ArrayList<String> cnic_images, String client_name, String client_number, String client_cnic, String sold_price) {
+                 ArrayList<String> cnic_images, String client_name, String client_number, String client_cnic, String sold_price,String is_file) {
         this.precinct_id = precinct_id;
         this.property_type_id = property_type_id;
         this.road_id = road_id;
@@ -56,6 +61,7 @@ public class Plots {
         this.client_number = client_number;
         this.client_cnic = client_cnic;
         this.sold_price = sold_price;
+        this.is_file= is_file;
     }
 
     public Plots() {
@@ -63,7 +69,8 @@ public class Plots {
 
     public Plots(String precinct_id, String property_type_id, String road_id, String name, double latitude, double longitude, String sq_yrds,
                  String rooms, String stories, String company_id, String plot_no, String constructed, String is_sold,
-                 String agent_id, String agent_name,String agent_number, String plot_price_range_from, ArrayList<String> imageUrl) {
+                 String agent_id, String agent_name,String agent_number, String plot_price_range_from, ArrayList<String> imageUrl,
+                 String is_file, ArrayList<String> fileUrl, String date) {
         this.precinct_id = precinct_id;
         this.property_type_id = property_type_id;
         this.road_id = road_id;
@@ -82,7 +89,11 @@ public class Plots {
         this.agent_number = agent_number;
         this.plot_price_range_from = plot_price_range_from;
         this.imageUrl = imageUrl;
+        this.is_file= is_file;
+        this.fileUrl= fileUrl;
+        this.date= date;
     }
+
 
     public Plots(String name, String rooms, String stories, String constructed, String plot_price_range_from) {
         this.name = name;
@@ -280,5 +291,37 @@ public class Plots {
 
     public void setAgent_number(String agent_number) {
         this.agent_number = agent_number;
+    }
+
+//    public String getPlot_no() {
+//        return plot_no;
+//    }
+
+//    public void setPlot_no(String plot_no) {
+//        this.plot_no = plot_no;
+//    }
+
+    public String getIs_file() {
+        return is_file;
+    }
+
+    public void setIs_file(String is_file) {
+        this.is_file = is_file;
+    }
+
+    public ArrayList<String> getFileUrl() {
+        return fileUrl;
+    }
+
+    public void setFileUrl(ArrayList<String> fileUrl) {
+        this.fileUrl = fileUrl;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

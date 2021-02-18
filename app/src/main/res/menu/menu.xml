@@ -2,7 +2,7 @@
 
      <item
          android:id="@+id/navigation_allplots"
-         android:title="UnSold UPlots" />
+         android:title="UnSold Plots" />
 
 
      <item

@@ -46,6 +46,7 @@ public class PropertyAdapter extends FirebaseRecyclerAdapter<Plots, PropertyAdap
 
         final ArrayList<String> imageUrl = model.getImageUrl();
         final ArrayList<String> cnicUrl = model.getCnic_images();
+        final ArrayList<String> fileUrl= model.getFileUrl();
         if (imageUrl != null && imageUrl.size() > 0) {
             Log.e("imagePosition", imageUrl.get(0));
             Picasso.get().load(imageUrl.get(0)).into(holder.plotImage);
@@ -67,11 +68,11 @@ public class PropertyAdapter extends FirebaseRecyclerAdapter<Plots, PropertyAdap
             prprty_type_id = "Commercial";
         }
 
-        holder.sold.setText(model.getIs_sold());
         holder.propertyType.setText(prprty_type_id);
         holder.plotname.setText("Location, " + model.getName());
         holder.square_yard.setText(model.getSq_yrds() + " Sq. Ft.");
         holder.pricerangeFrom.setText("PKR. " + model.getPlot_price_range_from());
+        holder.date.setText("Added On: "+model.getDate());
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,6 +82,7 @@ public class PropertyAdapter extends FirebaseRecyclerAdapter<Plots, PropertyAdap
                 intent.putExtra("sold", sold);
                 intent.putExtra("imageUrl", imageUrl);
                intent.putExtra("cnicUrl", cnicUrl);
+               intent.putExtra("fileUrl",fileUrl);
                 context.startActivity(intent);
             }
         });
@@ -107,7 +109,7 @@ public class PropertyAdapter extends FirebaseRecyclerAdapter<Plots, PropertyAdap
 
     class PropertyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView propertyType, plotname, square_yard, pricerangeFrom, sold;
+        TextView propertyType, plotname, square_yard, pricerangeFrom, sold,date;
         ImageView plotImage;
         CardView cardView;
 
@@ -120,7 +122,7 @@ public class PropertyAdapter extends FirebaseRecyclerAdapter<Plots, PropertyAdap
             plotname = itemView.findViewById(R.id.tv_plot_name);
             square_yard = itemView.findViewById(R.id.tv_square_yard);
             pricerangeFrom = itemView.findViewById(R.id.priceRange);
-            sold = itemView.findViewById(R.id.tv_sold);
+            date= itemView.findViewById(R.id.addedDate);
 
         }
     }
