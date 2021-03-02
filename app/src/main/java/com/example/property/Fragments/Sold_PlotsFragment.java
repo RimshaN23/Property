@@ -145,6 +145,7 @@ public class Sold_PlotsFragment extends Fragment {
     private void getDatabyDate(final String date) {
         Log.e("working2", "method working");
         Log.e("working2 datxe", date);
+        progressDialog.show();
 
 
         Query databaseReference = FirebaseDatabase.getInstance().getReference()

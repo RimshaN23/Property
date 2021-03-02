@@ -57,6 +57,7 @@ public class Plots_Fragment extends Fragment {
 
 
     PropertyAdapter2 propertyAdapter2;
+
     public Plots_Fragment() {
         // Required empty public constructor
     }
@@ -91,7 +92,6 @@ public class Plots_Fragment extends Fragment {
                 searchDate.setText(datesearch);
 
 
-
             }
 
         };
@@ -110,8 +110,8 @@ public class Plots_Fragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if  (datesearch != null)  {
-Log.e("date",datesearch);
+                if (datesearch != null) {
+                    Log.e("date", datesearch);
                     //Firebase database referejce
                     getDatabyDate(datesearch);
                     Log.e("working2", "progress working");
@@ -133,20 +133,20 @@ Log.e("date",datesearch);
         FirebaseRecyclerOptions<Plots> options =
                 new FirebaseRecyclerOptions.Builder<Plots>()
                         .setQuery(FirebaseDatabase.getInstance().getReference().child("Plots")
-                                .orderByChild("is_sold").equalTo("No"),Plots.class)
-                                .build();
-        adapter = new PropertyAdapter(options, getContext(),progressDialog);
-        Log.e("working","adapter working");
+                                .orderByChild("is_sold").equalTo("No"), Plots.class)
+                        .build();
+        adapter = new PropertyAdapter(options, getContext(), progressDialog);
+        Log.e("working", "adapter working");
 
         recyclerView.setAdapter(adapter);
-        Log.e("working","rview working");
+        Log.e("working", "rview working");
 
     }
 
     private void getDatabyDate(final String date) {
         Log.e("working2", "method working");
         Log.e("working2 datxe", date);
-        progressDialog.show();
+        //  progressDialog.show();
 
         Query databaseReference = FirebaseDatabase.getInstance().getReference()
                 .child("Plots")
@@ -182,7 +182,7 @@ Log.e("date",datesearch);
                 }
 
                 recyclerView.setAdapter(propertyAdapter2);
-                propertyAdapter2 = new PropertyAdapter2(plotList2,keyList,getContext(),progressDialog);
+                propertyAdapter2 = new PropertyAdapter2(plotList2, keyList, getContext(), progressDialog);
                 Log.e("working", "adapter working");
 
                 //HERE SET THE ADAPTER

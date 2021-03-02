@@ -358,7 +358,6 @@
                     android:textSize="14sp"
 
                     />
-
                 <TextView
                     android:id="@+id/text12"
                     android:layout_width="wrap_content"
@@ -370,6 +369,32 @@
 
                 <EditText
                     android:id="@+id/is_constructed"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/background"
+                    android:focusableInTouchMode="false"
+                    android:hint="Yes or No"
+                    android:inputType="textCapSentences"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:textColor="#5A5A5A"
+                    android:textColorHint="#B6B3B5"
+                    android:textSize="14sp" />
+
+
+                <TextView
+                    android:id="@+id/fileinfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="File Complete"
+                    android:textColor="#000"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/is_file"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_gravity="center"
@@ -441,16 +466,6 @@
                     android:textColorHint="#B6B3B5"
                     android:textSize="14sp"
                     android:visibility="gone" />
-
-
-                <androidx.recyclerview.widget.RecyclerView
-
-                    android:id="@+id/imageRecyclerview"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"/>
-
-
                 <Button
                     android:id="@+id/imgBtn"
                     android:text="Upload Image"
@@ -469,6 +484,43 @@
                     android:layout_marginLeft="10dp"
 
                     />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+
+                    android:id="@+id/imageRecyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"/>
+
+
+                <Button
+                    android:id="@+id/fileBtn"
+                    android:text="Upload File"
+                    android:layout_width="200dp"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="15dp"
+                    android:textAllCaps="false"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:background="@color/purple"
+                    android:drawableTint="@color/white"
+                    android:textColor="@color/white"
+                    android:drawableEnd="@drawable/addimage"
+                    android:padding="12dp"
+                    android:layout_marginLeft="10dp"
+
+                    />
+
+                <androidx.recyclerview.widget.RecyclerView
+
+                    android:id="@+id/fileRecyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"/>
+
+
 
 
 

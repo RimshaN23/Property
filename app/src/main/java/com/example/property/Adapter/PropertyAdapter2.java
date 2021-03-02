@@ -101,7 +101,6 @@ public class PropertyAdapter2 extends RecyclerView.Adapter<PropertyAdapter2.View
         });
         Log.e("working2", "bind working");
         Log.e("cnic",String.valueOf(cnicUrl));
-
     }
 
     @Override
