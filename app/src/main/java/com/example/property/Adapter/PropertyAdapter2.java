@@ -3,51 +3,56 @@ package com.example.property.Adapter;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.property.PropertyDetail;
+import com.example.property.R;
+import com.example.property.models.Plots;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.property.Fragments.Plots_Fragment;
-import com.example.property.PropertyDetail;
-import com.example.property.R;
-import com.example.property.View_Property;
-import com.example.property.models.Plots;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.squareup.picasso.Picasso;
+public class PropertyAdapter2 extends RecyclerView.Adapter<PropertyAdapter2.ViewHolder>{
 
-import java.sql.Array;
-import java.util.ArrayList;
-
-public class PropertyAdapter extends FirebaseRecyclerAdapter<Plots, PropertyAdapter.PropertyViewHolder> {
-
+    ArrayList<Plots> arrayList= new ArrayList<>();
+    ArrayList<String> keyList= new ArrayList<>();
     Context context;
     ProgressDialog progressDialog;
-    String date;
+    DatabaseReference databaseReference;
 
-
-    public PropertyAdapter(@NonNull FirebaseRecyclerOptions<Plots> options, Context context, ProgressDialog progressDialog) {
-        super(options);
-
+    public PropertyAdapter2(ArrayList<Plots> arrayList, ArrayList<String> keyList, Context context, ProgressDialog progressDialog) {
+        this.arrayList = arrayList;
+        this.keyList = keyList;
         this.context = context;
         this.progressDialog = progressDialog;
+    }
 
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
+        View v = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.itemview, parent, false);
+
+        return new  ViewHolder(v);
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull final PropertyViewHolder holder, int position, @NonNull final Plots model) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
+        Plots model= arrayList.get(position);
+        final String key= keyList.get(position);
         final ArrayList<String> imageUrl = model.getImageUrl();
         final ArrayList<String> cnicUrl = model.getCnic_images();
         final ArrayList<String> fileUrl= model.getFileUrl();
@@ -58,9 +63,10 @@ public class PropertyAdapter extends FirebaseRecyclerAdapter<Plots, PropertyAdap
             Picasso.get().load(R.drawable.no_image).into(holder.plotImage);
         }
 
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Plots");
 
-        final String key = getRef(position).getKey();
 
+  //      final String key =   databaseReference.child(model.getName()).getKey();
 
         final String sold = model.getIs_sold();
 
@@ -80,6 +86,7 @@ public class PropertyAdapter extends FirebaseRecyclerAdapter<Plots, PropertyAdap
         holder.pricerangeFrom.setText("PKR. " + model.getPlot_price_range_from());
         holder.date.setText("Added On: "+model.getDate());
 
+
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,41 +94,35 @@ public class PropertyAdapter extends FirebaseRecyclerAdapter<Plots, PropertyAdap
                 intent.putExtra("key", key);
                 intent.putExtra("sold", sold);
                 intent.putExtra("imageUrl", imageUrl);
-               intent.putExtra("cnicUrl", cnicUrl);
-               intent.putExtra("fileUrl",fileUrl);
+                intent.putExtra("cnicUrl", cnicUrl);
+                intent.putExtra("fileUrl",fileUrl);
                 context.startActivity(intent);
             }
         });
-        Log.e("working", "bind working");
+        Log.e("working2", "bind working");
         Log.e("cnic",String.valueOf(cnicUrl));
-    }
 
-    @NonNull
-    @Override
-    public PropertyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.itemview, parent, false);
-        Log.e("working", "inflate working");
-
-        return new PropertyViewHolder(view);
     }
 
     @Override
-    public void onDataChanged() {
-        progressDialog.dismiss();
+    public int getItemCount() {
 
+        return arrayList.size();
     }
 
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
-    class PropertyViewHolder extends RecyclerView.ViewHolder {
+        View mView;
 
         TextView propertyType, plotname, square_yard, pricerangeFrom, sold,date;
         ImageView plotImage;
         CardView cardView;
 
-        public PropertyViewHolder(@NonNull View itemView) {
+
+        public ViewHolder(View itemView) {
             super(itemView);
 
+            mView = itemView;
             cardView = itemView.findViewById(R.id.plotcardview);
             plotImage = itemView.findViewById(R.id.plotImage);
             propertyType = itemView.findViewById(R.id.tv_property_type);
@@ -131,6 +132,7 @@ public class PropertyAdapter extends FirebaseRecyclerAdapter<Plots, PropertyAdap
             date= itemView.findViewById(R.id.addedDate);
 
         }
+
     }
 
 }

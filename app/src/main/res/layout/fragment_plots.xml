@@ -3,31 +3,44 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:background="@color/white"
     android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
     tools:context=".View_Property">
 
 
-    <androidx.appcompat.widget.SearchView
-    android:id="@+id/datepicker_actions"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    android:padding="5dp"
+    <EditText
+        android:id="@+id/datepicker_actions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="8dp"
         android:focusableInTouchMode="false"
-    android:hint="Search by Date"/>
+        android:hint="Search by Date"
+        android:layout_toLeftOf="@id/search"
+        android:padding="5dp" />
+
+    <Button
+        android:id="@+id/search"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="10dp"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/search_24"
+        >
+
+    </Button>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
-        android:layout_below="@id/datepicker_actions"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/datepicker_actions"
         android:layout_margin="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </RelativeLayout>

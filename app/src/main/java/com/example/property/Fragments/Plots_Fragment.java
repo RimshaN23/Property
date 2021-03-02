@@ -5,28 +5,41 @@ import android.app.ProgressDialog;
 import android.graphics.Typeface;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.property.Adapter.PropertyAdapter;
+import com.example.property.Adapter.PropertyAdapter2;
 import com.example.property.R;
 import com.example.property.models.Plots;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class Plots_Fragment extends Fragment {
 
@@ -34,13 +47,16 @@ public class Plots_Fragment extends Fragment {
     PropertyAdapter adapter;
     ProgressDialog progressDialog;
     EditText searchDate;
-
+    Button button;
     final Calendar myCalendar = Calendar.getInstance();
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
     String datesearch;
+    ArrayList<Plots> plotList = new ArrayList<>();
+    ArrayList<Plots> plotList2 = new ArrayList<>();
+    ArrayList<String> keyList = new ArrayList<>();
 
 
-
+    PropertyAdapter2 propertyAdapter2;
     public Plots_Fragment() {
         // Required empty public constructor
     }
@@ -51,17 +67,18 @@ public class Plots_Fragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        View view= inflater.inflate(R.layout.fragment_plots, null);
+        View view = inflater.inflate(R.layout.fragment_plots, null);
 
         searchDate = view.findViewById(R.id.datepicker_actions);
+        button = view.findViewById(R.id.search);
 
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("loading");
         progressDialog.setCanceledOnTouchOutside(false);
 
         recyclerView = view.findViewById(R.id.recyclerview);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()) {
-        });
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
             @Override
@@ -70,8 +87,10 @@ public class Plots_Fragment extends Fragment {
                 // TODO Auto-generated method stub
                 String monthVar = monthOfYear < 9 ? "0" + (monthOfYear + 1) : (monthOfYear + 1) + "";
                 String datevar = dayOfMonth < 10 ? "0" + dayOfMonth : dayOfMonth + "";
-                datesearch = datevar + "-" + monthVar + "-" + year;
+                datesearch = year + "-" + monthVar + "-" + datevar;
                 searchDate.setText(datesearch);
+
+
 
             }
 
@@ -87,18 +106,30 @@ public class Plots_Fragment extends Fragment {
 
             }
         });
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if  (datesearch != null)  {
+Log.e("date",datesearch);
+                    //Firebase database referejce
+                    getDatabyDate(datesearch);
+                    Log.e("working2", "progress working");
+
+                } else {
+                    Toast.makeText(getContext(), "search field is empty", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         getData();
-
-
-
 
         return view;
     }
 
     private void getData() {
         progressDialog.show();
-        Log.e("working","progress working");
-
+        Log.e("working", "progress working");
+//
         FirebaseRecyclerOptions<Plots> options =
                 new FirebaseRecyclerOptions.Builder<Plots>()
                         .setQuery(FirebaseDatabase.getInstance().getReference().child("Plots")
@@ -112,6 +143,57 @@ public class Plots_Fragment extends Fragment {
 
     }
 
+    private void getDatabyDate(final String date) {
+        Log.e("working2", "method working");
+        Log.e("working2 datxe", date);
+        progressDialog.show();
+
+        Query databaseReference = FirebaseDatabase.getInstance().getReference()
+                .child("Plots")
+                .orderByChild("is_sold")
+                .equalTo("No");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.e("working2", "data working3");
+                plotList2.clear();
+                for (DataSnapshot data : snapshot.getChildren()
+                ) {
+                    Log.e("working66", "data working");
+
+                    Plots plots = data.getValue(Plots.class);
+                    Log.e("working date", date);
+
+                    data.getKey();
+                    keyList.add(data.getKey());
+                    if (plots != null) {
+                        if (TextUtils.isEmpty(datesearch)) {
+                            plotList2.add(plots);
+                        } else {
+                            if (plots.getDate() != null) {
+                                if (date.equals(plots.getDate())) {
+                                    plotList2.add(plots);
+                                }
+                            }
+
+                        }
+                    }
+                }
+
+                recyclerView.setAdapter(propertyAdapter2);
+                propertyAdapter2 = new PropertyAdapter2(plotList2,keyList,getContext(),progressDialog);
+                Log.e("working", "adapter working");
+
+                //HERE SET THE ADAPTER
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
 
 
     @Override

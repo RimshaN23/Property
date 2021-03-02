@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,6 +7,26 @@
     android:background="@color/white"
     android:layout_height="match_parent"
     tools:context=".View_Property">
+    <EditText
+        android:id="@+id/datepicker_actions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="8dp"
+        android:focusableInTouchMode="false"
+        android:hint="Search by Date"
+        android:layout_toLeftOf="@id/search"
+        android:padding="5dp" />
+
+    <Button
+        android:id="@+id/search"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="10dp"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/search_24"
+        />
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -14,10 +34,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="10dp"
+        android:layout_below="@id/datepicker_actions"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
 
-</LinearLayout>
+</RelativeLayout>
