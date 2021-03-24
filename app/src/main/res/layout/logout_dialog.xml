@@ -51,7 +51,7 @@
                 android:layout_margin="10dp"
                 android:text="Cancel"
                 android:gravity="center"
-                android:textSize="13dp"
+                android:textSize="13sp"
                 android:textAllCaps="false"
                 android:textColor="@android:color/black"
                 android:background="@drawable/roundbtn"
@@ -64,7 +64,7 @@
                 android:layout_margin="10dp"
                 android:gravity="center"
                 android:text="Log Out"
-                android:textSize="13dp"
+                android:textSize="13sp"
                 android:textAllCaps="false"
 
                 android:textColor="@android:color/white"

@@ -26,7 +26,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class Sold_Property extends AppCompatActivity {
@@ -61,6 +63,8 @@ public class Sold_Property extends AppCompatActivity {
 
     private UploadListAdapter uploadListAdapter;
 
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    String date;
 
 
     @Override
@@ -68,6 +72,8 @@ public class Sold_Property extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sold__property_activity);
         mStorage = FirebaseStorage.getInstance().getReference();
+
+        date = simpleDateFormat.format(Calendar.getInstance().getTime());
 
         client_name = findViewById(R.id.client_name);
         client_number = findViewById(R.id.client_no);
@@ -130,6 +136,7 @@ public class Sold_Property extends AppCompatActivity {
                 databaseReference.child("client_cnic").setValue(clientCnic);
                 databaseReference.child("sold_price").setValue(soldPrice);
                 databaseReference.child("is_sold").setValue("Yes");
+                databaseReference.child("sold_on").setValue(date);
 
                 databaseReference.child("cnic_images").setValue(imagesUrl);
                 updateSuccessfulLayout.setVisibility(View.VISIBLE);
@@ -143,6 +150,7 @@ public class Sold_Property extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(Sold_Property.this, PropertyDetail.class);
                 intent.putExtra("key", key);
+                intent.putExtra("sold_date",date);
                 startActivity(intent);
                 finish();
             }
@@ -153,6 +161,7 @@ public class Sold_Property extends AppCompatActivity {
     public void onBackPressed() {
         Intent intent = new Intent(Sold_Property.this, PropertyDetail.class);
         intent.putExtra("key", key);
+        intent.putExtra("sold_date",date);
         startActivity(intent);
         finish();
     }

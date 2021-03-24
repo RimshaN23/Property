@@ -64,6 +64,17 @@ public class PropertyAdapter extends FirebaseRecyclerAdapter<Plots, PropertyAdap
 
         final String sold = model.getIs_sold();
 
+        Log.e("soold", sold);
+        if (sold.equals("No")){
+            holder.date.setText("Added On: "+model.getDate());
+
+        }
+
+        if (sold.equals("Yes")){
+            holder.date.setText("Sold On: "+model.getSold_on());
+
+        }
+
         String prprty_type_id = "";
         final String constructed = model.getConstructed();
 
@@ -78,7 +89,7 @@ public class PropertyAdapter extends FirebaseRecyclerAdapter<Plots, PropertyAdap
         holder.plotname.setText("Location, " + model.getName());
         holder.square_yard.setText(model.getSq_yrds() + " Sq. Ft.");
         holder.pricerangeFrom.setText("PKR. " + model.getPlot_price_range_from());
-        holder.date.setText("Added On: "+model.getDate());
+ //       holder.date.setText("Added On: "+model.getDate());
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override

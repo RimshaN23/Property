@@ -59,8 +59,16 @@ public class Sold_Property_Adapter extends FirebaseRecyclerAdapter<Plots,Sold_Pr
         if (model.getProperty_type_id().equals("2")) {
             prprty_type_id = "Commercial";
         }
+        final String soold = model.getIs_sold();
 
-      //  holder.sold.setText(model.getIs_sold());
+
+        holder.date.setText("Sold On: "+model.getSold_on());
+
+
+        Log.e("soold", String.valueOf(model.getSold_on()));
+
+
+        //  holder.sold.setText(model.getIs_sold());
         holder.propertyType.setText(prprty_type_id);
         holder.plotname.setText("Location, " + model.getName());
         holder.square_yard.setText(model.getSq_yrds() + " Sq. Ft.");
@@ -101,7 +109,7 @@ public class Sold_Property_Adapter extends FirebaseRecyclerAdapter<Plots,Sold_Pr
 
     class SoldPropertyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView propertyType, plotname, square_yard, pricerangeFrom, sold;
+        TextView propertyType, plotname, square_yard, pricerangeFrom, sold,date;
         ImageView plotImage;
         CardView cardView;
 
@@ -113,7 +121,7 @@ public class Sold_Property_Adapter extends FirebaseRecyclerAdapter<Plots,Sold_Pr
             plotname = itemView.findViewById(R.id.tv_plot_name);
             square_yard = itemView.findViewById(R.id.tv_square_yard);
             pricerangeFrom = itemView.findViewById(R.id.priceRange);
-
+            date= itemView.findViewById(R.id.addedDate);
 
         }
     }

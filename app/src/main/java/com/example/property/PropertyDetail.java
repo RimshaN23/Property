@@ -58,7 +58,7 @@ public class PropertyDetail extends AppCompatActivity {
     TextView precinct, road, properyType, plotNo, sqyrds, fileHeading, filecomplete,
             isConstructed, tv_stories, tv_rooms, sellrDetails, roomsHeading, storyHeading;
     String plot_name, plot_no, road_no, priceRange, sqyrd, constructed, rooms, stories, priceFrom, priceTo;
-    String key, sold,name,num,nic, filecomp;
+    String key, sold,name,num,nic, filecomp,date;
     double lat, lng;
 
     FusedLocationProviderClient fusedLocationProviderClient;
@@ -125,6 +125,7 @@ public class PropertyDetail extends AppCompatActivity {
         Log.e("array",String.valueOf(cnicUrl));
         key = getIntent().getExtras().getString("key");
        sold = getIntent().getExtras().getString("sold");
+      date = getIntent().getExtras().getString("sold_date");
         Log.e("key", key);
 
 

@@ -57,6 +57,7 @@ public class Plots_Fragment extends Fragment {
 
 
     PropertyAdapter2 propertyAdapter2;
+    private LinearLayoutManager mLayoutManager;
 
     public Plots_Fragment() {
         // Required empty public constructor
@@ -78,7 +79,14 @@ public class Plots_Fragment extends Fragment {
         progressDialog.setCanceledOnTouchOutside(false);
 
         recyclerView = view.findViewById(R.id.recyclerview);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mLayoutManager = new LinearLayoutManager(getActivity());
+
+        mLayoutManager.setReverseLayout(true);
+        mLayoutManager.setStackFromEnd(true);
+
+        recyclerView.setLayoutManager(mLayoutManager);
+
+     //   recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
@@ -181,8 +189,9 @@ public class Plots_Fragment extends Fragment {
                     }
                 }
 
-                recyclerView.setAdapter(propertyAdapter2);
                 propertyAdapter2 = new PropertyAdapter2(plotList2, keyList, getContext(), progressDialog);
+                recyclerView.setAdapter(propertyAdapter2);
+
                 Log.e("working", "adapter working");
 
                 //HERE SET THE ADAPTER

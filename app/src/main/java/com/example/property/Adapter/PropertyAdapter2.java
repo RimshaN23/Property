@@ -63,13 +63,15 @@ public class PropertyAdapter2 extends RecyclerView.Adapter<PropertyAdapter2.View
             Picasso.get().load(R.drawable.no_image).into(holder.plotImage);
         }
 
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("Plots");
-
-
-  //      final String key =   databaseReference.child(model.getName()).getKey();
-
         final String sold = model.getIs_sold();
+        Log.e("sold", sold);
 
+        if (sold.equals("No")){
+            holder.date.setText("Added On: "+model.getDate());
+        }
+        if (sold.equals("Yes")){
+            holder.date.setText("Sold On: "+model.getSold_on());
+        }
         String prprty_type_id = "";
         final String constructed = model.getConstructed();
 
@@ -84,7 +86,6 @@ public class PropertyAdapter2 extends RecyclerView.Adapter<PropertyAdapter2.View
         holder.plotname.setText("Location, " + model.getName());
         holder.square_yard.setText(model.getSq_yrds() + " Sq. Ft.");
         holder.pricerangeFrom.setText("PKR. " + model.getPlot_price_range_from());
-        holder.date.setText("Added On: "+model.getDate());
 
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {

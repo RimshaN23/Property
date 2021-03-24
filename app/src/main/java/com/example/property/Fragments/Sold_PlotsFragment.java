@@ -54,6 +54,8 @@ public class Sold_PlotsFragment extends Fragment {
     PropertyAdapter2 propertyAdapter2;
 
     DatabaseReference databaseReference;
+    private LinearLayoutManager mLayoutManager;
+
 
     public Sold_PlotsFragment() {
         // Required empty public constructor
@@ -74,8 +76,13 @@ public class Sold_PlotsFragment extends Fragment {
         button = view.findViewById(R.id.search);
 
         recyclerView = view.findViewById(R.id.recyclerview_sold);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()) {
-        });
+        mLayoutManager = new LinearLayoutManager(getActivity());
+
+        mLayoutManager.setReverseLayout(true);
+        mLayoutManager.setStackFromEnd(true);
+
+        recyclerView.setLayoutManager(mLayoutManager);
+
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
             @Override
@@ -145,7 +152,7 @@ public class Sold_PlotsFragment extends Fragment {
     private void getDatabyDate(final String date) {
         Log.e("working2", "method working");
         Log.e("working2 datxe", date);
-        progressDialog.show();
+    //    progressDialog.show();
 
 
         Query databaseReference = FirebaseDatabase.getInstance().getReference()
@@ -181,8 +188,10 @@ public class Sold_PlotsFragment extends Fragment {
                     }
                 }
 
+                propertyAdapter2 = new PropertyAdapter2(plotList2,keyList,getContext(),progressDialog);                recyclerView.setAdapter(propertyAdapter2);
                 recyclerView.setAdapter(propertyAdapter2);
-                propertyAdapter2 = new PropertyAdapter2(plotList2,keyList,getContext(),progressDialog);
+
+
                 Log.e("working", "adapter working");
 
                 //HERE SET THE ADAPTER

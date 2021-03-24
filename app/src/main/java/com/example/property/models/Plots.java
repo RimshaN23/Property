@@ -34,11 +34,13 @@ public class Plots {
 
 
     String date;
+    String sold_on;
 
     public Plots(String precinct_id, String property_type_id, String road_id, String name, double latitude, double longitude, String sq_yrds,
                  String rooms, String stories, String company_id, String plot_no, String constructed, String is_sold,
                  String agent_id, String agent_name, String plot_price_range_from, ArrayList<String> imageUrl,
-                 ArrayList<String> cnic_images, String client_name, String client_number, String client_cnic, String sold_price,String is_file) {
+                 ArrayList<String> cnic_images, String client_name, String client_number, String client_cnic,
+                 String sold_price,String is_file,String sold_on) {
         this.precinct_id = precinct_id;
         this.property_type_id = property_type_id;
         this.road_id = road_id;
@@ -62,6 +64,7 @@ public class Plots {
         this.client_cnic = client_cnic;
         this.sold_price = sold_price;
         this.is_file= is_file;
+        this.sold_on= sold_on;
     }
 
     public Plots() {
@@ -117,6 +120,14 @@ public class Plots {
 
     public void setProperty_type_id(String property_type_id) {
         this.property_type_id = property_type_id;
+    }
+
+    public String getSold_on() {
+        return sold_on;
+    }
+
+    public void setSold_on(String sold_on) {
+        this.sold_on = sold_on;
     }
 
     public String getRoad_id() {
